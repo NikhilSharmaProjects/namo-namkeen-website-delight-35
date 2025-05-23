@@ -39,7 +39,7 @@ const Header = () => {
                     {/* Logo */}
                     <div className="flex items-center gap-3">
                         <img
-                            src="//logo.png"
+                            src="/logo.png"
                             alt="Namo Namkeen Logo"
                             className="w-12 h-12 object-contain hover:scale-105 transition-transform duration-300"
                         />

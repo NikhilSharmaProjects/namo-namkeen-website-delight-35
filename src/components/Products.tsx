@@ -114,7 +114,7 @@ const Products = () => {
 
                     <div className="flex justify-center mt-8">
                         <img
-                            src="//logo.png"
+                            src="/logo.png"
                             alt="Namo Namkeen Logo"
                             className="h-20 object-contain animate-pulse"
                         />
@@ -204,7 +204,7 @@ const Products = () => {
 
                                     {activeCategory === category.title && (
                                         <img
-                                            src="//logo.png"
+                                            src="/logo.png"
                                             alt="Namo Mini Logo"
                                             className="h-6 w-6 object-contain"
                                         />

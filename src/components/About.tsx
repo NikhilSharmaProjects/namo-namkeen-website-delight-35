@@ -56,7 +56,7 @@ const About = () => {
 
                             <div className="flex justify-center my-6">
                                 <img
-                                    src="//logo.png"
+                                    src="/logo.png"
                                     alt="Namo Namkeen Logo"
                                     className="h-28 object-contain hover:scale-105 transition-transform duration-500 drop-shadow-lg"
                                 />
@@ -173,7 +173,7 @@ const About = () => {
                                 </span>
                                 <div className="flex items-center justify-center gap-2 text-xs opacity-90 mt-1">
                                     <img
-                                        src="//logo.png"
+                                        src="/logo.png"
                                         alt="Namo Mini Logo"
                                         className="h-4 w-4 object-contain"
                                     />

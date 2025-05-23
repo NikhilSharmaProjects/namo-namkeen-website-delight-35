@@ -17,7 +17,7 @@ const Footer = () => {
                     <div className="space-y-6">
                         <div className="flex items-center gap-3">
                             <img
-                                src="//logo.png"
+                                src="/logo.png"
                                 alt="Namo Namkeen Logo"
                                 className="w-16 h-16 object-contain hover:rotate-12 transition-transform duration-500"
                             />

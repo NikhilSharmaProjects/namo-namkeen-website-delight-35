@@ -90,7 +90,7 @@ const Hero = () => {
                             <div className="w-full h-96 bg-gradient-to-br from-saffron/20 to-turmeric/30 rounded-3xl border-4 border-saffron/30 flex items-center justify-center traditional-border animate-float">
                                 <div className="text-center">
                                     <img
-                                        src="//logo.png"
+                                        src="/logo.png"
                                         alt="Namo Namkeen Logo"
                                         className="w-40 h-40 object-contain mx-auto mb-4 drop-shadow-lg hover:scale-105 transition-transform duration-500"
                                     />
