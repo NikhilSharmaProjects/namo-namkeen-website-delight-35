@@ -217,8 +217,7 @@ const Products = () => {
 
                 <div className="text-center mt-12">
                     <div className="inline-block bg-gradient-to-r from-saffron to-turmeric text-white px-8 py-4 rounded-full font-poppins font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
-                        Quality is not just a name, it's a promise of good
-                        quality
+                        Namo is not just a name, it's a promise of good quality
                     </div>
                 </div>
             </div>
