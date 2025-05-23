@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,34 +11,36 @@ const EnhancedProducts = () => {
     const productCategories = [
         {
             title: "Super Products",
-            description: "Our signature namkeen collection with authentic flavors",
-            image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=300&h=200&fit=crop&crop=center",
+            description: "Our signature namkeen collection with authentic flavors - Available in 250g, 500g & 1kg",
+            image: "/lovable-uploads/459acff4-e21f-412a-8b09-f514738497c2.png",
             products: [
-                "Ratlami Sev", "Laung Sev", "Ujjaini Sev", "Bank Fiki Sev",
-                "Khatta Mitha Mixture", "Tikha Mixture", "Navratn Mixture", "Makka Mixture",
-                "Tikhi Bundi", "Fiki Bundi", "Testy Dane", "Chana Dal"
+                "NAMO Ratlami Sev", "NAMO Laung Sev", "NAMO Ujjaini Sev", "NAMO Bank Fiki Sev",
+                "NAMO Khatta Mitha Mixture", "NAMO Tikha Mixture", "NAMO Navratn Mixture", "NAMO Makka Mixture",
+                "NAMO Tikhi Bundi", "NAMO Fiki Bundi", "NAMO Testy Dane", "NAMO Chana Dal"
             ],
             bgColor: "bg-gradient-to-br from-saffron/10 to-turmeric/20",
             badgeColor: "bg-saffron",
         },
         {
             title: "Premium Products",
-            description: "Premium quality namkeen for special occasions",
-            image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=300&h=200&fit=crop&crop=center",
+            description: "Premium quality namkeen for special occasions - Available in 250gm & 500gm",
+            image: "/lovable-uploads/d98803fc-96ce-4d3c-b6cb-bcb5a29b037a.png",
             products: [
-                "Premium Ratlami Sev", "Premium Laung Sev", "Premium Ujjaini Sev", "Premium Bank Fiki Sev",
-                "Premium Khatta Mitha", "Premium Tikha Mixture", "Premium Navratn", "Premium Makka Mixture"
+                "NAMO Premium Ratlami Sev", "NAMO Premium Laung Sev", "NAMO Premium Ujjaini Sev", "NAMO Premium Bank Fiki Sev",
+                "NAMO Premium Khatta Mitha", "NAMO Premium Tikha Mixture", "NAMO Premium Navratn", "NAMO Premium Makka Mixture",
+                "NAMO Premium Tikhi Bundi", "NAMO Premium Fiki Bundi", "NAMO Premium Testy Dane", "NAMO Premium Chana Dal"
             ],
             bgColor: "bg-gradient-to-br from-turmeric/10 to-chili/20",
             badgeColor: "bg-turmeric",
         },
         {
             title: "Shudh Satwik",
-            description: "Pure vegetarian products made with traditional methods",
-            image: "https://images.unsplash.com/photo-1466721591366-2d5fba72006d?w=300&h=200&fit=crop&crop=center",
+            description: "Pure vegetarian products made with Sunflower Oil (शुद्ध सूर्यफूली तेल से निर्मित) - Available in 250gm & 450gm",
+            image: "/lovable-uploads/725ea45c-9a80-4fc6-ab2e-910e37dfa760.png",
             products: [
-                "Satwik Ratlami Sev", "Satwik Laung Sev", "Satwik Ujjaini Sev", "Satwik Bank Fiki Sev",
-                "Satwik Khatta Mitha", "Satwik Tikha Mixture", "Satwik Navratn", "Satwik Makka Mixture"
+                "NAMO Satwik Ratlami Sev", "NAMO Satwik Laung Sev", "NAMO Satwik Ujjaini Sev", "NAMO Satwik Bank Fiki Sev",
+                "NAMO Satwik Khatta Mitha Mixture", "NAMO Satwik Tikha Mixture", "NAMO Satwik Navratn Mixture", "NAMO Satwik Makka Mixture",
+                "NAMO Satwik Tikhi Bundi", "NAMO Satwik Fiki Bundi", "NAMO Satwik Testy Dane", "NAMO Satwik Chana Dal"
             ],
             bgColor: "bg-gradient-to-br from-green-50 to-green-100",
             badgeColor: "bg-green-600",
@@ -47,21 +48,33 @@ const EnhancedProducts = () => {
         {
             title: "Falahari Products",
             description: "Special fasting products for religious occasions",
-            image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=300&h=200&fit=crop&crop=center",
-            products: ["Potato Chips", "Banana Chips", "Falahari Tikha Mixture"],
+            image: "/lovable-uploads/e5b09dae-b7ba-479c-b73e-d76f591f9dac.png",
+            products: ["NAMO Potato Chips", "NAMO Banana Chips", "NAMO Falahari Tikha Mixture"],
             bgColor: "bg-gradient-to-br from-yellow-50 to-yellow-100",
             badgeColor: "bg-yellow-600",
         },
         {
             title: "Other Specialties",
             description: "Traditional snacks and regional delicacies",
-            image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=300&h=200&fit=crop&crop=center",
+            image: "/lovable-uploads/e5b09dae-b7ba-479c-b73e-d76f591f9dac.png",
             products: [
-                "Kachori", "Samosa", "Bhakarwadi", "Chakli", "Shakar Pare",
-                "Namkeen Pare", "Charkhe Pare", "Ras Bhri", "Plain Mathri", "Masala Mathri", "Mini Bhakarwadi"
+                "NAMO Kachori", "NAMO Samosa", "NAMO Bhakarwadi", "NAMO Chakli",
+                "Shakar pare", "Namkeen pare", "Charkhe pare", "Ras bhri",
+                "Plain Mathri", "Masala mathri", "Mini bhakarwadi",
+                "Sandwich bhakarwadi", "Methi biscuit", "Saloni", "Chaat papdi"
             ],
             bgColor: "bg-gradient-to-br from-chili/10 to-saffron/20",
             badgeColor: "bg-chili",
+        },
+        {
+            title: "Upcoming Sweets",
+            description: "Best sweets coming soon from Namo Namkeen",
+            image: "/lovable-uploads/b8d5df4b-21c6-453d-afd1-90db0154a696.png",
+            products: [
+                "Besan Ladoo", "Soan Papdi", "Rasgulla", "Gulab Jamun"
+            ],
+            bgColor: "bg-gradient-to-br from-pink-50 to-red-100",
+            badgeColor: "bg-pink-600",
         },
     ];
 
@@ -229,7 +242,7 @@ const EnhancedProducts = () => {
 
                                     <div className="mt-4 sm:mt-6 pt-4 border-t border-warmBrown/10 flex items-center justify-between">
                                         <p className="text-xs text-warmBrown/60 font-merriweather">
-                                            Available: 250g, 500g & 1kg
+                                            Quality Assured Products
                                         </p>
 
                                         {activeCategory === category.title && (
@@ -253,7 +266,7 @@ const EnhancedProducts = () => {
                     <div className="inline-block bg-gradient-to-r from-saffron to-turmeric text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-poppins font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer group">
                         <div className="flex items-center gap-2">
                             <Star className="w-5 h-5 fill-current group-hover:animate-pulse" />
-                            <span className="text-sm sm:text-base">Quality is not just a name, it's a promise of good quality</span>
+                            <span className="text-sm sm:text-base">"Namo Is Not Name It's a Promise Of Good Quality"</span>
                             <Sparkles className="w-5 h-5 group-hover:animate-pulse" />
                         </div>
                     </div>

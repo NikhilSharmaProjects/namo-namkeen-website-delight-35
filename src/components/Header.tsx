@@ -1,20 +1,28 @@
+
 import { useState } from "react";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const location = useLocation();
 
     const navLinks = [
-        { href: "#home", label: "Home" },
-        { href: "#products", label: "Products" },
-        { href: "#about", label: "About Us" },
-        { href: "#contact", label: "Contact" },
+        { href: "/", label: "Home" },
+        { href: "/products", label: "Products" },
+        { href: "/about", label: "About Us" },
+        { href: "/contact", label: "Contact" },
     ];
+
+    const isActive = (path: string) => {
+        if (path === "/" && location.pathname === "/") return true;
+        if (path !== "/" && location.pathname.startsWith(path)) return true;
+        return false;
+    };
 
     return (
         <header className="fixed top-0 w-full z-50 bg-cream/95 backdrop-blur-sm border-b-2 border-saffron/20">
-            {/* Top bar with contact info */}
             <div className="bg-saffron text-white py-2 px-4">
                 <div className="container mx-auto flex justify-between items-center text-sm">
                     <div className="flex items-center gap-4">
@@ -22,7 +30,7 @@ const Header = () => {
                             <Phone size={16} />
                             <span>+91 88238 18001</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="hidden sm:flex items-center gap-2">
                             <Mail size={16} />
                             <span>namoindiaifoodindustriess@gmail.com</span>
                         </div>
@@ -33,11 +41,9 @@ const Header = () => {
                 </div>
             </div>
 
-            {/* Main navigation */}
             <nav className="container mx-auto px-4 py-4">
                 <div className="flex items-center justify-between">
-                    {/* Logo */}
-                    <div className="flex items-center gap-3">
+                    <Link to="/" className="flex items-center gap-3">
                         <img
                             src="/logo.png"
                             alt="Namo Namkeen Logo"
@@ -51,26 +57,30 @@ const Header = () => {
                                 Authentic Indian Snacks
                             </p>
                         </div>
-                    </div>
+                    </Link>
 
-                    {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-8">
                         {navLinks.map((link) => (
-                            <a
+                            <Link
                                 key={link.href}
-                                href={link.href}
-                                className="font-poppins font-medium text-warmBrown hover:text-saffron transition-colors duration-300 relative group"
+                                to={link.href}
+                                className={`font-poppins font-medium transition-colors duration-300 relative group ${
+                                    isActive(link.href) 
+                                        ? 'text-saffron' 
+                                        : 'text-warmBrown hover:text-saffron'
+                                }`}
                             >
                                 {link.label}
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-saffron transition-all duration-300 group-hover:w-full"></span>
-                            </a>
+                                <span className={`absolute -bottom-1 left-0 h-0.5 bg-saffron transition-all duration-300 ${
+                                    isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full'
+                                }`}></span>
+                            </Link>
                         ))}
                         <Button className="bg-chili hover:bg-chili/90 text-white font-poppins font-medium px-6">
                             Order Now
                         </Button>
                     </div>
 
-                    {/* Mobile menu button */}
                     <Button
                         variant="ghost"
                         className="md:hidden"
@@ -80,19 +90,22 @@ const Header = () => {
                     </Button>
                 </div>
 
-                {/* Mobile Navigation */}
                 {isMenuOpen && (
                     <div className="md:hidden mt-4 pb-4 border-t border-saffron/20">
                         <div className="flex flex-col gap-4 pt-4">
                             {navLinks.map((link) => (
-                                <a
+                                <Link
                                     key={link.href}
-                                    href={link.href}
-                                    className="font-poppins font-medium text-warmBrown hover:text-saffron transition-colors duration-300"
+                                    to={link.href}
+                                    className={`font-poppins font-medium transition-colors duration-300 ${
+                                        isActive(link.href) 
+                                            ? 'text-saffron' 
+                                            : 'text-warmBrown hover:text-saffron'
+                                    }`}
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     {link.label}
-                                </a>
+                                </Link>
                             ))}
                             <Button className="bg-chili hover:bg-chili/90 text-white font-poppins font-medium w-fit">
                                 Order Now
