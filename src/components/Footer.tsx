@@ -1,4 +1,3 @@
-
 import { Facebook, Instagram, Phone, Mail, MapPin, Youtube, Twitter } from 'lucide-react';
 
 const Footer = () => {
@@ -33,7 +32,7 @@ const Footer = () => {
                 <Instagram size={20} />
               </a>
               <a href="#" className="bg-chili hover:bg-chili/80 p-2 rounded-full transition-all duration-300 hover:scale-110">
-                <YouTube size={20} />
+                <Youtube size={20} />
               </a>
               <a href="#" className="bg-saffron/80 hover:bg-saffron p-2 rounded-full transition-all duration-300 hover:scale-110">
                 <Twitter size={20} />
