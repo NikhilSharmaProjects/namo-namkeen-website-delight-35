@@ -28,8 +28,12 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-br from-cream to-turmeric/10">
-      <div className="container mx-auto px-4">
+    <section id="about" className="py-20 bg-gradient-to-br from-cream to-turmeric/10 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-60 h-60 bg-saffron/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-turmeric/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-8 animate-fade-in">
@@ -39,10 +43,18 @@ const About = () => {
                 From Namo India Namkeen
                 <span className="block text-saffron">स्वाद इंदौर का, विश्वास नमो का</span>
               </h2>
+              
+              <div className="flex justify-center my-6">
+                <img 
+                  src="/lovable-uploads/fc1f54b5-c514-4ad3-9005-edac9f3abace.png" 
+                  alt="Namo Namkeen Logo" 
+                  className="h-28 object-contain hover:scale-105 transition-transform duration-500 drop-shadow-lg"
+                />
+              </div>
             </div>
 
             <div className="space-y-6 font-merriweather text-warmBrown/80 leading-relaxed">
-              <p>
+              <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-saffron first-letter:mr-1 first-letter:float-left">
                 Welcome to Namo India Namkeen, where tradition meets trust, and taste meets purity. 
                 Founded with a vision to celebrate the rich and diverse flavors of Indore, we stand 
                 as a symbol of authenticity, quality, and customer trust.
@@ -61,7 +73,7 @@ const About = () => {
               </p>
             </div>
 
-            <div className="bg-white/80 p-6 rounded-2xl border-2 border-saffron/20">
+            <div className="bg-white/80 p-6 rounded-2xl border-2 border-saffron/20 traditional-border hover:shadow-lg transition-all duration-300">
               <h3 className="font-poppins font-bold text-warmBrown text-xl mb-3">Our Mission</h3>
               <p className="font-merriweather text-warmBrown/80">
                 To deliver authentic, high-quality Indian snacks and sweets made with purity, 
@@ -71,8 +83,13 @@ const About = () => {
               </p>
             </div>
 
-            <div className="bg-gradient-to-r from-saffron to-turmeric text-white p-6 rounded-2xl">
-              <h3 className="font-poppins font-bold text-xl mb-3">Future Vision</h3>
+            <div className="bg-gradient-to-r from-saffron to-turmeric text-white p-6 rounded-2xl hover:shadow-lg transition-all duration-300 hover:from-turmeric hover:to-saffron">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                  <span className="text-chili font-bold text-xs">नमो</span>
+                </div>
+                <h3 className="font-poppins font-bold text-xl">Future Vision</h3>
+              </div>
               <p className="font-merriweather">
                 To take our products to the global market and establish Namo as a trusted 
                 international brand, while creating meaningful employment opportunities and 
@@ -94,7 +111,7 @@ const About = () => {
               {values.map((value, index) => (
                 <Card 
                   key={value.title}
-                  className="bg-white/90 border-2 border-transparent hover:border-saffron/30 transition-all duration-300 hover:shadow-lg group"
+                  className="bg-white/90 border-2 border-transparent hover:border-saffron/30 transition-all duration-300 hover:shadow-lg group hover:-translate-y-1"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <CardContent className="p-6">
@@ -117,9 +134,16 @@ const About = () => {
             </div>
 
             <div className="text-center pt-6">
-              <div className="bg-gradient-to-r from-warmBrown to-chili text-white px-6 py-3 rounded-full inline-block font-poppins font-semibold">
+              <div className="bg-gradient-to-r from-warmBrown to-chili text-white px-6 py-3 rounded-full inline-block font-poppins font-semibold hover:scale-105 transition-all duration-300 cursor-pointer">
                 <span className="text-sm">NAMO INDIA FOOD INDUSTRIES</span>
-                <div className="text-xs opacity-90 mt-1">65-A, Nagin Nagar, Indore (M.P.)</div>
+                <div className="flex items-center justify-center gap-2 text-xs opacity-90 mt-1">
+                  <img 
+                    src="/lovable-uploads/fc1f54b5-c514-4ad3-9005-edac9f3abace.png" 
+                    alt="Namo Mini Logo" 
+                    className="h-4 w-4 object-contain"
+                  />
+                  65-A, Nagin Nagar, Indore (M.P.)
+                </div>
               </div>
             </div>
           </div>

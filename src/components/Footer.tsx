@@ -1,5 +1,5 @@
 
-import { Facebook, Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Phone, Mail, MapPin, YouTube, Twitter } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -9,9 +9,11 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-saffron rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl font-poppins">नमो</span>
-              </div>
+              <img 
+                src="/lovable-uploads/fc1f54b5-c514-4ad3-9005-edac9f3abace.png" 
+                alt="Namo Namkeen Logo" 
+                className="w-16 h-16 object-contain hover:rotate-12 transition-transform duration-500"
+              />
               <div>
                 <h3 className="font-poppins font-bold text-xl">NAMO NAMKEEN</h3>
                 <p className="text-sm text-white/80">Authentic Indian Snacks</p>
@@ -23,23 +25,33 @@ const Footer = () => {
               स्वाद इंदौर का, विश्वास नमो का
             </p>
             
-            <div className="flex gap-4">
-              <a href="#" className="bg-saffron hover:bg-saffron/80 p-2 rounded-full transition-colors">
+            <div className="flex gap-3">
+              <a href="#" className="bg-saffron hover:bg-saffron/80 p-2 rounded-full transition-all duration-300 hover:scale-110">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="bg-turmeric hover:bg-turmeric/80 p-2 rounded-full transition-colors">
+              <a href="#" className="bg-turmeric hover:bg-turmeric/80 p-2 rounded-full transition-all duration-300 hover:scale-110">
                 <Instagram size={20} />
+              </a>
+              <a href="#" className="bg-chili hover:bg-chili/80 p-2 rounded-full transition-all duration-300 hover:scale-110">
+                <YouTube size={20} />
+              </a>
+              <a href="#" className="bg-saffron/80 hover:bg-saffron p-2 rounded-full transition-all duration-300 hover:scale-110">
+                <Twitter size={20} />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-poppins font-semibold text-lg mb-6">Quick Links</h4>
+            <h4 className="font-poppins font-semibold text-lg mb-6 relative inline-block">
+              Quick Links
+              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-gradient-to-r from-saffron to-transparent"></span>
+            </h4>
             <ul className="space-y-3">
               {['Home', 'Products', 'About Us', 'Contact', 'Quality Policy'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-white/80 hover:text-saffron transition-colors font-merriweather text-sm">
+                  <a href="#" className="text-white/80 hover:text-saffron transition-colors font-merriweather text-sm flex items-center gap-2 group">
+                    <span className="w-1.5 h-1.5 rounded-full bg-turmeric group-hover:bg-saffron transition-colors"></span>
                     {link}
                   </a>
                 </li>
@@ -49,11 +61,15 @@ const Footer = () => {
 
           {/* Products */}
           <div>
-            <h4 className="font-poppins font-semibold text-lg mb-6">Our Products</h4>
+            <h4 className="font-poppins font-semibold text-lg mb-6 relative inline-block">
+              Our Products
+              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-gradient-to-r from-saffron to-transparent"></span>
+            </h4>
             <ul className="space-y-3">
               {['Super Products', 'Premium Range', 'Satwik Products', 'Falahari Items', 'Traditional Sweets'].map((product) => (
                 <li key={product}>
-                  <a href="#" className="text-white/80 hover:text-turmeric transition-colors font-merriweather text-sm">
+                  <a href="#" className="text-white/80 hover:text-turmeric transition-colors font-merriweather text-sm flex items-center gap-2 group">
+                    <span className="w-1.5 h-1.5 rounded-full bg-saffron group-hover:bg-turmeric transition-colors"></span>
                     {product}
                   </a>
                 </li>
@@ -63,10 +79,13 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-poppins font-semibold text-lg mb-6">Contact Info</h4>
+            <h4 className="font-poppins font-semibold text-lg mb-6 relative inline-block">
+              Contact Info
+              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-gradient-to-r from-saffron to-transparent"></span>
+            </h4>
             <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-saffron mt-0.5 flex-shrink-0" />
+              <div className="flex items-start gap-3 group hover:bg-warmBrown/40 p-2 rounded-lg transition-all">
+                <MapPin className="w-5 h-5 text-saffron mt-0.5 flex-shrink-0 group-hover:text-turmeric transition-colors" />
                 <div>
                   <p className="text-white/80 font-merriweather text-sm">
                     65-A, Nagin Nagar<br />
@@ -75,15 +94,15 @@ const Footer = () => {
                 </div>
               </div>
               
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-turmeric flex-shrink-0" />
+              <div className="flex items-center gap-3 group hover:bg-warmBrown/40 p-2 rounded-lg transition-all">
+                <Phone className="w-5 h-5 text-turmeric flex-shrink-0 group-hover:text-saffron transition-colors" />
                 <p className="text-white/80 font-merriweather text-sm">
                   +91 88238 18001
                 </p>
               </div>
               
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-chili flex-shrink-0" />
+              <div className="flex items-center gap-3 group hover:bg-warmBrown/40 p-2 rounded-lg transition-all">
+                <Mail className="w-5 h-5 text-chili flex-shrink-0 group-hover:text-turmeric transition-colors" />
                 <p className="text-white/80 font-merriweather text-sm break-all">
                   namoindiaifoodindustriess@gmail.com
                 </p>

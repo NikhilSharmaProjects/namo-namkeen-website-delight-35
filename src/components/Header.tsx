@@ -39,9 +39,11 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-saffron rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl font-poppins">नमो</span>
-            </div>
+            <img 
+              src="/lovable-uploads/fc1f54b5-c514-4ad3-9005-edac9f3abace.png" 
+              alt="Namo Namkeen Logo" 
+              className="w-12 h-12 object-contain hover:scale-105 transition-transform duration-300"
+            />
             <div>
               <h1 className="font-poppins font-bold text-xl text-warmBrown">NAMO NAMKEEN</h1>
               <p className="text-sm text-turmeric">Authentic Indian Snacks</p>

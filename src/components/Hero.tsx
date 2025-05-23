@@ -66,12 +66,14 @@ const Hero = () => {
           {/* Right Content - Product Showcase */}
           <div className="relative">
             <div className="relative z-10">
-              {/* Main product image placeholder */}
+              {/* Main product image with logo */}
               <div className="w-full h-96 bg-gradient-to-br from-saffron/20 to-turmeric/30 rounded-3xl border-4 border-saffron/30 flex items-center justify-center traditional-border animate-float">
                 <div className="text-center">
-                  <div className="w-32 h-32 bg-saffron rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white text-4xl font-bold font-poppins">नमो</span>
-                  </div>
+                  <img 
+                    src="/lovable-uploads/fc1f54b5-c514-4ad3-9005-edac9f3abace.png" 
+                    alt="Namo Namkeen Logo" 
+                    className="w-40 h-40 object-contain mx-auto mb-4 drop-shadow-lg hover:scale-105 transition-transform duration-500"
+                  />
                   <h3 className="text-2xl font-bold font-poppins text-warmBrown">Premium Namkeen</h3>
                   <p className="text-warmBrown/70">Traditional Taste, Modern Quality</p>
                 </div>
