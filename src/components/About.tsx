@@ -1,156 +1,191 @@
-
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Award, Users, Heart, Leaf } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Award, Users, Heart, Leaf } from "lucide-react";
 
 const About = () => {
-  const values = [
-    {
-      icon: <Heart className="w-8 h-8" />,
-      title: "Heritage & Tradition",
-      description: "Celebrating the rich flavors of Indore with time-honored recipes passed down through generations."
-    },
-    {
-      icon: <Award className="w-8 h-8" />,
-      title: "Quality Excellence",
-      description: "Using only the finest ingredients and maintaining the highest standards of hygiene and quality."
-    },
-    {
-      icon: <Users className="w-8 h-8" />,
-      title: "Customer Trust",
-      description: "Building lasting relationships with families across India through consistent quality and taste."
-    },
-    {
-      icon: <Leaf className="w-8 h-8" />,
-      title: "Pure & Natural",
-      description: "Committed to natural ingredients and traditional preparation methods for authentic flavors."
-    }
-  ];
+    const values = [
+        {
+            icon: <Heart className="w-8 h-8" />,
+            title: "Heritage & Tradition",
+            description:
+                "Celebrating the rich flavors of Indore with time-honored recipes passed down through generations.",
+        },
+        {
+            icon: <Award className="w-8 h-8" />,
+            title: "Quality Excellence",
+            description:
+                "Using only the finest ingredients and maintaining the highest standards of hygiene and quality.",
+        },
+        {
+            icon: <Users className="w-8 h-8" />,
+            title: "Customer Trust",
+            description:
+                "Building lasting relationships with families across India through consistent quality and taste.",
+        },
+        {
+            icon: <Leaf className="w-8 h-8" />,
+            title: "Pure & Natural",
+            description:
+                "Committed to natural ingredients and traditional preparation methods for authentic flavors.",
+        },
+    ];
 
-  return (
-    <section id="about" className="py-20 bg-gradient-to-br from-cream to-turmeric/10 relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-60 h-60 bg-saffron/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-turmeric/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
-          <div className="space-y-8 animate-fade-in">
-            <div>
-              <Badge className="bg-chili text-white font-poppins mb-4">About Namo Namkeen</Badge>
-              <h2 className="text-4xl lg:text-5xl font-bold font-poppins text-warmBrown mb-6">
-                From Namo India Namkeen
-                <span className="block text-saffron">स्वाद इंदौर का, विश्वास नमो का</span>
-              </h2>
-              
-              <div className="flex justify-center my-6">
-                <img 
-                  src="/lovable-uploads/fc1f54b5-c514-4ad3-9005-edac9f3abace.png" 
-                  alt="Namo Namkeen Logo" 
-                  className="h-28 object-contain hover:scale-105 transition-transform duration-500 drop-shadow-lg"
-                />
-              </div>
-            </div>
+    return (
+        <section
+            id="about"
+            className="py-20 bg-gradient-to-br from-cream to-turmeric/10 relative overflow-hidden"
+        >
+            {/* Decorative elements */}
+            <div className="absolute top-0 left-0 w-60 h-60 bg-saffron/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 right-0 w-80 h-80 bg-turmeric/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
 
-            <div className="space-y-6 font-merriweather text-warmBrown/80 leading-relaxed">
-              <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-saffron first-letter:mr-1 first-letter:float-left">
-                Welcome to Namo India Namkeen, where tradition meets trust, and taste meets purity. 
-                Founded with a vision to celebrate the rich and diverse flavors of Indore, we stand 
-                as a symbol of authenticity, quality, and customer trust.
-              </p>
-              
-              <p>
-                We believe that "Namo" is not just a name; it's a promise - a promise of unmatched 
-                quality, health-conscious ingredients, and taste that leaves a lasting impression. 
-                Our commitment to excellence starts from the very foundation - the ingredients we choose.
-              </p>
-              
-              <p>
-                We use only the finest and most trusted brands, including premium spices, 
-                high-quality oils, and pure ingredients. Every product is a result of careful 
-                selection, clean preparation, and traditional recipes perfected over time.
-              </p>
-            </div>
+            <div className="container mx-auto px-4 relative z-10">
+                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                    {/* Left Content */}
+                    <div className="space-y-8 animate-fade-in">
+                        <div>
+                            <Badge className="bg-chili text-white font-poppins mb-4">
+                                About Namo Namkeen
+                            </Badge>
+                            <h2 className="text-4xl lg:text-5xl font-bold font-poppins text-warmBrown mb-6">
+                                From Namo India Namkeen
+                                <span className="block text-saffron">
+                                    स्वाद इंदौर का, विश्वास नमो का
+                                </span>
+                            </h2>
 
-            <div className="bg-white/80 p-6 rounded-2xl border-2 border-saffron/20 traditional-border hover:shadow-lg transition-all duration-300">
-              <h3 className="font-poppins font-bold text-warmBrown text-xl mb-3">Our Mission</h3>
-              <p className="font-merriweather text-warmBrown/80">
-                To deliver authentic, high-quality Indian snacks and sweets made with purity, 
-                trust, and the rich taste of tradition. We aim to bring the flavors of Indore 
-                to every home by using the finest ingredients and maintaining the highest 
-                standards of hygiene, health, and customer satisfaction.
-              </p>
-            </div>
+                            <div className="flex justify-center my-6">
+                                <img
+                                    src="//logo.png"
+                                    alt="Namo Namkeen Logo"
+                                    className="h-28 object-contain hover:scale-105 transition-transform duration-500 drop-shadow-lg"
+                                />
+                            </div>
+                        </div>
 
-            <div className="bg-gradient-to-r from-saffron to-turmeric text-white p-6 rounded-2xl hover:shadow-lg transition-all duration-300 hover:from-turmeric hover:to-saffron">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                  <span className="text-chili font-bold text-xs">नमो</span>
-                </div>
-                <h3 className="font-poppins font-bold text-xl">Future Vision</h3>
-              </div>
-              <p className="font-merriweather">
-                To take our products to the global market and establish Namo as a trusted 
-                international brand, while creating meaningful employment opportunities and 
-                contributing to India's economic growth.
-              </p>
-            </div>
-          </div>
+                        <div className="space-y-6 font-merriweather text-warmBrown/80 leading-relaxed">
+                            <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-saffron first-letter:mr-1 first-letter:float-left">
+                                Welcome to Namo India Namkeen, where tradition
+                                meets trust, and taste meets purity. Founded
+                                with a vision to celebrate the rich and diverse
+                                flavors of Indore, we stand as a symbol of
+                                authenticity, quality, and customer trust.
+                            </p>
 
-          {/* Right Content - Values */}
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold font-poppins text-warmBrown mb-4">Our Core Values</h3>
-              <p className="font-merriweather text-warmBrown/80">
-                The principles that guide everything we do at Namo Namkeen
-              </p>
-            </div>
+                            <p>
+                                We believe that "Namo" is not just a name; it's
+                                a promise - a promise of unmatched quality,
+                                health-conscious ingredients, and taste that
+                                leaves a lasting impression. Our commitment to
+                                excellence starts from the very foundation - the
+                                ingredients we choose.
+                            </p>
 
-            <div className="grid gap-6">
-              {values.map((value, index) => (
-                <Card 
-                  key={value.title}
-                  className="bg-white/90 border-2 border-transparent hover:border-saffron/30 transition-all duration-300 hover:shadow-lg group hover:-translate-y-1"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="text-saffron group-hover:text-chili transition-colors">
-                        {value.icon}
-                      </div>
-                      <div>
-                        <h4 className="font-poppins font-semibold text-warmBrown text-lg mb-2 group-hover:text-saffron transition-colors">
-                          {value.title}
-                        </h4>
-                        <p className="font-merriweather text-warmBrown/70 text-sm">
-                          {value.description}
-                        </p>
-                      </div>
+                            <p>
+                                We use only the finest and most trusted brands,
+                                including premium spices, high-quality oils, and
+                                pure ingredients. Every product is a result of
+                                careful selection, clean preparation, and
+                                traditional recipes perfected over time.
+                            </p>
+                        </div>
+
+                        <div className="bg-white/80 p-6 rounded-2xl border-2 border-saffron/20 traditional-border hover:shadow-lg transition-all duration-300">
+                            <h3 className="font-poppins font-bold text-warmBrown text-xl mb-3">
+                                Our Mission
+                            </h3>
+                            <p className="font-merriweather text-warmBrown/80">
+                                To deliver authentic, high-quality Indian snacks
+                                and sweets made with purity, trust, and the rich
+                                taste of tradition. We aim to bring the flavors
+                                of Indore to every home by using the finest
+                                ingredients and maintaining the highest
+                                standards of hygiene, health, and customer
+                                satisfaction.
+                            </p>
+                        </div>
+
+                        <div className="bg-gradient-to-r from-saffron to-turmeric text-white p-6 rounded-2xl hover:shadow-lg transition-all duration-300 hover:from-turmeric hover:to-saffron">
+                            <div className="flex items-center gap-3 mb-3">
+                                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                                    <span className="text-chili font-bold text-xs">
+                                        नमो
+                                    </span>
+                                </div>
+                                <h3 className="font-poppins font-bold text-xl">
+                                    Future Vision
+                                </h3>
+                            </div>
+                            <p className="font-merriweather">
+                                To take our products to the global market and
+                                establish Namo as a trusted international brand,
+                                while creating meaningful employment
+                                opportunities and contributing to India's
+                                economic growth.
+                            </p>
+                        </div>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
 
-            <div className="text-center pt-6">
-              <div className="bg-gradient-to-r from-warmBrown to-chili text-white px-6 py-3 rounded-full inline-block font-poppins font-semibold hover:scale-105 transition-all duration-300 cursor-pointer">
-                <span className="text-sm">NAMO INDIA FOOD INDUSTRIES</span>
-                <div className="flex items-center justify-center gap-2 text-xs opacity-90 mt-1">
-                  <img 
-                    src="/lovable-uploads/fc1f54b5-c514-4ad3-9005-edac9f3abace.png" 
-                    alt="Namo Mini Logo" 
-                    className="h-4 w-4 object-contain"
-                  />
-                  65-A, Nagin Nagar, Indore (M.P.)
+                    {/* Right Content - Values */}
+                    <div className="space-y-6">
+                        <div className="text-center mb-8">
+                            <h3 className="text-3xl font-bold font-poppins text-warmBrown mb-4">
+                                Our Core Values
+                            </h3>
+                            <p className="font-merriweather text-warmBrown/80">
+                                The principles that guide everything we do at
+                                Namo Namkeen
+                            </p>
+                        </div>
+
+                        <div className="grid gap-6">
+                            {values.map((value, index) => (
+                                <Card
+                                    key={value.title}
+                                    className="bg-white/90 border-2 border-transparent hover:border-saffron/30 transition-all duration-300 hover:shadow-lg group hover:-translate-y-1"
+                                    style={{
+                                        animationDelay: `${index * 0.1}s`,
+                                    }}
+                                >
+                                    <CardContent className="p-6">
+                                        <div className="flex items-start gap-4">
+                                            <div className="text-saffron group-hover:text-chili transition-colors">
+                                                {value.icon}
+                                            </div>
+                                            <div>
+                                                <h4 className="font-poppins font-semibold text-warmBrown text-lg mb-2 group-hover:text-saffron transition-colors">
+                                                    {value.title}
+                                                </h4>
+                                                <p className="font-merriweather text-warmBrown/70 text-sm">
+                                                    {value.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+
+                        <div className="text-center pt-6">
+                            <div className="bg-gradient-to-r from-warmBrown to-chili text-white px-6 py-3 rounded-full inline-block font-poppins font-semibold hover:scale-105 transition-all duration-300 cursor-pointer">
+                                <span className="text-sm">
+                                    NAMO INDIA FOOD INDUSTRIES
+                                </span>
+                                <div className="flex items-center justify-center gap-2 text-xs opacity-90 mt-1">
+                                    <img
+                                        src="//logo.png"
+                                        alt="Namo Mini Logo"
+                                        className="h-4 w-4 object-contain"
+                                    />
+                                    65-A, Nagin Nagar, Indore (M.P.)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default About;
