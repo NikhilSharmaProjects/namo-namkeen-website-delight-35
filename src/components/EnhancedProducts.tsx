@@ -6,8 +6,8 @@ import { ChevronRight, Sparkles, Star } from "lucide-react";
 
 const EnhancedProducts = () => {
     const [activeCategory, setActiveCategory] = useState("Super Products");
-    const [visibleCards, setVisibleCards] = useState(new Set());
-    const observerRef = useRef();
+    const [visibleCards, setVisibleCards] = useState(new Set<string>());
+    const observerRef = useRef<IntersectionObserver | null>(null);
 
     const productCategories = [
         {
@@ -70,7 +70,11 @@ const EnhancedProducts = () => {
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        setVisibleCards(prev => new Set([...prev, entry.target.dataset.index]));
+                        const targetElement = entry.target as HTMLElement;
+                        const index = targetElement.getAttribute('data-index');
+                        if (index) {
+                            setVisibleCards(prev => new Set([...prev, index]));
+                        }
                     }
                 });
             },
@@ -83,7 +87,9 @@ const EnhancedProducts = () => {
 
     useEffect(() => {
         const cards = document.querySelectorAll('[data-index]');
-        cards.forEach(card => observerRef.current?.observe(card));
+        if (observerRef.current) {
+            cards.forEach(card => observerRef.current?.observe(card));
+        }
     }, [productCategories]);
 
     return (

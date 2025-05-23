@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface ScrollAnimationProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export const ScrollAnimation = ({
   direction = 'up' 
 }: ScrollAnimationProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [elementRef, setElementRef] = useState<HTMLDivElement | null>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -27,16 +27,16 @@ export const ScrollAnimation = ({
       { threshold: 0.1 }
     );
 
-    if (elementRef) {
-      observer.observe(elementRef);
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
     }
 
     return () => {
-      if (elementRef) {
-        observer.unobserve(elementRef);
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
       }
     };
-  }, [elementRef, delay]);
+  }, [delay]);
 
   const getAnimationClass = () => {
     const baseClass = 'transition-all duration-1000 ease-out';
@@ -65,7 +65,7 @@ export const ScrollAnimation = ({
 
   return (
     <div
-      ref={setElementRef}
+      ref={elementRef}
       className={`${getAnimationClass()} ${className}`}
     >
       {children}
