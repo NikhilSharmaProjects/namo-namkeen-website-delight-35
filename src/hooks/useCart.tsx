@@ -58,7 +58,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       console.error('Error fetching cart:', error);
       toast({ title: 'Error', description: 'Failed to load cart', variant: 'destructive' });
     } else {
-      setItems(data || []);
+      // Type assertion to ensure size is properly typed
+      const typedItems = (data || []).map(item => ({
+        ...item,
+        size: item.size as '250g' | '500g' | '1kg'
+      })) as CartItem[];
+      setItems(typedItems);
     }
     setLoading(false);
   };
