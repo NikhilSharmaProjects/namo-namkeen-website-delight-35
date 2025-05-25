@@ -1,121 +1,213 @@
 
-import { useState } from "react";
-import { Menu, X, Phone, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ShoppingCart, User, LogOut } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
+import { useCart } from '@/hooks/useCart';
 
-const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const location = useLocation();
+interface HeaderProps {
+  onCartClick?: () => void;
+}
 
-    const navLinks = [
-        { href: "/", label: "Home" },
-        { href: "/products", label: "Products" },
-        { href: "/about", label: "About Us" },
-        { href: "/contact", label: "Contact" },
-    ];
+const Header = ({ onCartClick }: HeaderProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const { user, signOut } = useAuth();
+  const { totalItems } = useCart();
 
-    const isActive = (path: string) => {
-        if (path === "/" && location.pathname === "/") return true;
-        if (path !== "/" && location.pathname.startsWith(path)) return true;
-        return false;
+  const menuItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
     };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    return (
-        <header className="fixed top-0 w-full z-50 bg-cream/95 backdrop-blur-sm border-b-2 border-saffron/20">
-            <div className="bg-saffron text-white py-2 px-4">
-                <div className="container mx-auto flex justify-between items-center text-sm">
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2">
-                            <Phone size={16} />
-                            <span>+91 88238 18001</span>
-                        </div>
-                        <div className="hidden sm:flex items-center gap-2">
-                            <Mail size={16} />
-                            <span>namoindiaifoodindustriess@gmail.com</span>
-                        </div>
-                    </div>
-                    <div className="hidden md:block">
-                        Swad Indore Ka, Vishwas Namo Ka
-                    </div>
-                </div>
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
+  return (
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-white/95 backdrop-blur-md shadow-lg' 
+        : 'bg-transparent'
+    }`}>
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-3 group">
+            <img 
+              src="/logo.png" 
+              alt="Namo Namkeen" 
+              className="h-12 w-12 group-hover:scale-105 transition-transform duration-300"
+            />
+            <div className="flex flex-col">
+              <span className={`text-2xl font-bold font-poppins transition-colors duration-300 ${
+                isScrolled ? 'text-warmBrown' : 'text-white'
+              }`}>
+                NAMO
+              </span>
+              <span className={`text-sm font-merriweather transition-colors duration-300 ${
+                isScrolled ? 'text-saffron' : 'text-cream'
+              }`}>
+                Namkeen
+              </span>
             </div>
+          </Link>
 
-            <nav className="container mx-auto px-4 py-4">
-                <div className="flex items-center justify-between">
-                    <Link to="/" className="flex items-center gap-3">
-                        <img
-                            src="/logo.png"
-                            alt="Namo Namkeen Logo"
-                            className="w-12 h-12 object-contain hover:scale-105 transition-transform duration-300"
-                        />
-                        <div>
-                            <h1 className="font-poppins font-bold text-xl text-warmBrown">
-                                NAMO NAMKEEN
-                            </h1>
-                            <p className="text-sm text-turmeric">
-                                Authentic Indian Snacks
-                            </p>
-                        </div>
-                    </Link>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {menuItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`font-medium transition-all duration-300 hover:scale-105 ${
+                  location.pathname === item.path
+                    ? isScrolled 
+                      ? 'text-saffron border-b-2 border-saffron' 
+                      : 'text-turmeric border-b-2 border-turmeric'
+                    : isScrolled 
+                      ? 'text-warmBrown hover:text-saffron' 
+                      : 'text-white hover:text-turmeric'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
 
-                    <div className="hidden md:flex items-center gap-8">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.href}
-                                to={link.href}
-                                className={`font-poppins font-medium transition-colors duration-300 relative group ${
-                                    isActive(link.href) 
-                                        ? 'text-saffron' 
-                                        : 'text-warmBrown hover:text-saffron'
-                                }`}
-                            >
-                                {link.label}
-                                <span className={`absolute -bottom-1 left-0 h-0.5 bg-saffron transition-all duration-300 ${
-                                    isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full'
-                                }`}></span>
-                            </Link>
-                        ))}
-                        <Button className="bg-chili hover:bg-chili/90 text-white font-poppins font-medium px-6">
-                            Order Now
-                        </Button>
-                    </div>
+          {/* Right side actions */}
+          <div className="flex items-center space-x-4">
+            {/* Cart Icon */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onCartClick}
+              className={`relative p-2 transition-colors duration-300 ${
+                isScrolled 
+                  ? 'text-warmBrown hover:text-saffron hover:bg-saffron/10' 
+                  : 'text-white hover:text-turmeric hover:bg-white/10'
+              }`}
+            >
+              <ShoppingCart className="h-6 w-6" />
+              {totalItems > 0 && (
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-chili text-white text-xs flex items-center justify-center p-0 animate-pulse">
+                  {totalItems}
+                </Badge>
+              )}
+            </Button>
 
-                    <Button
-                        variant="ghost"
-                        className="md:hidden"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                    </Button>
+            {/* Auth buttons */}
+            {user ? (
+              <div className="flex items-center space-x-2">
+                <div className={`hidden md:flex items-center space-x-2 ${
+                  isScrolled ? 'text-warmBrown' : 'text-white'
+                }`}>
+                  <User className="h-4 w-4" />
+                  <span className="text-sm">
+                    {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                  </span>
                 </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleSignOut}
+                  className={`transition-colors duration-300 ${
+                    isScrolled 
+                      ? 'text-warmBrown hover:text-chili hover:bg-chili/10' 
+                      : 'text-white hover:text-red-300 hover:bg-white/10'
+                  }`}
+                >
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
+            ) : (
+              <Link to="/auth">
+                <Button className={`transition-all duration-300 transform hover:scale-105 ${
+                  isScrolled 
+                    ? 'bg-saffron hover:bg-saffron/90 text-white' 
+                    : 'bg-white/20 hover:bg-white/30 text-white border border-white/30'
+                }`}>
+                  Login
+                </Button>
+              </Link>
+            )}
 
-                {isMenuOpen && (
-                    <div className="md:hidden mt-4 pb-4 border-t border-saffron/20">
-                        <div className="flex flex-col gap-4 pt-4">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    to={link.href}
-                                    className={`font-poppins font-medium transition-colors duration-300 ${
-                                        isActive(link.href) 
-                                            ? 'text-saffron' 
-                                            : 'text-warmBrown hover:text-saffron'
-                                    }`}
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    {link.label}
-                                </Link>
-                            ))}
-                            <Button className="bg-chili hover:bg-chili/90 text-white font-poppins font-medium w-fit">
-                                Order Now
-                            </Button>
-                        </div>
-                    </div>
-                )}
+            {/* Mobile menu button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`md:hidden transition-colors duration-300 ${
+                isScrolled 
+                  ? 'text-warmBrown hover:text-saffron' 
+                  : 'text-white hover:text-turmeric'
+              }`}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white/95 backdrop-blur-md rounded-lg mt-2 py-4 px-6 shadow-lg border border-saffron/20">
+            <nav className="flex flex-col space-y-4">
+              {menuItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`font-medium transition-colors duration-300 ${
+                    location.pathname === item.path
+                      ? 'text-saffron border-l-4 border-saffron pl-4'
+                      : 'text-warmBrown hover:text-saffron hover:pl-4'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              {user && (
+                <div className="border-t border-saffron/20 pt-4 mt-4">
+                  <div className="flex items-center space-x-2 text-warmBrown mb-2">
+                    <User className="h-4 w-4" />
+                    <span className="text-sm">
+                      {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                    </span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleSignOut}
+                    className="text-chili hover:text-chili/80 justify-start p-0"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </Button>
+                </div>
+              )}
             </nav>
-        </header>
-    );
+          </div>
+        )}
+      </div>
+    </header>
+  );
 };
 
 export default Header;

@@ -1,20 +1,25 @@
 
 import Header from '@/components/Header';
-import EnhancedProducts from '@/components/EnhancedProducts';
+import EcommerceProducts from '@/components/EcommerceProducts';
 import Footer from '@/components/Footer';
+import CartSidebar from '@/components/CartSidebar';
 import { Toaster } from '@/components/ui/toaster';
 import { ScrollAnimation } from '@/components/ScrollAnimations';
+import { useState } from 'react';
 
 const Products = () => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
   return (
     <div className="min-h-screen overflow-x-hidden">
-      <Header />
+      <Header onCartClick={() => setIsCartOpen(true)} />
       <div className="pt-24">
         <ScrollAnimation direction="up" delay={200}>
-          <EnhancedProducts />
+          <EcommerceProducts />
         </ScrollAnimation>
       </div>
       <Footer />
+      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       <Toaster />
     </div>
   );
