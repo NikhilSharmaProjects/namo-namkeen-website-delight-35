@@ -1,6 +1,6 @@
 
 import Header from '@/components/Header';
-import EnhancedHero from '@/components/EnhancedHero';
+import HalwaiHero from '@/components/HalwaiHero';
 import EcommerceProducts from '@/components/EcommerceProducts';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
@@ -16,7 +16,7 @@ const Index = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Header onCartClick={() => setIsCartOpen(true)} />
-      <EnhancedHero />
+      <HalwaiHero />
       <ScrollAnimation direction="up" delay={200}>
         <EcommerceProducts />
       </ScrollAnimation>
