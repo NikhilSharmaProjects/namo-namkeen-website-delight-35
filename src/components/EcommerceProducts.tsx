@@ -5,7 +5,7 @@ import ProductCard from './ProductCard';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, Filter, Zap } from 'lucide-react';
+import { Search, Filter, Zap, TrendingUp, Clock } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface Product {
@@ -30,6 +30,7 @@ const EcommerceProducts = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('featured');
+  const [showFilters, setShowFilters] = useState(false);
 
   const categories = ['All', 'Super Products', 'Premium Products', 'Shudh Satwik', 'Falahari Products'];
 
@@ -67,6 +68,8 @@ const EcommerceProducts = () => {
           return b.price_250g - a.price_250g;
         case 'discount':
           return b.discount_percentage - a.discount_percentage;
+        case 'name':
+          return a.name.localeCompare(b.name);
         case 'featured':
         default:
           return (b.is_featured ? 1 : 0) - (a.is_featured ? 1 : 0);
@@ -75,19 +78,23 @@ const EcommerceProducts = () => {
 
   const featuredProducts = products.filter(p => p.is_featured);
   const flashSaleProducts = products.filter(p => p.discount_percentage > 15);
+  const newProducts = products.slice(0, 4);
 
   if (loading) {
     return (
-      <section className="py-20 bg-gradient-to-br from-cream/30 via-white to-saffron/10">
+      <section className="py-12 md:py-20 bg-gradient-to-br from-cream/30 via-white to-saffron/10">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <Skeleton className="h-8 w-64 mx-auto mb-4" />
+          <div className="text-center mb-8 md:mb-12">
+            <Skeleton className="h-6 w-48 mx-auto mb-4" />
+            <Skeleton className="h-8 w-80 mx-auto mb-4" />
             <Skeleton className="h-6 w-96 mx-auto" />
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          
+          {/* Mobile-first skeleton grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             {[...Array(8)].map((_, i) => (
               <div key={i} className="space-y-4">
-                <Skeleton className="h-48 w-full rounded-lg" />
+                <Skeleton className="h-40 md:h-48 w-full rounded-lg" />
                 <Skeleton className="h-4 w-3/4" />
                 <Skeleton className="h-4 w-1/2" />
                 <Skeleton className="h-10 w-full" />
@@ -100,33 +107,33 @@ const EcommerceProducts = () => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-cream/30 via-white to-saffron/10">
+    <section className="py-12 md:py-20 bg-gradient-to-br from-cream/30 via-white to-saffron/10">
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <Badge className="bg-chili text-white font-poppins mb-4 animate-pulse">
+        {/* Header - Mobile optimized */}
+        <div className="text-center mb-8 md:mb-12">
+          <Badge className="bg-chili text-white font-poppins mb-4 animate-pulse text-xs md:text-sm px-2 md:px-4 py-1 md:py-2">
             🔥 FLASH SALE - Up to 30% OFF
           </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold font-poppins text-warmBrown mb-6">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold font-poppins text-warmBrown mb-4 md:mb-6 px-4">
             Shop Premium Namkeen
           </h2>
-          <p className="text-xl text-warmBrown/80 max-w-3xl mx-auto font-merriweather">
+          <p className="text-lg md:text-xl text-warmBrown/80 max-w-3xl mx-auto font-merriweather px-4">
             Discover authentic flavors of Indore with our premium quality namkeen collection
           </p>
         </div>
 
-        {/* Flash Sale Section */}
+        {/* Flash Sale Section - Mobile responsive */}
         {flashSaleProducts.length > 0 && (
-          <div className="mb-12">
-            <div className="bg-gradient-to-r from-chili to-red-600 text-white p-6 rounded-lg mb-6">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <Zap className="h-6 w-6 animate-pulse" />
-                <h3 className="text-2xl font-bold">⚡ FLASH SALE ⚡</h3>
-                <Zap className="h-6 w-6 animate-pulse" />
+          <div className="mb-8 md:mb-12">
+            <div className="bg-gradient-to-r from-chili to-red-600 text-white p-4 md:p-6 rounded-lg mb-6">
+              <div className="flex items-center justify-center gap-2 md:gap-3 mb-3 md:mb-4">
+                <Zap className="h-5 w-5 md:h-6 md:w-6 animate-pulse" />
+                <h3 className="text-xl md:text-2xl font-bold">⚡ FLASH SALE ⚡</h3>
+                <Zap className="h-5 w-5 md:h-6 md:w-6 animate-pulse" />
               </div>
-              <p className="text-center text-lg">Limited time offers - Grab them before they're gone!</p>
+              <p className="text-center text-sm md:text-lg">Limited time offers - Grab them before they're gone!</p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
               {flashSaleProducts.slice(0, 4).map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -134,53 +141,157 @@ const EcommerceProducts = () => {
           </div>
         )}
 
-        {/* Filters */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8 bg-white/70 backdrop-blur-sm p-4 rounded-lg border border-saffron/20">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-warmBrown/50" />
-            <Input
-              placeholder="Search for your favorite namkeen..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 border-saffron/30 focus:border-saffron"
-            />
+        {/* Enhanced Search and Filters - Mobile-first */}
+        <div className="mb-6 md:mb-8">
+          {/* Mobile filter toggle */}
+          <div className="md:hidden mb-4">
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="w-full flex items-center justify-between bg-white/70 backdrop-blur-sm p-4 rounded-lg border border-saffron/20 text-warmBrown font-medium"
+            >
+              <span className="flex items-center gap-2">
+                <Filter className="h-4 w-4" />
+                Filters & Search
+              </span>
+              <span className={`transform transition-transform ${showFilters ? 'rotate-180' : ''}`}>
+                ↓
+              </span>
+            </button>
           </div>
-          
-          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-            <SelectTrigger className="w-full md:w-48 border-saffron/30">
-              <Filter className="h-4 w-4 mr-2" />
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {categories.map(category => (
-                <SelectItem key={category} value={category}>{category}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
 
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-full md:w-48 border-saffron/30">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="featured">Featured First</SelectItem>
-              <SelectItem value="price-low">Price: Low to High</SelectItem>
-              <SelectItem value="price-high">Price: High to Low</SelectItem>
-              <SelectItem value="discount">Highest Discount</SelectItem>
-            </SelectContent>
-          </Select>
+          {/* Filters container - responsive */}
+          <div className={`${showFilters ? 'block' : 'hidden'} md:block space-y-4 md:space-y-0 md:flex md:gap-4 bg-white/70 backdrop-blur-sm p-4 rounded-lg border border-saffron/20`}>
+            {/* Search */}
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-warmBrown/50" />
+              <Input
+                placeholder="Search for your favorite namkeen..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 border-saffron/30 focus:border-saffron transition-colors"
+              />
+            </div>
+            
+            {/* Category filter */}
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-full md:w-48 border-saffron/30 transition-colors">
+                <Filter className="h-4 w-4 mr-2" />
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="bg-white border-saffron/30">
+                {categories.map(category => (
+                  <SelectItem key={category} value={category} className="hover:bg-saffron/10">
+                    {category}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            {/* Sort */}
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-full md:w-48 border-saffron/30 transition-colors">
+                <TrendingUp className="h-4 w-4 mr-2" />
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="bg-white border-saffron/30">
+                <SelectItem value="featured" className="hover:bg-saffron/10">Featured First</SelectItem>
+                <SelectItem value="price-low" className="hover:bg-saffron/10">Price: Low to High</SelectItem>
+                <SelectItem value="price-high" className="hover:bg-saffron/10">Price: High to Low</SelectItem>
+                <SelectItem value="discount" className="hover:bg-saffron/10">Highest Discount</SelectItem>
+                <SelectItem value="name" className="hover:bg-saffron/10">Name A-Z</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Active filters display */}
+          {(searchTerm || selectedCategory !== 'All') && (
+            <div className="flex flex-wrap gap-2 mt-4">
+              {searchTerm && (
+                <Badge 
+                  variant="outline" 
+                  className="bg-saffron/10 border-saffron/30 cursor-pointer hover:bg-saffron/20 transition-colors"
+                  onClick={() => setSearchTerm('')}
+                >
+                  Search: "{searchTerm}" ✕
+                </Badge>
+              )}
+              {selectedCategory !== 'All' && (
+                <Badge 
+                  variant="outline" 
+                  className="bg-saffron/10 border-saffron/30 cursor-pointer hover:bg-saffron/20 transition-colors"
+                  onClick={() => setSelectedCategory('All')}
+                >
+                  Category: {selectedCategory} ✕
+                </Badge>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Products Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
+        {/* Results summary */}
+        <div className="flex items-center justify-between mb-6 text-sm text-warmBrown/70">
+          <span>
+            Showing {filteredProducts.length} of {products.length} products
+          </span>
+          {filteredProducts.length > 0 && (
+            <div className="flex items-center gap-1">
+              <Clock className="h-4 w-4" />
+              <span>Updated just now</span>
+            </div>
+          )}
+        </div>
+
+        {/* Products Grid - Mobile-first responsive */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+          {filteredProducts.map((product, index) => (
+            <div
+              key={product.id}
+              className="transform transition-all duration-300 hover:scale-[1.02]"
+              style={{ animationDelay: `${index * 50}ms` }}
+            >
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
 
+        {/* Empty state */}
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-warmBrown/70 text-lg">No products found matching your criteria</p>
+            <div className="text-4xl mb-4">🔍</div>
+            <h3 className="text-xl font-bold text-warmBrown mb-2">No products found</h3>
+            <p className="text-warmBrown/70 mb-4">
+              Try adjusting your search or filter criteria
+            </p>
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('All');
+                setSortBy('featured');
+              }}
+              className="text-saffron hover:text-saffron/80 font-medium transition-colors"
+            >
+              Clear all filters
+            </button>
+          </div>
+        )}
+
+        {/* Featured categories quick access */}
+        {filteredProducts.length > 0 && selectedCategory === 'All' && (
+          <div className="mt-12 pt-8 border-t border-saffron/20">
+            <h3 className="text-lg md:text-xl font-bold text-warmBrown mb-4 text-center">
+              Shop by Category
+            </h3>
+            <div className="flex flex-wrap justify-center gap-2 md:gap-4">
+              {categories.slice(1).map(category => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className="px-3 md:px-4 py-2 bg-white/80 border border-saffron/30 rounded-full text-sm md:text-base text-warmBrown hover:bg-saffron/10 hover:border-saffron transition-all duration-300 transform hover:scale-105"
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>

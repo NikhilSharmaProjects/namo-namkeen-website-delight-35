@@ -1,21 +1,21 @@
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface ScrollAnimationProps {
   children: React.ReactNode;
-  className?: string;
+  direction?: 'up' | 'down' | 'left' | 'right' | 'scale';
   delay?: number;
-  direction?: 'up' | 'down' | 'left' | 'right' | 'scale' | 'rotate';
+  className?: string;
 }
 
 export const ScrollAnimation = ({ 
   children, 
-  className = '', 
-  delay = 0, 
-  direction = 'up' 
+  direction = 'up', 
+  delay = 0,
+  className = '' 
 }: ScrollAnimationProps) => {
-  const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,105 +24,78 @@ export const ScrollAnimation = ({
           setTimeout(() => setIsVisible(true), delay);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '50px' }
     );
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
+    const currentElement = elementRef.current;
+    if (currentElement) {
+      observer.observe(currentElement);
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
+      if (currentElement) {
+        observer.unobserve(currentElement);
       }
     };
   }, [delay]);
 
-  const getAnimationClass = () => {
-    const baseClass = 'transition-all duration-1000 ease-out';
+  const getTransformClasses = () => {
+    const baseClasses = "transition-all duration-700 ease-out";
     
     if (!isVisible) {
       switch (direction) {
         case 'up':
-          return `${baseClass} transform translate-y-10 opacity-0`;
+          return `${baseClasses} translate-y-8 opacity-0`;
         case 'down':
-          return `${baseClass} transform -translate-y-10 opacity-0`;
+          return `${baseClasses} -translate-y-8 opacity-0`;
         case 'left':
-          return `${baseClass} transform translate-x-10 opacity-0`;
+          return `${baseClasses} translate-x-8 opacity-0`;
         case 'right':
-          return `${baseClass} transform -translate-x-10 opacity-0`;
+          return `${baseClasses} -translate-x-8 opacity-0`;
         case 'scale':
-          return `${baseClass} transform scale-95 opacity-0`;
-        case 'rotate':
-          return `${baseClass} transform rotate-12 scale-95 opacity-0`;
+          return `${baseClasses} scale-95 opacity-0`;
         default:
-          return `${baseClass} transform translate-y-10 opacity-0`;
+          return `${baseClasses} translate-y-8 opacity-0`;
       }
     }
     
-    return `${baseClass} transform translate-y-0 translate-x-0 scale-100 rotate-0 opacity-100`;
+    return `${baseClasses} translate-x-0 translate-y-0 scale-100 opacity-100`;
   };
 
   return (
-    <div
-      ref={elementRef}
-      className={`${getAnimationClass()} ${className}`}
-    >
+    <div ref={elementRef} className={`${getTransformClasses()} ${className}`}>
       {children}
     </div>
   );
 };
 
-// Stagger animation for multiple elements
-export const StaggeredAnimation = ({ 
+export const ParallaxElement = ({ 
   children, 
-  className = '', 
-  staggerDelay = 100 
-}: {
-  children: React.ReactNode[];
-  className?: string;
-  staggerDelay?: number;
-}) => {
-  return (
-    <div className={className}>
-      {children.map((child, index) => (
-        <ScrollAnimation 
-          key={index} 
-          delay={index * staggerDelay}
-          direction="up"
-        >
-          {child}
-        </ScrollAnimation>
-      ))}
-    </div>
-  );
-};
-
-// Parallax scroll effect
-export const ParallaxScroll = ({ 
-  children, 
-  speed = 0.5, 
+  speed = 0.5,
   className = '' 
 }: {
   children: React.ReactNode;
   speed?: number;
   className?: string;
 }) => {
-  const [scrollY, setScrollY] = useState(0);
+  const elementRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
+    const handleScroll = () => {
+      const scrolled = window.pageYOffset;
+      setOffset(scrolled * speed);
+    };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [speed]);
 
   return (
-    <div
+    <div 
+      ref={elementRef}
       className={className}
-      style={{
-        transform: `translateY(${scrollY * speed}px)`,
-        transition: 'transform 0.1s ease-out'
-      }}
+      style={{ transform: `translateY(${offset}px)` }}
     >
       {children}
     </div>

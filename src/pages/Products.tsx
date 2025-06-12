@@ -13,7 +13,7 @@ const Products = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Header onCartClick={() => setIsCartOpen(true)} />
-      <div className="pt-24">
+      <div className="pt-20 md:pt-24">
         <ScrollAnimation direction="up" delay={200}>
           <EcommerceProducts />
         </ScrollAnimation>
