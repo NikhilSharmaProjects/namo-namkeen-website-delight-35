@@ -1,4 +1,4 @@
-
+import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
@@ -6,8 +6,11 @@ import { ScrollAnimation } from '@/components/ScrollAnimations';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award, Users, Heart, Leaf, Factory, Globe } from "lucide-react";
+import CartSidebar from '@/components/CartSidebar';
 
 const AboutUs = () => {
+    const [isCartOpen, setIsCartOpen] = useState(false);
+
     const values = [
         {
             icon: <Heart className="w-8 h-8" />,
@@ -43,7 +46,7 @@ const AboutUs = () => {
 
     return (
         <div className="min-h-screen overflow-x-hidden">
-            <Header />
+            <Header onCartClick={() => setIsCartOpen(true)} />
             <div className="pt-24">
                 <section className="py-20 bg-gradient-to-br from-cream to-turmeric/10 relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-60 h-60 bg-saffron/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
@@ -188,6 +191,7 @@ const AboutUs = () => {
                 </section>
             </div>
             <Footer />
+            <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
             <Toaster />
         </div>
     );

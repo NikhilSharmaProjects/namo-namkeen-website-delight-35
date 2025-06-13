@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -13,7 +12,7 @@ interface HeaderProps {
 
 const Header = ({ onCartClick }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { user, signOut } = useAuth();
   const { items } = useCart();
   const navigate = useNavigate();
   
@@ -23,7 +22,7 @@ const Header = ({ onCartClick }: HeaderProps) => {
 
   const handleAuthClick = () => {
     if (user) {
-      logout();
+      signOut();
     } else {
       navigate('/auth');
     }
