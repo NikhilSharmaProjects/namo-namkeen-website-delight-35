@@ -1,69 +1,77 @@
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ShoppingCart, User, Package } from 'lucide-react';
-import { useCart } from '@/hooks/useCart';
+import { ShoppingCart, User, Heart, Menu, X } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import CartSidebar from './CartSidebar';
+import { useCart } from '@/hooks/useCart';
 
-const Header = () => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
+interface HeaderProps {
+  onCartClick: () => void;
+}
+
+const Header = ({ onCartClick }: HeaderProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
   const { items } = useCart();
-  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Products', href: '/products' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
-  ];
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const handleAuthClick = () => {
+    if (user) {
+      logout();
+    } else {
+      navigate('/auth');
+    }
+  };
 
   return (
-    <header className="bg-white shadow-sm border-b border-saffron/20 sticky top-0 z-40">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-saffron/20">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-saffron to-turmeric rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">N</span>
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-saffron to-turmeric rounded-full flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-lg md:text-xl">N</span>
             </div>
-            <span className="font-bold text-xl text-warmBrown hidden sm:block">NAMO Namkeen</span>
+            <div className="hidden sm:block">
+              <h1 className="text-xl md:text-2xl font-bold text-warmBrown">Namo Namkeen</h1>
+              <p className="text-xs md:text-sm text-warmBrown/70">Authentic Indore Flavors</p>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="text-warmBrown hover:text-saffron transition-colors font-medium"
-              >
-                {item.name}
+            <Link to="/" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+              Home
+            </Link>
+            <Link to="/products" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+              Products
+            </Link>
+            <Link to="/about" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+              About
+            </Link>
+            <Link to="/contact" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+              Contact
+            </Link>
+            {user && (
+              <Link to="/my-orders" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+                My Orders
               </Link>
-            ))}
+            )}
           </nav>
 
-          {/* Right Section */}
-          <div className="flex items-center space-x-4">
-            {/* My Orders Link */}
-            <Link to="/my-orders">
-              <Button variant="ghost" size="sm" className="hidden sm:flex items-center gap-2">
-                <Package className="h-4 w-4" />
-                My Orders
-              </Button>
-            </Link>
-
-            {/* Cart */}
+          {/* Action Buttons */}
+          <div className="flex items-center space-x-2 md:space-x-4">
             <Button
               variant="ghost"
               size="sm"
-              className="relative"
-              onClick={() => setIsCartOpen(true)}
+              onClick={onCartClick}
+              className="relative text-warmBrown hover:text-saffron hover:bg-saffron/10"
             >
               <ShoppingCart className="h-5 w-5" />
               {totalItems > 0 && (
@@ -73,64 +81,82 @@ const Header = () => {
               )}
             </Button>
 
-            {/* User Menu */}
-            {user ? (
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-warmBrown hidden sm:block">
-                  {user.user_metadata?.full_name || user.email}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={signOut}
-                  className="text-warmBrown hover:text-saffron"
-                >
-                  Logout
-                </Button>
-              </div>
-            ) : (
-              <Link to="/auth">
-                <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
-                  <span className="hidden sm:block">Login</span>
-                </Button>
-              </Link>
-            )}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleAuthClick}
+              className="hidden sm:flex items-center space-x-2 text-warmBrown hover:text-saffron hover:bg-saffron/10"
+            >
+              <User className="h-4 w-4" />
+              <span className="text-sm">{user ? 'Logout' : 'Login'}</span>
+            </Button>
 
-            {/* Mobile Menu */}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="md:hidden">
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                <nav className="flex flex-col space-y-4 mt-8">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className="text-warmBrown hover:text-saffron transition-colors font-medium py-2"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                  <Link
-                    to="/my-orders"
-                    className="text-warmBrown hover:text-saffron transition-colors font-medium py-2 flex items-center gap-2"
-                  >
-                    <Package className="h-4 w-4" />
-                    My Orders
-                  </Link>
-                </nav>
-              </SheetContent>
-            </Sheet>
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleMenu}
+              className="md:hidden text-warmBrown hover:text-saffron"
+            >
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
           </div>
         </div>
-      </div>
 
-      {/* Cart Sidebar */}
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden border-t border-saffron/20 bg-white/95 backdrop-blur-sm">
+            <nav className="py-4 space-y-2">
+              <Link
+                to="/"
+                onClick={toggleMenu}
+                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+              >
+                Home
+              </Link>
+              <Link
+                to="/products"
+                onClick={toggleMenu}
+                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+              >
+                Products
+              </Link>
+              <Link
+                to="/about"
+                onClick={toggleMenu}
+                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+              >
+                About
+              </Link>
+              <Link
+                to="/contact"
+                onClick={toggleMenu}
+                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+              >
+                Contact
+              </Link>
+              {user && (
+                <Link
+                  to="/my-orders"
+                  onClick={toggleMenu}
+                  className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+                >
+                  My Orders
+                </Link>
+              )}
+              <button
+                onClick={() => {
+                  handleAuthClick();
+                  toggleMenu();
+                }}
+                className="block w-full text-left py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+              >
+                {user ? 'Logout' : 'Login'}
+              </button>
+            </nav>
+          </div>
+        )}
+      </div>
     </header>
   );
 };

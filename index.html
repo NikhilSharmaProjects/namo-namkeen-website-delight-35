@@ -7,6 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Namo Namkeen - Authentic Indian Snacks</title>
     <meta name="description" content="Discover the authentic flavors of Indore with Namo Namkeen's wide range of traditional Indian snacks and namkeens." />
+    
+    <!-- OneSignal SDK -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "ef329d29-6d7c-4ab0-a7bf-08e742f73123",
+          safari_web_id: "web.onesignal.auto.54cd441e-7f12-4aed-9845-f98eb5c10ecb",
+          notifyButton: {
+            enable: true,
+          },
+        });
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

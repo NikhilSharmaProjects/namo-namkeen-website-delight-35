@@ -19,6 +19,11 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
     setNewOrderCount(0);
   };
 
+  const handleStatsUpdate = () => {
+    // Trigger any stats refresh if needed
+    console.log('Stats updated');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-cream/30 via-white to-saffron/10">
       <div className="container mx-auto px-4 py-8">
@@ -67,7 +72,7 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
           </TabsContent>
 
           <TabsContent value="products">
-            <ProductManagement />
+            <ProductManagement onStatsUpdate={handleStatsUpdate} />
           </TabsContent>
 
           <TabsContent value="notifications">

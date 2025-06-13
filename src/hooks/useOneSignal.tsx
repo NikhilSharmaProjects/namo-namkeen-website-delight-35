@@ -14,7 +14,7 @@ interface OneSignalContextType {
 
 const OneSignalContext = createContext<OneSignalContextType | undefined>(undefined);
 
-const ONESIGNAL_APP_ID = 'your-onesignal-app-id'; // Replace with actual OneSignal App ID
+const ONESIGNAL_APP_ID = 'ef329d29-6d7c-4ab0-a7bf-08e742f73123'; // Your OneSignal App ID
 
 export const OneSignalProvider = ({ children }: { children: ReactNode }) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -30,7 +30,7 @@ export const OneSignalProvider = ({ children }: { children: ReactNode }) => {
       // Load OneSignal SDK
       if (!window.OneSignal) {
         const script = document.createElement('script');
-        script.src = 'https://cdn.onesignal.com/sdks/OneSignalSDK.js';
+        script.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
         script.async = true;
         document.head.appendChild(script);
         
@@ -39,19 +39,23 @@ export const OneSignalProvider = ({ children }: { children: ReactNode }) => {
         });
       }
 
-      // Initialize OneSignal
-      window.OneSignal = window.OneSignal || [];
-      window.OneSignal.push(function() {
-        window.OneSignal.init({
+      // Initialize OneSignal using the new v16 API
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      window.OneSignalDeferred.push(async function(OneSignal: any) {
+        await OneSignal.init({
           appId: ONESIGNAL_APP_ID,
-          safari_web_id: 'web.onesignal.auto.safari-id', // Replace with actual Safari Web ID
+          safari_web_id: 'web.onesignal.auto.54cd441e-7f12-4aed-9845-f98eb5c10ecb',
           allowLocalhostAsSecureOrigin: true,
-          autoRegister: false,
         });
 
-        window.OneSignal.on('subscriptionChange', function(isSubscribed: boolean) {
-          setIsSubscribed(isSubscribed);
-          if (isSubscribed) {
+        // Check if already subscribed
+        const subscription = await OneSignal.User.PushSubscription.optedIn;
+        setIsSubscribed(subscription);
+
+        // Listen for subscription changes
+        OneSignal.User.PushSubscription.addEventListener('change', (event: any) => {
+          setIsSubscribed(event.current.optedIn);
+          if (event.current.optedIn) {
             saveSubscriptionToDatabase();
           }
         });
@@ -65,19 +69,19 @@ export const OneSignalProvider = ({ children }: { children: ReactNode }) => {
 
   const saveSubscriptionToDatabase = async () => {
     try {
-      const playerId = await window.OneSignal.getUserId();
-      if (!playerId) return;
+      window.OneSignalDeferred.push(async function(OneSignal: any) {
+        const playerId = OneSignal.User.PushSubscription.id;
+        if (!playerId) return;
 
-      const subscription = await window.OneSignal.getSubscription();
-      
-      await supabase.from('push_subscriptions').upsert({
-        user_id: user?.id || null,
-        subscription_id: playerId,
-        endpoint: subscription?.endpoint || '',
-        auth_key: subscription?.keys?.auth || null,
-        p256dh_key: subscription?.keys?.p256dh || null,
-        user_agent: navigator.userAgent,
-        is_active: true,
+        await supabase.from('push_subscriptions').upsert({
+          user_id: user?.id || null,
+          subscription_id: playerId,
+          endpoint: 'onesignal-endpoint',
+          auth_key: null,
+          p256dh_key: null,
+          user_agent: navigator.userAgent,
+          is_active: true,
+        });
       });
     } catch (error) {
       console.error('Failed to save subscription:', error);
@@ -88,7 +92,9 @@ export const OneSignalProvider = ({ children }: { children: ReactNode }) => {
     try {
       if (!isInitialized) return;
       
-      await window.OneSignal.showSlidedownPrompt();
+      window.OneSignalDeferred.push(async function(OneSignal: any) {
+        await OneSignal.Slidedown.promptPush();
+      });
     } catch (error) {
       console.error('Failed to subscribe:', error);
       toast({
@@ -101,8 +107,10 @@ export const OneSignalProvider = ({ children }: { children: ReactNode }) => {
 
   const unsubscribe = async () => {
     try {
-      await window.OneSignal.setSubscription(false);
-      setIsSubscribed(false);
+      window.OneSignalDeferred.push(async function(OneSignal: any) {
+        await OneSignal.User.PushSubscription.optOut();
+        setIsSubscribed(false);
+      });
     } catch (error) {
       console.error('Failed to unsubscribe:', error);
     }
@@ -153,9 +161,10 @@ export const useOneSignal = () => {
   return context;
 };
 
-// Type declarations for OneSignal
+// Type declarations for OneSignal v16
 declare global {
   interface Window {
     OneSignal: any;
+    OneSignalDeferred: any[];
   }
 }
