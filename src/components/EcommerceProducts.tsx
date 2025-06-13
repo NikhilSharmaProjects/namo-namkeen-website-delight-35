@@ -1,11 +1,10 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import ProductCard from './ProductCard';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, Filter, Zap, TrendingUp, Clock } from 'lucide-react';
+import { Search, Filter, Star, TrendingUp } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface Product {
@@ -77,8 +76,7 @@ const EcommerceProducts = () => {
     });
 
   const featuredProducts = products.filter(p => p.is_featured);
-  const flashSaleProducts = products.filter(p => p.discount_percentage > 15);
-  const newProducts = products.slice(0, 4);
+  const discountedProducts = products.filter(p => p.discount_percentage > 0);
 
   if (loading) {
     return (
@@ -109,32 +107,46 @@ const EcommerceProducts = () => {
   return (
     <section className="py-12 md:py-20 bg-gradient-to-br from-cream/30 via-white to-saffron/10">
       <div className="container mx-auto px-4">
-        {/* Header - Mobile optimized */}
+        {/* Header - Clean and Professional */}
         <div className="text-center mb-8 md:mb-12">
-          <Badge className="bg-chili text-white font-poppins mb-4 animate-pulse text-xs md:text-sm px-2 md:px-4 py-1 md:py-2">
-            🔥 FLASH SALE - Up to 30% OFF
+          <Badge className="bg-saffron text-white font-poppins mb-4 text-xs md:text-sm px-2 md:px-4 py-1 md:py-2">
+            ✨ Premium Quality Namkeen
           </Badge>
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold font-poppins text-warmBrown mb-4 md:mb-6 px-4">
-            Shop Premium Namkeen
+            Authentic Flavors from Indore
           </h2>
           <p className="text-lg md:text-xl text-warmBrown/80 max-w-3xl mx-auto font-merriweather px-4">
-            Discover authentic flavors of Indore with our premium quality namkeen collection
+            Discover our handcrafted namkeen collection made with traditional recipes and the finest ingredients
           </p>
         </div>
 
-        {/* Flash Sale Section - Mobile responsive */}
-        {flashSaleProducts.length > 0 && (
+        {/* Featured Products Section */}
+        {featuredProducts.length > 0 && (
           <div className="mb-8 md:mb-12">
-            <div className="bg-gradient-to-r from-chili to-red-600 text-white p-4 md:p-6 rounded-lg mb-6">
-              <div className="flex items-center justify-center gap-2 md:gap-3 mb-3 md:mb-4">
-                <Zap className="h-5 w-5 md:h-6 md:w-6 animate-pulse" />
-                <h3 className="text-xl md:text-2xl font-bold">⚡ FLASH SALE ⚡</h3>
-                <Zap className="h-5 w-5 md:h-6 md:w-6 animate-pulse" />
-              </div>
-              <p className="text-center text-sm md:text-lg">Limited time offers - Grab them before they're gone!</p>
+            <div className="flex items-center gap-3 mb-6">
+              <Star className="h-6 w-6 text-saffron" />
+              <h3 className="text-xl md:text-2xl font-bold text-warmBrown">Featured Products</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
-              {flashSaleProducts.slice(0, 4).map(product => (
+              {featuredProducts.slice(0, 4).map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Special Offers Section */}
+        {discountedProducts.length > 0 && (
+          <div className="mb-8 md:mb-12">
+            <div className="bg-gradient-to-r from-saffron/10 to-turmeric/10 p-4 md:p-6 rounded-lg mb-6">
+              <div className="flex items-center justify-center gap-2 md:gap-3 mb-3 md:mb-4">
+                <TrendingUp className="h-5 w-5 md:h-6 md:w-6 text-chili" />
+                <h3 className="text-xl md:text-2xl font-bold text-warmBrown">Special Offers</h3>
+              </div>
+              <p className="text-center text-sm md:text-lg text-warmBrown/70">Save on selected premium products</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
+              {discountedProducts.slice(0, 4).map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
@@ -197,7 +209,7 @@ const EcommerceProducts = () => {
                 <SelectItem value="featured" className="hover:bg-saffron/10">Featured First</SelectItem>
                 <SelectItem value="price-low" className="hover:bg-saffron/10">Price: Low to High</SelectItem>
                 <SelectItem value="price-high" className="hover:bg-saffron/10">Price: High to Low</SelectItem>
-                <SelectItem value="discount" className="hover:bg-saffron/10">Highest Discount</SelectItem>
+                <SelectItem value="discount" className="hover:bg-saffron/10">Best Offers</SelectItem>
                 <SelectItem value="name" className="hover:bg-saffron/10">Name A-Z</SelectItem>
               </SelectContent>
             </Select>
@@ -233,12 +245,6 @@ const EcommerceProducts = () => {
           <span>
             Showing {filteredProducts.length} of {products.length} products
           </span>
-          {filteredProducts.length > 0 && (
-            <div className="flex items-center gap-1">
-              <Clock className="h-4 w-4" />
-              <span>Updated just now</span>
-            </div>
-          )}
         </div>
 
         {/* Products Grid - Mobile-first responsive */}
@@ -275,7 +281,7 @@ const EcommerceProducts = () => {
           </div>
         )}
 
-        {/* Featured categories quick access */}
+        {/* Category quick access */}
         {filteredProducts.length > 0 && selectedCategory === 'All' && (
           <div className="mt-12 pt-8 border-t border-saffron/20">
             <h3 className="text-lg md:text-xl font-bold text-warmBrown mb-4 text-center">

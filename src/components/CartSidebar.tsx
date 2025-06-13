@@ -22,34 +22,11 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
 
   const formatPrice = (price: number) => `₹${(price / 100).toFixed(2)}`;
 
-  if (!user) {
-    return (
-      <div className={`fixed inset-0 z-50 ${isOpen ? 'block' : 'hidden'}`}>
-        <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-        <div className="absolute right-0 top-0 h-full w-80 bg-white shadow-xl transform transition-transform duration-300">
-          <div className="p-4 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-warmBrown">Shopping Cart</h2>
-              <Button variant="ghost" size="sm" onClick={onClose}>
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-          
-          <div className="p-4 text-center">
-            <ShoppingBag className="h-16 w-16 text-warmBrown/30 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-warmBrown mb-2">Please Login</h3>
-            <p className="text-warmBrown/70 mb-4">You need to login to view your cart</p>
-            <Link to="/auth">
-              <Button className="bg-saffron hover:bg-saffron/90 text-white">
-                Login Now
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const getItemId = (item: any, index: number) => {
+    // For guest users, create a unique ID from product_id and size
+    // For logged-in users, use the database ID
+    return 'id' in item ? item.id : `${item.product_id}-${item.size}`;
+  };
 
   return (
     <div className={`fixed inset-0 z-50 ${isOpen ? 'block' : 'hidden'}`}>
@@ -80,13 +57,15 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
               </Button>
             </div>
           ) : (
-            items.map((item) => {
+            items.map((item, index) => {
               const price = item.size === '250g' ? item.product.price_250g :
                           item.size === '500g' ? item.product.price_500g :
                           item.product.price_1kg;
               
+              const itemId = getItemId(item, index);
+              
               return (
-                <div key={item.id} className="border rounded-lg p-3 space-y-2">
+                <div key={itemId} className="border rounded-lg p-3 space-y-2">
                   <div className="flex gap-3">
                     <img
                       src={item.product.image_url}
@@ -105,7 +84,7 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => removeFromCart(itemId)}
                       className="text-red-500 hover:text-red-700"
                     >
                       <X className="h-4 w-4" />
@@ -117,7 +96,7 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        onClick={() => updateQuantity(itemId, item.quantity - 1)}
                         className="h-6 w-6 p-0"
                       >
                         <Minus className="h-3 w-3" />
@@ -126,7 +105,7 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        onClick={() => updateQuantity(itemId, item.quantity + 1)}
                         className="h-6 w-6 p-0"
                       >
                         <Plus className="h-3 w-3" />
@@ -179,9 +158,17 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
               </div>
             </div>
 
+            {/* Guest checkout notice */}
+            {!user && (
+              <div className="bg-blue-50 p-3 rounded-lg text-sm text-blue-700">
+                <p className="font-medium mb-1">Continue as Guest</p>
+                <p>No account needed! You can checkout directly or <Link to="/auth" className="underline">login</Link> for order tracking.</p>
+              </div>
+            )}
+
             <Link to="/checkout">
               <Button className="w-full bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90 text-white font-semibold py-3 transform hover:scale-105 transition-all duration-300">
-                Proceed to Checkout
+                {user ? 'Proceed to Checkout' : 'Continue as Guest'}
               </Button>
             </Link>
           </div>
