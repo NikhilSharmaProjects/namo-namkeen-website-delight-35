@@ -9,6 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admin_notifications: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          id: string
+          image_url: string | null
+          message: string
+          recipient_count: number | null
+          sent_at: string | null
+          target_url: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          image_url?: string | null
+          message: string
+          recipient_count?: number | null
+          sent_at?: string | null
+          target_url?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          image_url?: string | null
+          message?: string
+          recipient_count?: number | null
+          sent_at?: string | null
+          target_url?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
       cart_items: {
         Row: {
           created_at: string | null
@@ -142,6 +178,7 @@ export type Database = {
           phone: string
           shipping_address: string
           status: string
+          status_updated_at: string | null
           total_amount: number
           updated_at: string | null
           user_id: string | null
@@ -153,6 +190,7 @@ export type Database = {
           phone: string
           shipping_address: string
           status?: string
+          status_updated_at?: string | null
           total_amount: number
           updated_at?: string | null
           user_id?: string | null
@@ -164,6 +202,7 @@ export type Database = {
           phone?: string
           shipping_address?: string
           status?: string
+          status_updated_at?: string | null
           total_amount?: number
           updated_at?: string | null
           user_id?: string | null
@@ -260,6 +299,45 @@ export type Database = {
           pincode?: string | null
           state?: string | null
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          auth_key: string | null
+          created_at: string | null
+          endpoint: string
+          id: string
+          is_active: boolean | null
+          p256dh_key: string | null
+          subscription_id: string
+          updated_at: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          auth_key?: string | null
+          created_at?: string | null
+          endpoint: string
+          id?: string
+          is_active?: boolean | null
+          p256dh_key?: string | null
+          subscription_id: string
+          updated_at?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          auth_key?: string | null
+          created_at?: string | null
+          endpoint?: string
+          id?: string
+          is_active?: boolean | null
+          p256dh_key?: string | null
+          subscription_id?: string
+          updated_at?: string | null
+          user_agent?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }

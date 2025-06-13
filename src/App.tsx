@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { CartProvider } from "@/hooks/useCart";
+import { OneSignalProvider } from "@/hooks/useOneSignal";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import AboutUs from "./pages/AboutUs";
@@ -14,7 +15,9 @@ import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
 import Checkout from "./pages/Checkout";
 import OrderSuccess from "./pages/OrderSuccess";
+import MyOrders from "./pages/MyOrders";
 import NotFound from "./pages/NotFound";
+import NotificationBanner from "./components/NotificationBanner";
 
 const queryClient = new QueryClient();
 
@@ -23,21 +26,25 @@ const App = () => (
     <TooltipProvider>
       <AuthProvider>
         <CartProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/order-success" element={<OrderSuccess />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+          <OneSignalProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/order-success" element={<OrderSuccess />} />
+                <Route path="/my-orders" element={<MyOrders />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <NotificationBanner />
+            </BrowserRouter>
+          </OneSignalProvider>
         </CartProvider>
       </AuthProvider>
     </TooltipProvider>

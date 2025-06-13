@@ -85,6 +85,36 @@ const Checkout = () => {
 
       if (itemsError) throw itemsError;
 
+      // Send notification to admin about new order
+      try {
+        await supabase.functions.invoke('send-order-notification', {
+          body: {
+            type: 'new_order',
+            orderId: order.id,
+            customerName: formData.fullName,
+            total: finalTotal,
+            items: orderItems,
+          },
+        });
+      } catch (notificationError) {
+        console.error('Failed to send admin notification:', notificationError);
+        // Don't fail the order if notification fails
+      }
+
+      // Send confirmation to customer
+      try {
+        await supabase.functions.invoke('send-order-notification', {
+          body: {
+            type: 'order_confirmed',
+            orderId: order.id,
+            customerName: formData.fullName,
+          },
+        });
+      } catch (notificationError) {
+        console.error('Failed to send customer notification:', notificationError);
+        // Don't fail the order if notification fails
+      }
+
       // Clear cart
       await clearCart();
 

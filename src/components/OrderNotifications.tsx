@@ -73,6 +73,23 @@ const OrderNotifications = ({ newOrderCount, onClearNotifications }: OrderNotifi
 
       if (error) throw error;
 
+      // Send notification for status updates
+      if (newStatus === 'shipped') {
+        await supabase.functions.invoke('send-order-notification', {
+          body: {
+            type: 'out_for_delivery',
+            orderId: orderId,
+          },
+        });
+      } else if (newStatus === 'delivered') {
+        await supabase.functions.invoke('send-order-notification', {
+          body: {
+            type: 'delivered',
+            orderId: orderId,
+          },
+        });
+      }
+
       toast({ title: 'Success', description: 'Order status updated successfully' });
       fetchOrders();
     } catch (error) {
