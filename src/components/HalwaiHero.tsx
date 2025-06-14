@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Sparkles } from 'lucide-react';
@@ -24,10 +23,20 @@ const HalwaiHero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-cream via-white to-saffron/10 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 decorative-pattern opacity-30"></div>
-      
+    <section className="relative min-h-screen bg-gradient-yellow overflow-hidden">
+      {/* Parallax BG (actual image) */}
+      <div className="absolute inset-0">
+        <div className="parallax-bg w-full h-full">
+          <img
+            src="/lovable-uploads/6ff54ce7-124d-4ddd-8fa0-4cbc0e15ab66.png"
+            alt=""
+            className="object-cover opacity-5 w-full h-full pointer-events-none"
+            style={{ willChange: 'transform', zIndex: 0 }}
+          />
+        </div>
+        <div className="decorative-pattern absolute inset-0 opacity-20"></div>
+      </div>
+
       {/* Hero Content Container */}
       <div className="container mx-auto px-4 pt-24 pb-12 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between min-h-[calc(100vh-6rem)]">
@@ -35,7 +44,8 @@ const HalwaiHero = () => {
           {/* Left Content - Text */}
           <div className="flex-1 text-center lg:text-left lg:pr-12 mb-8 lg:mb-0 order-2 lg:order-1">
             <div className="space-y-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-poppins text-warmBrown leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-poppins text-warmBrown leading-tight flex items-center gap-3">
+                <img src="/logo.png" alt="Logo" className="h-10 w-10 mr-2 hidden md:inline rounded-full shadow-lg" />
                 <span className="block halwai-text-glow">Welcome to</span>
                 <span className="block text-saffron spice-text">NAMO NAMKEEN</span>
               </h1>
@@ -73,10 +83,10 @@ const HalwaiHero = () => {
               
               {/* Character Image */}
               <div className="relative">
-                <img 
-                  src="/lovable-uploads/6ff54ce7-124d-4ddd-8fa0-4cbc0e15ab66.png"
-                  alt="Namo Namkeen Halwai Character"
-                  className="halwai-character w-full h-auto relative z-20 drop-shadow-2xl"
+                <img
+                  src="/logo.png"
+                  alt="Namo Namkeen Logo"
+                  className="halwai-character w-full h-auto relative z-20 drop-shadow-2xl rounded-full bg-white ring-2 ring-saffron"
                 />
                 
                 {/* Interactive hand area for hover effects */}
@@ -87,7 +97,10 @@ const HalwaiHero = () => {
               {showWelcome && (
                 <div className="absolute top-16 left-4 lg:left-8 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border-2 border-saffron/30 animate-fade-in z-30 max-w-xs">
                   <div className="text-warmBrown font-merriweather text-sm">
-                    <p className="font-bold text-saffron mb-1">Namaste! 🙏</p>
+                    <p className="font-bold text-saffron mb-1 flex gap-2 items-center">
+                      <img src="/logo.png" alt="Mini logo" className="w-5 h-5 rounded-full" />
+                      Namaste! 🙏
+                    </p>
                     <p>Welcome to our traditional namkeen shop. Try our authentic Indore specialties!</p>
                   </div>
                   <div className="absolute -bottom-2 left-6 w-4 h-4 bg-white/95 transform rotate-45 border-r border-b border-saffron/30"></div>
@@ -107,8 +120,8 @@ const HalwaiHero = () => {
       </div>
       
       {/* Bottom Wave Separator */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" className="w-full h-auto text-white/50">
+      <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none">
+        <svg viewBox="0 0 1440 120" className="w-full h-auto text-white/70">
           <path fill="currentColor" d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
         </svg>
       </div>
