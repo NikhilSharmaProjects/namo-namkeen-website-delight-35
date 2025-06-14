@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,24 +13,24 @@
     --popover: 255 255 255;
     --popover-foreground: 139 69 19;
 
-    --primary: 255 153 51; /* Saffron */
-    --primary-foreground: 255 255 255;
+    --primary: 255 214 102; /* Lighter Saffron */
+    --primary-foreground: 139 69 19;
 
-    --secondary: 244 162 97; /* Turmeric */
+    --secondary: 255 237 179; /* Lighter Turmeric */
     --secondary-foreground: 139 69 19;
 
-    --muted: 248 240 220;
+    --muted: 254 243 199;
     --muted-foreground: 139 69 19;
 
-    --accent: 231 111 81; /* Chili */
+    --accent: 231 111 81;
     --accent-foreground: 255 255 255;
 
     --destructive: 231 111 81;
     --destructive-foreground: 255 255 255;
 
-    --border: 244 162 97;
-    --input: 244 162 97;
-    --ring: 255 153 51;
+    --border: 255 214 102;
+    --input: 255 214 102;
+    --ring: 255 214 102;
 
     --radius: 0.5rem;
 
@@ -557,4 +556,12 @@
   .products-grid {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+/* Background colors for specific elements */
+.bg-saffron,
+.bg-primary, 
+.bg-yellow-custom {
+  background: linear-gradient(90deg, #ffd666 0%, #fff5cc 100%);
+  color: #8B4513;
 }

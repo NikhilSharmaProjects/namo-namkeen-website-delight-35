@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -49,7 +48,6 @@ const Checkout = () => {
     setLoading(true);
     
     try {
-      // Create order in database
       const orderData = {
         user_id: user?.id || null,
         total_amount: finalTotal,
@@ -59,13 +57,20 @@ const Checkout = () => {
         payment_method: formData.paymentMethod
       };
 
+      // Diagnostics: log orderData
+      console.log("Submitting order:", orderData);
+
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert(orderData)
         .select()
         .single();
 
-      if (orderError) throw orderError;
+      if (orderError) {
+        console.error("Order DB error", orderError);
+        toast({ title: 'Order Error', description: orderError.message, variant: 'destructive' });
+        return;
+      }
 
       // Create order items
       const orderItems = items.map(item => ({
@@ -83,9 +88,13 @@ const Checkout = () => {
         .from('order_items')
         .insert(orderItems);
 
-      if (itemsError) throw itemsError;
+      if (itemsError) {
+        toast({ title: 'Problem creating order items', description: itemsError.message, variant: 'destructive' });
+        console.error("Order items error", itemsError);
+        return;
+      }
 
-      // Send notification to admin about new order
+      // Send notifications as before...
       try {
         await supabase.functions.invoke('send-order-notification', {
           body: {
@@ -98,10 +107,8 @@ const Checkout = () => {
         });
       } catch (notificationError) {
         console.error('Failed to send admin notification:', notificationError);
-        // Don't fail the order if notification fails
       }
 
-      // Send confirmation to customer
       try {
         await supabase.functions.invoke('send-order-notification', {
           body: {
@@ -112,12 +119,9 @@ const Checkout = () => {
         });
       } catch (notificationError) {
         console.error('Failed to send customer notification:', notificationError);
-        // Don't fail the order if notification fails
       }
 
-      // Clear cart
       await clearCart();
-
       toast({ 
         title: 'Order Placed Successfully!', 
         description: `Order #${order.id.slice(-8)} has been confirmed.` 
@@ -130,12 +134,11 @@ const Checkout = () => {
           total: finalTotal 
         } 
       });
-
-    } catch (error) {
+    } catch (error: any) {
       console.error('Order creation error:', error);
       toast({ 
         title: 'Order Failed', 
-        description: 'Something went wrong. Please try again.', 
+        description: error.message || 'Something went wrong. Please try again.', 
         variant: 'destructive' 
       });
     } finally {
@@ -145,7 +148,7 @@ const Checkout = () => {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-yellow-50 to-white flex items-center justify-center">
         <Card className="w-full max-w-md text-center">
           <CardContent className="pt-6">
             <h2 className="text-xl font-bold text-warmBrown mb-4">Your cart is empty</h2>
@@ -159,16 +162,16 @@ const Checkout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-yellow-50 to-white py-8">
       <div className="container mx-auto px-4 max-w-6xl">
-        <h1 className="text-3xl font-bold text-warmBrown mb-8 text-center">Checkout</h1>
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent mb-8 text-center">Checkout</h1>
         
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Order Form */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Truck className="h-5 w-5" />
+              <CardTitle className="flex items-center gap-2 text-yellow-900">
+                <Truck className="h-5 w-5 text-yellow-700" />
                 Delivery Information
               </CardTitle>
             </CardHeader>
@@ -288,9 +291,9 @@ const Checkout = () => {
           </Card>
 
           {/* Order Summary */}
-          <Card className="h-fit">
+          <Card className="h-fit bg-gradient-to-tr from-yellow-100 via-yellow-50 to-white shadow-lg">
             <CardHeader>
-              <CardTitle>Order Summary</CardTitle>
+              <CardTitle className="text-yellow-900">Order Summary</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Order Items */}
@@ -340,8 +343,8 @@ const Checkout = () => {
               </div>
 
               {/* Security Badge */}
-              <div className="flex items-center gap-2 text-sm text-gray-600 bg-green-50 p-3 rounded-lg">
-                <Lock className="h-4 w-4 text-green-600" />
+              <div className="flex items-center gap-2 text-sm text-yellow-900 bg-yellow-50 p-3 rounded-lg">
+                <Lock className="h-4 w-4 text-yellow-700" />
                 <span>Your payment information is secure and encrypted</span>
               </div>
 
