@@ -83,14 +83,14 @@ const HalwaiHero = () => {
                 <div className="halwai-hand-area absolute top-1/4 right-1/4 w-20 h-20 z-30"></div>
               </div>
               
-              {/* Welcome Speech Bubble */}
+              {/* Welcome Speech Bubble - Improved mobile positioning */}
               {showWelcome && (
-                <div className="absolute top-16 left-4 lg:left-8 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border-2 border-saffron/30 animate-fade-in z-30 max-w-xs">
-                  <div className="text-warmBrown font-merriweather text-sm">
+                <div className="absolute top-4 md:top-16 left-2 md:left-4 lg:left-8 bg-white/95 backdrop-blur-sm rounded-2xl p-3 md:p-4 shadow-xl border-2 border-saffron/30 animate-fade-in z-30 max-w-[280px] md:max-w-xs">
+                  <div className="text-warmBrown font-merriweather text-xs md:text-sm">
                     <p className="font-bold text-saffron mb-1">Namaste! 🙏</p>
                     <p>Welcome to our traditional namkeen shop. Try our authentic Indore specialties!</p>
                   </div>
-                  <div className="absolute -bottom-2 left-6 w-4 h-4 bg-white/95 transform rotate-45 border-r border-b border-saffron/30"></div>
+                  <div className="absolute -bottom-2 left-4 md:left-6 w-4 h-4 bg-white/95 transform rotate-45 border-r border-b border-saffron/30"></div>
                 </div>
               )}
               

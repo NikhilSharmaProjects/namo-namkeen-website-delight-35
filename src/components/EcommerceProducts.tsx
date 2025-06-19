@@ -31,7 +31,7 @@ const EcommerceProducts = () => {
   const [sortBy, setSortBy] = useState('featured');
   const [showFilters, setShowFilters] = useState(false);
 
-  const categories = ['All', 'Super Products', 'Premium Products', 'Shudh Satwik', 'Falahari Products'];
+  const categories = ['All', 'Premium Products', 'Shudh Satwik', 'Falahari Products'];
 
   useEffect(() => {
     fetchProducts();
@@ -105,7 +105,7 @@ const EcommerceProducts = () => {
   }
 
   return (
-    <section className="py-12 md:py-20 bg-gradient-to-br from-cream/30 via-white to-saffron/10">
+    <section className="py-12 md:py-20 bg-gradient-to-br from-cream/30 via-white to-saffron/10 relative z-10">
       <div className="container mx-auto px-4">
         {/* Header - Clean and Professional */}
         <div className="text-center mb-8 md:mb-12">
@@ -154,7 +154,7 @@ const EcommerceProducts = () => {
         )}
 
         {/* Enhanced Search and Filters - Mobile-first */}
-        <div className="mb-6 md:mb-8">
+        <div className="mb-6 md:mb-8 relative z-20">
           {/* Mobile filter toggle */}
           <div className="md:hidden mb-4">
             <button
@@ -172,7 +172,7 @@ const EcommerceProducts = () => {
           </div>
 
           {/* Filters container - responsive */}
-          <div className={`${showFilters ? 'block' : 'hidden'} md:block space-y-4 md:space-y-0 md:flex md:gap-4 bg-white/70 backdrop-blur-sm p-4 rounded-lg border border-saffron/20`}>
+          <div className={`${showFilters ? 'block' : 'hidden'} md:block space-y-4 md:space-y-0 md:flex md:gap-4 bg-white/70 backdrop-blur-sm p-4 rounded-lg border border-saffron/20 relative z-30`}>
             {/* Search */}
             <div className="relative flex-1">
               <Search className="absolute left-3 top-3 h-4 w-4 text-warmBrown/50" />
@@ -190,7 +190,7 @@ const EcommerceProducts = () => {
                 <Filter className="h-4 w-4 mr-2" />
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-white border-saffron/30">
+              <SelectContent className="bg-white border-saffron/30 z-50">
                 {categories.map(category => (
                   <SelectItem key={category} value={category} className="hover:bg-saffron/10">
                     {category}
@@ -205,7 +205,7 @@ const EcommerceProducts = () => {
                 <TrendingUp className="h-4 w-4 mr-2" />
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-white border-saffron/30">
+              <SelectContent className="bg-white border-saffron/30 z-50">
                 <SelectItem value="featured" className="hover:bg-saffron/10">Featured First</SelectItem>
                 <SelectItem value="price-low" className="hover:bg-saffron/10">Price: Low to High</SelectItem>
                 <SelectItem value="price-high" className="hover:bg-saffron/10">Price: High to Low</SelectItem>
@@ -248,7 +248,7 @@ const EcommerceProducts = () => {
         </div>
 
         {/* Products Grid - Mobile-first responsive */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 relative z-10">
           {filteredProducts.map((product, index) => (
             <div
               key={product.id}
