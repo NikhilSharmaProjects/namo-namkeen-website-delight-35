@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -9,9 +8,9 @@ const EnhancedHero = () => {
 
     useEffect(() => {
         const handleScroll = () => setScrollY(window.scrollY);
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener("scroll", handleScroll);
         setIsVisible(true);
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     return (
@@ -21,31 +20,49 @@ const EnhancedHero = () => {
         >
             {/* Animated background elements */}
             <div className="absolute inset-0">
-                <div 
+                <div
                     className="absolute top-20 left-10 w-32 h-32 bg-saffron/10 rounded-full animate-float"
                     style={{ transform: `translateY(${scrollY * 0.2}px)` }}
                 ></div>
-                <div 
+                <div
                     className="absolute bottom-20 right-10 w-40 h-40 bg-turmeric/10 rounded-full animate-float"
-                    style={{ transform: `translateY(${scrollY * 0.15}px)`, animationDelay: '1s' }}
+                    style={{
+                        transform: `translateY(${scrollY * 0.15}px)`,
+                        animationDelay: "1s",
+                    }}
                 ></div>
-                <div 
+                <div
                     className="absolute top-1/2 left-1/4 w-20 h-20 bg-chili/10 rounded-full animate-float"
-                    style={{ transform: `translateY(${scrollY * 0.3}px)`, animationDelay: '2s' }}
+                    style={{
+                        transform: `translateY(${scrollY * 0.3}px)`,
+                        animationDelay: "2s",
+                    }}
                 ></div>
             </div>
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                     {/* Left Content */}
-                    <div className={`space-y-6 lg:space-y-8 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                    <div
+                        className={`space-y-6 lg:space-y-8 transform transition-all duration-1000 ${
+                            isVisible
+                                ? "translate-y-0 opacity-100"
+                                : "translate-y-10 opacity-1"
+                        }`}
+                    >
                         <div className="space-y-4">
                             <div className="flex items-center gap-2 text-saffron justify-center lg:justify-start">
-                                <Star className="fill-current animate-pulse" size={20} />
+                                <Star
+                                    className="fill-current animate-pulse"
+                                    size={20}
+                                />
                                 <span className="font-poppins font-medium text-sm sm:text-base">
                                     Premium Quality Since 1990
                                 </span>
-                                <Star className="fill-current animate-pulse" size={20} />
+                                <Star
+                                    className="fill-current animate-pulse"
+                                    size={20}
+                                />
                             </div>
 
                             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold font-poppins text-warmBrown leading-tight text-center lg:text-left">
@@ -88,12 +105,14 @@ const EnhancedHero = () => {
                             {[
                                 { number: "30+", label: "Years of Trust" },
                                 { number: "50+", label: "Product Varieties" },
-                                { number: "1000+", label: "Happy Families" }
+                                { number: "1000+", label: "Happy Families" },
                             ].map((stat, index) => (
-                                <div 
+                                <div
                                     key={stat.label}
                                     className="text-center hover:scale-110 transition-transform duration-300 cursor-pointer"
-                                    style={{ animationDelay: `${index * 0.2}s` }}
+                                    style={{
+                                        animationDelay: `${index * 0.2}s`,
+                                    }}
                                 >
                                     <div className="text-2xl sm:text-3xl font-bold font-poppins text-warmBrown hover:text-saffron transition-colors">
                                         {stat.number}
@@ -176,10 +195,16 @@ const EnhancedHero = () => {
 
                         {/* Background decorative elements */}
                         <div className="absolute inset-0 decorative-pattern opacity-20 rounded-3xl"></div>
-                        
+
                         {/* Floating spice elements */}
-                        <div className="absolute top-10 right-10 w-6 h-6 bg-chili rounded-full animate-float opacity-60" style={{ animationDelay: "0.5s" }}></div>
-                        <div className="absolute bottom-20 left-10 w-4 h-4 bg-turmeric rounded-full animate-float opacity-60" style={{ animationDelay: "1.5s" }}></div>
+                        <div
+                            className="absolute top-10 right-10 w-6 h-6 bg-chili rounded-full animate-float opacity-60"
+                            style={{ animationDelay: "0.5s" }}
+                        ></div>
+                        <div
+                            className="absolute bottom-20 left-10 w-4 h-4 bg-turmeric rounded-full animate-float opacity-60"
+                            style={{ animationDelay: "1.5s" }}
+                        ></div>
                     </div>
                 </div>
             </div>
