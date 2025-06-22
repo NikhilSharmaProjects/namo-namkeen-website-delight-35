@@ -45,6 +45,41 @@ export type Database = {
         }
         Relationships: []
       }
+      admin_notifications_realtime: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          message: string
+          order_id: string | null
+          type: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          order_id?: string | null
+          type: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          order_id?: string | null
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_notifications_realtime_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cart_items: {
         Row: {
           created_at: string | null
@@ -170,9 +205,50 @@ export type Database = {
           },
         ]
       }
+      order_otps: {
+        Row: {
+          created_at: string | null
+          expires_at: string
+          id: string
+          is_verified: boolean | null
+          order_id: string | null
+          otp_code: string
+          verified_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at: string
+          id?: string
+          is_verified?: boolean | null
+          order_id?: string | null
+          otp_code: string
+          verified_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string
+          id?: string
+          is_verified?: boolean | null
+          order_id?: string | null
+          otp_code?: string
+          verified_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_otps_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       orders: {
         Row: {
           created_at: string | null
+          delivered_at: string | null
+          delivery_otp_required: boolean | null
+          delivery_otp_verified: boolean | null
           id: string
           payment_method: string | null
           phone: string
@@ -185,6 +261,9 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          delivered_at?: string | null
+          delivery_otp_required?: boolean | null
+          delivery_otp_verified?: boolean | null
           id?: string
           payment_method?: string | null
           phone: string
@@ -197,6 +276,9 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          delivered_at?: string | null
+          delivery_otp_required?: boolean | null
+          delivery_otp_verified?: boolean | null
           id?: string
           payment_method?: string | null
           phone?: string
@@ -346,7 +428,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_delivery_otp: {
+        Args: { order_uuid: string }
+        Returns: string
+      }
+      verify_delivery_otp: {
+        Args: { order_uuid: string; provided_otp: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never

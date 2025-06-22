@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,7 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Shield, User, Lock } from 'lucide-react';
-import AdminDashboard from '@/components/AdminDashboard';
+import EnhancedAdminDashboard from '@/components/EnhancedAdminDashboard';
+import { RealtimeNotificationsProvider } from '@/hooks/useRealtimeNotifications';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -51,7 +51,11 @@ const Admin = () => {
   };
 
   if (isAuthenticated) {
-    return <AdminDashboard onLogout={handleLogout} />;
+    return (
+      <RealtimeNotificationsProvider>
+        <EnhancedAdminDashboard onLogout={handleLogout} />
+      </RealtimeNotificationsProvider>
+    );
   }
 
   return (
@@ -61,8 +65,8 @@ const Admin = () => {
           <div className="mx-auto w-16 h-16 bg-gradient-to-r from-saffron to-turmeric rounded-full flex items-center justify-center mb-4">
             <Shield className="h-8 w-8 text-white" />
           </div>
-          <CardTitle className="text-2xl font-bold text-warmBrown">Admin Access</CardTitle>
-          <p className="text-warmBrown/70">Secure login for Namo Namkeen administration</p>
+          <CardTitle className="text-2xl font-bold text-warmBrown">Admin Access Pro</CardTitle>
+          <p className="text-warmBrown/70">Advanced E-commerce Management System</p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
@@ -109,7 +113,7 @@ const Admin = () => {
               disabled={loading}
               className="w-full bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90 text-white font-bold py-3"
             >
-              {loading ? 'Authenticating...' : 'Login to Dashboard'}
+              {loading ? 'Authenticating...' : 'Access Dashboard Pro'}
             </Button>
           </form>
         </CardContent>

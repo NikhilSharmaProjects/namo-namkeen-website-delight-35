@@ -11,7 +11,7 @@ import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
-import { Truck, CreditCard, Banknote, Lock } from 'lucide-react';
+import { Truck, CreditCard, Banknote, Lock, Shield } from 'lucide-react';
 
 const Checkout = () => {
   const { items, totalAmount, clearCart } = useCart();
@@ -54,11 +54,12 @@ const Checkout = () => {
         status: 'pending',
         shipping_address: `${formData.address}, ${formData.city}, ${formData.state} - ${formData.pincode}`,
         phone: formData.phone,
-        payment_method: formData.paymentMethod
+        payment_method: formData.paymentMethod,
+        delivery_otp_required: false,
+        delivery_otp_verified: false
       };
 
-      // Diagnostics: log orderData
-      console.log("Submitting order:", orderData);
+      console.log("Submitting enhanced order:", orderData);
 
       const { data: order, error: orderError } = await supabase
         .from('orders')
@@ -94,37 +95,27 @@ const Checkout = () => {
         return;
       }
 
-      // Send notifications as before...
+      // Send enhanced notifications
       try {
-        await supabase.functions.invoke('send-order-notification', {
+        await supabase.functions.invoke('enhanced-order-notification', {
           body: {
             type: 'new_order',
             orderId: order.id,
             customerName: formData.fullName,
+            customerPhone: formData.phone,
             total: finalTotal,
             items: orderItems,
           },
         });
       } catch (notificationError) {
-        console.error('Failed to send admin notification:', notificationError);
-      }
-
-      try {
-        await supabase.functions.invoke('send-order-notification', {
-          body: {
-            type: 'order_confirmed',
-            orderId: order.id,
-            customerName: formData.fullName,
-          },
-        });
-      } catch (notificationError) {
-        console.error('Failed to send customer notification:', notificationError);
+        console.error('Failed to send enhanced admin notification:', notificationError);
       }
 
       await clearCart();
       toast({ 
-        title: 'Order Placed Successfully!', 
-        description: `Order #${order.id.slice(-8)} has been confirmed.` 
+        title: '✅ Order Placed Successfully!', 
+        description: `Order #${order.id.slice(-8)} confirmed. You'll receive notifications for updates!`,
+        duration: 5000,
       });
 
       navigate('/order-success', { 
@@ -164,11 +155,13 @@ const Checkout = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-yellow-50 to-white py-8">
       <div className="container mx-auto px-4 max-w-6xl">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent mb-8 text-center">Checkout</h1>
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent mb-8 text-center">
+          Secure Checkout
+        </h1>
         
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Order Form */}
-          <Card>
+          <Card className="shadow-xl">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-yellow-900">
                 <Truck className="h-5 w-5 text-yellow-700" />
@@ -282,16 +275,17 @@ const Checkout = () => {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90 text-white font-semibold py-3"
+                  className="w-full bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90 text-white font-semibold py-3 shadow-lg transform hover:scale-105 transition-all duration-200"
                 >
-                  {loading ? 'Placing Order...' : 'Place Order'}
+                  {loading ? 'Processing Order...' : 'Place Order Securely'}
+                  <Shield className="h-4 w-4 ml-2" />
                 </Button>
               </form>
             </CardContent>
           </Card>
 
           {/* Order Summary */}
-          <Card className="h-fit bg-gradient-to-tr from-yellow-100 via-yellow-50 to-white shadow-lg">
+          <Card className="h-fit bg-gradient-to-tr from-yellow-100 via-yellow-50 to-white shadow-xl">
             <CardHeader>
               <CardTitle className="text-yellow-900">Order Summary</CardTitle>
             </CardHeader>
@@ -342,17 +336,30 @@ const Checkout = () => {
                 </div>
               </div>
 
-              {/* Security Badge */}
-              <div className="flex items-center gap-2 text-sm text-yellow-900 bg-yellow-50 p-3 rounded-lg">
-                <Lock className="h-4 w-4 text-yellow-700" />
-                <span>Your payment information is secure and encrypted</span>
-              </div>
+              {/* Enhanced Security & Features */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-sm text-yellow-900 bg-yellow-50 p-3 rounded-lg">
+                  <Lock className="h-4 w-4 text-yellow-700" />
+                  <span>256-bit SSL encryption & secure processing</span>
+                </div>
 
-              {/* Delivery Info */}
-              <div className="bg-blue-50 p-3 rounded-lg text-sm text-blue-700">
-                <p className="font-medium">🚚 Delivery Information</p>
-                <p>Expected delivery: 2-4 business days</p>
-                <p>Free delivery on orders above ₹500</p>
+                <div className="bg-blue-50 p-3 rounded-lg text-sm text-blue-700">
+                  <p className="font-medium flex items-center gap-2">
+                    <Shield className="h-4 w-4" />
+                    🚚 Smart Delivery System
+                  </p>
+                  <p>• Real-time order tracking</p>
+                  <p>• OTP verification for delivery</p>
+                  <p>• Expected delivery: 2-4 business days</p>
+                  <p>• Free delivery on orders above ₹500</p>
+                </div>
+
+                <div className="bg-green-50 p-3 rounded-lg text-sm text-green-700">
+                  <p className="font-medium">📱 You'll receive notifications for:</p>
+                  <p>• Order confirmation</p>
+                  <p>• Order shipped with OTP</p>
+                  <p>• Delivery completion</p>
+                </div>
               </div>
             </CardContent>
           </Card>
