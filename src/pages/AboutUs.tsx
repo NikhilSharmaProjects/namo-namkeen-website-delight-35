@@ -45,7 +45,10 @@ const AboutUs = () => {
             className="w-full h-full object-cover rounded-full border-4 border-white/50"
           />
         </div>
-        <div className="absolute bottom-16 right-16 w-24 h-24 opacity-40 animate-float" style={{animationDelay: '2s'}}>
+        <div 
+          className="absolute bottom-16 right-16 w-24 h-24 opacity-40 animate-float" 
+          style={{ animationDelay: '2s' }}
+        >
           <img 
             src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=96&h=96&fit=crop&crop=center"
             alt="Traditional Ingredients"
@@ -80,7 +83,10 @@ const AboutUs = () => {
             className="w-full h-full object-cover rounded-full"
           />
         </div>
-        <div className="absolute bottom-20 left-8 w-14 h-14 opacity-20 animate-float" style={{animationDelay: '1.5s'}}>
+        <div 
+          className="absolute bottom-20 left-8 w-14 h-14 opacity-20 animate-float" 
+          style={{ animationDelay: '1.5s' }}
+        >
           <img 
             src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=56&h=56&fit=crop&crop=center"
             alt="Red Chili"
@@ -90,7 +96,7 @@ const AboutUs = () => {
       </div>
 
       <Footer />
-      <CartSidebar isOpen={isCartOpen} onClose={() setIsCartOpen(false)} />
+      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       <Toaster />
     </div>
   );
