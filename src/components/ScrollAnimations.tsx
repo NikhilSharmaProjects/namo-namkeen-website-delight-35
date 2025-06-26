@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 
 interface ScrollAnimationProps {
@@ -45,17 +44,17 @@ export const ScrollAnimation = ({
         if (!isVisible) {
             switch (direction) {
                 case "up":
-                    return `${baseClasses} translate-y-8 opacity-0`;
+                    return `${baseClasses} translate-y-8 opacity-1`;
                 case "down":
-                    return `${baseClasses} -translate-y-8 opacity-0`;
+                    return `${baseClasses} -translate-y-8 opacity-1`;
                 case "left":
-                    return `${baseClasses} translate-x-8 opacity-0`;
+                    return `${baseClasses} translate-x-8 opacity-1`;
                 case "right":
-                    return `${baseClasses} -translate-x-8 opacity-0`;
+                    return `${baseClasses} -translate-x-8 opacity-1`;
                 case "scale":
-                    return `${baseClasses} scale-95 opacity-0`;
+                    return `${baseClasses} scale-95 opacity-1`;
                 default:
-                    return `${baseClasses} translate-y-8 opacity-0`;
+                    return `${baseClasses} translate-y-8 opacity-1`;
             }
         }
 
@@ -101,58 +100,6 @@ export const ParallaxElement = ({
             style={{ transform: `translateY(${offset}px)` }}
         >
             {children}
-        </div>
-    );
-};
-
-// New component for floating food elements
-export const FloatingFoodElement = ({
-    src,
-    alt,
-    size = "w-16 h-16",
-    position,
-    animationDelay = "0s",
-}: {
-    src: string;
-    alt: string;
-    size?: string;
-    position: string;
-    animationDelay?: string;
-}) => {
-    return (
-        <div 
-            className={`absolute ${position} ${size} opacity-30 animate-float pointer-events-none`}
-            style={{ animationDelay }}
-        >
-            <img 
-                src={src}
-                alt={alt}
-                className="w-full h-full object-cover rounded-full border-2 border-white/40 shadow-lg"
-            />
-        </div>
-    );
-};
-
-// Component for image overlays with gradient
-export const ImageOverlay = ({
-    src,
-    alt,
-    className = "",
-    overlayColor = "from-black/30 to-black/60",
-}: {
-    src: string;
-    alt: string;
-    className?: string;
-    overlayColor?: string;
-}) => {
-    return (
-        <div className={`relative overflow-hidden ${className}`}>
-            <img 
-                src={src}
-                alt={alt}
-                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
-            />
-            <div className={`absolute inset-0 bg-gradient-to-br ${overlayColor}`}></div>
         </div>
     );
 };
