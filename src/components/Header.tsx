@@ -1,7 +1,8 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, User, Heart, Menu, X } from 'lucide-react';
+import { ShoppingCart, User, Menu, X, ExternalLink } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
@@ -35,7 +36,7 @@ const Header = ({ onCartClick }: HeaderProps) => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 md:w-12 md:h-12 bg-transparent rounded-full flex items-center justify-center shadow-lg">
-              <img src="/logo.png" alt="Logo namo namkeeen" />
+              <img src="/logo.png" alt="Namo Namkeen - Authentic Indore Snacks Logo" />
             </div>
             <div className="hidden sm:block">
               <h1 className="text-xl md:text-2xl font-bold text-warmBrown">Namo Namkeen</h1>
@@ -62,6 +63,26 @@ const Header = ({ onCartClick }: HeaderProps) => {
                 My Orders
               </Link>
             )}
+            
+            {/* External Links */}
+            <a 
+              href="https://www.fssai.gov.in/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-warmBrown/70 hover:text-saffron transition-colors font-medium text-sm flex items-center gap-1"
+            >
+              FSSAI
+              <ExternalLink className="w-3 h-3" />
+            </a>
+            <a 
+              href="https://www.mptourism.com/destination/indore" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-warmBrown/70 hover:text-saffron transition-colors font-medium text-sm flex items-center gap-1"
+            >
+              Indore Tourism
+              <ExternalLink className="w-3 h-3" />
+            </a>
           </nav>
 
           {/* Action Buttons */}
@@ -143,6 +164,30 @@ const Header = ({ onCartClick }: HeaderProps) => {
                   My Orders
                 </Link>
               )}
+              
+              {/* Mobile External Links */}
+              <div className="px-4 py-2 border-t border-saffron/10 mt-2">
+                <p className="text-xs text-warmBrown/60 mb-2">External Links:</p>
+                <a 
+                  href="https://www.fssai.gov.in/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block py-1 text-warmBrown/70 hover:text-saffron transition-colors text-sm flex items-center gap-1"
+                >
+                  FSSAI Certification
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+                <a 
+                  href="https://www.mptourism.com/destination/indore" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block py-1 text-warmBrown/70 hover:text-saffron transition-colors text-sm flex items-center gap-1"
+                >
+                  Visit Indore
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+              
               <button
                 onClick={() => {
                   handleAuthClick();
