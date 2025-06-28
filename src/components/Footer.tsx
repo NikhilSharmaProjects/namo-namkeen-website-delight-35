@@ -6,6 +6,7 @@ import {
     MapPin,
     Youtube,
     Twitter,
+    Linkedin,
 } from "lucide-react";
 
 const Footer = () => {
@@ -39,28 +40,25 @@ const Footer = () => {
 
                         <div className="flex gap-3">
                             <a
-                                href="#"
+                                href="https://www.facebook.com/share/18w47g6RQm/"
+                                target="_blank"
                                 className="bg-saffron hover:bg-saffron/80 p-2 rounded-full transition-all duration-300 hover:scale-110"
                             >
                                 <Facebook size={20} />
                             </a>
                             <a
-                                href="#"
+                                href="https://www.instagram.com/namo_india_namkeen/"
+                                target="_blank"
                                 className="bg-turmeric hover:bg-turmeric/80 p-2 rounded-full transition-all duration-300 hover:scale-110"
                             >
                                 <Instagram size={20} />
                             </a>
                             <a
-                                href="#"
-                                className="bg-chili hover:bg-chili/80 p-2 rounded-full transition-all duration-300 hover:scale-110"
-                            >
-                                <Youtube size={20} />
-                            </a>
-                            <a
-                                href="#"
+                                href="https://www.linkedin.com/in/namo-india-namkeen-84a50a371/"
+                                target="_blank"
                                 className="bg-saffron/80 hover:bg-saffron p-2 rounded-full transition-all duration-300 hover:scale-110"
                             >
-                                <Twitter size={20} />
+                                <Linkedin size={20} />
                             </a>
                         </div>
                     </div>
