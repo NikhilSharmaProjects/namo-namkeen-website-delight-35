@@ -74,7 +74,7 @@ const HalwaiHero = () => {
               {/* Character Image */}
               <div className="relative">
                 <img 
-                  src="/lovable-uploads/6ff54ce7-124d-4ddd-8fa0-4cbc0e15ab66.png"
+                  src="/images/6ff54ce7-124d-4ddd-8fa0-4cbc0e15ab66.png"
                   alt="Namo Namkeen Halwai Character"
                   className="halwai-character w-full h-auto relative z-20 drop-shadow-2xl"
                 />

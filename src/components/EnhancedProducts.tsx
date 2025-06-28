@@ -13,7 +13,7 @@ const EnhancedProducts = () => {
             title: "Super Products",
             description:
                 "Our signature namkeen collection with authentic flavors - Available in 250g, 500g & 1kg",
-            image: "/lovable-uploads/459acff4-e21f-412a-8b09-f514738497c2.png",
+            image: "/images/459acff4-e21f-412a-8b09-f514738497c2.png",
             products: [
                 "NAMO Ratlami Sev",
                 "NAMO Laung Sev",
@@ -35,7 +35,7 @@ const EnhancedProducts = () => {
             title: "Premium Products",
             description:
                 "Premium quality namkeen for special occasions - Available in 250gm & 500gm",
-            image: "/lovable-uploads/d98803fc-96ce-4d3c-b6cb-bcb5a29b037a.png",
+            image: "/images/d98803fc-96ce-4d3c-b6cb-bcb5a29b037a.png",
             products: [
                 "NAMO Premium Ratlami Sev",
                 "NAMO Premium Laung Sev",
@@ -57,7 +57,7 @@ const EnhancedProducts = () => {
             title: "Shudh Satwik",
             description:
                 "Pure vegetarian products made with Sunflower Oil (शुद्ध सूर्यफूली तेल से निर्मित) - Available in 250gm & 450gm",
-            image: "/lovable-uploads/725ea45c-9a80-4fc6-ab2e-910e37dfa760.png",
+            image: "/images/725ea45c-9a80-4fc6-ab2e-910e37dfa760.png",
             products: [
                 "NAMO Satwik Ratlami Sev",
                 "NAMO Satwik Laung Sev",
@@ -78,7 +78,7 @@ const EnhancedProducts = () => {
         {
             title: "Falahari Products",
             description: "Special fasting products for religious occasions",
-            image: "/lovable-uploads/e5b09dae-b7ba-479c-b73e-d76f591f9dac.png",
+            image: "/images/e5b09dae-b7ba-479c-b73e-d76f591f9dac.png",
             products: [
                 "NAMO Potato Chips",
                 "NAMO Banana Chips",
@@ -90,7 +90,7 @@ const EnhancedProducts = () => {
         {
             title: "Other Specialties",
             description: "Traditional snacks and regional delicacies",
-            image: "/lovable-uploads/e5b09dae-b7ba-479c-b73e-d76f591f9dac.png",
+            image: "/images/e5b09dae-b7ba-479c-b73e-d76f591f9dac.png",
             products: [
                 "NAMO Kachori",
                 "NAMO Samosa",
@@ -114,7 +114,7 @@ const EnhancedProducts = () => {
         {
             title: "Upcoming Sweets",
             description: "Best sweets coming soon from Namo Namkeen",
-            image: "/lovable-uploads/b8d5df4b-21c6-453d-afd1-90db0154a696.png",
+            image: "/images/b8d5df4b-21c6-453d-afd1-90db0154a696.png",
             products: ["Besan Ladoo", "Soan Papdi", "Rasgulla", "Gulab Jamun"],
             bgColor: "bg-gradient-to-br from-pink-50 to-red-100",
             badgeColor: "bg-pink-600",
