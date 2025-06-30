@@ -9,12 +9,13 @@
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     
+    <!-- Google Site Verification -->
     <meta name="google-site-verification" content="cbRXP4LoKCtzMZm3Wsu5-mJGnbOuTap5TCuUF35lQsc" />
     
-    <!-- Optimized SEO Title/Description -->
+    <!-- Default SEO (will be overridden by React Helmet) -->
     <title>Namo Namkeen — Authentic Indori Snacks Delivered Fresh</title>
     <meta name="description" content="Order authentic Indore namkeen online – Ratlami Sev, Bhujia, Khatta Meetha & more. Fresh, hygienic, no preservatives." />
-    <meta name="keywords" content="namkeen online, buy snack India, Indore namkeen, Ratlami sev, Khatta Meetha, Falahari, Mixture, Indian snacks, order namkeen delivery, Indori snacks online, spicy snacks, sweet snacks, snacks near me, chivda, chakli, samosa, bundi, navratna mixture, premium namkeen, snacks shop India, best namkeen online, namo namkeen, buy snacks online India" />
+    <meta name="keywords" content="namkeen online, buy snacks India, Indore namkeen, Ratlami sev, Khatta Meetha, Falahari, Mixture, Indian snacks, order namkeen delivery, Indori snacks online, spicy snacks, sweet snacks, snacks near me, chivda, chakli, samosa, bundi, navratna mixture, premium namkeen, snacks shop India, best namkeen online, namo namkeen, buy snacks online India" />
     <link rel="canonical" href="https://www.namoindianamkeen.com/" />
 
     <!-- Enhanced Open Graph for Facebook, WhatsApp, etc. -->
@@ -26,42 +27,79 @@
     <meta property="og:image" content="https://www.namoindianamkeen.com/logo.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_IN" />
 
     <!-- Enhanced Twitter Card SEO -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Namo Namkeen — Authentic Indori Snacks Delivered Fresh" />
     <meta name="twitter:description" content="Order authentic Indore namkeen online – Ratlami Sev, Bhujia, Khatta Meetha & more. Fresh, hygienic, no preservatives." />
     <meta name="twitter:image" content="https://www.namoindianamkeen.com/logo.png" />
+    <meta name="twitter:site" content="@namonamkeen" />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="author" content="Namo India Food Industries" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+    <meta name="revisit-after" content="7 days" />
+    
+    <!-- Geo Tags for Local SEO -->
+    <meta name="geo.region" content="IN-MP" />
+    <meta name="geo.placename" content="Indore" />
+    <meta name="geo.position" content="22.7196;75.8577" />
+    <meta name="ICBM" content="22.7196, 75.8577" />
 
     <!-- Enhanced JSON-LD Structured Data: Organization -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness", "FoodEstablishment"],
       "name": "Namo Namkeen",
       "alternateName": "Namo India Food Industries",
       "url": "https://www.namoindianamkeen.com/",
       "logo": "https://www.namoindianamkeen.com/logo.png",
+      "image": "https://www.namoindianamkeen.com/logo.png",
       "description": "Authentic Indore namkeen and traditional Indian snacks delivered fresh across India. Premium quality, no preservatives, traditional recipes since 1990.",
       "foundingDate": "1990",
+      "slogan": "स्वाद इंदौर का, विश्वास नमो का",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "65-A, Nagin Nagar",
         "addressLocality": "Indore",
         "addressRegion": "Madhya Pradesh",
+        "postalCode": "452001",
         "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "22.7196",
+        "longitude": "75.8577"
       },
       "contactPoint": [{
         "@type": "ContactPoint",
         "telephone": "+91-88238-18001",
         "contactType": "customer service",
         "areaServed": "IN",
-        "availableLanguage": ["en","hi"]
+        "availableLanguage": ["en","hi"],
+        "hoursAvailable": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
       }],
       "sameAs": [
-        "https://www.instagram.com/namo.namkeen",
-        "https://www.facebook.com/namo.namkeen"
-      ]
+        "https://www.instagram.com/namo_india_namkeen/",
+        "https://www.facebook.com/share/18w47g6RQm/",
+        "https://www.linkedin.com/in/namo-india-namkeen-84a50a371/"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "150",
+        "bestRating": "5"
+      },
+      "priceRange": "₹99 - ₹500"
     }
     </script>
     
@@ -91,13 +129,30 @@
         "seller": {
           "@type": "Organization",
           "name": "Namo Namkeen"
-        }
+        },
+        "validFrom": "2024-01-01",
+        "priceValidUntil": "2024-12-31"
       },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
-        "reviewCount": "150"
+        "reviewCount": "150",
+        "bestRating": "5"
       }
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.namoindianamkeen.com/"
+      }]
     }
     </script>
     

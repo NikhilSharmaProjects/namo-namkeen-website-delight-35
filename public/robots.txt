@@ -1,3 +1,4 @@
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +13,12 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://www.namoindianamkeen.com/sitemap.xml
+
+# Crawl-delay for non-critical bots
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
