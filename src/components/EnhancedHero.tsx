@@ -57,7 +57,7 @@ const EnhancedHero = () => {
                                     size={20}
                                 />
                                 <span className="font-poppins font-medium text-sm sm:text-base">
-                                    Premium Quality Since 1990
+                                    Premium Quality Since 2021
                                 </span>
                                 <Star
                                     className="fill-current animate-pulse"

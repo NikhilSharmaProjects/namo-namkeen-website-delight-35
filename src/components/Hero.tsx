@@ -15,7 +15,7 @@ const Hero = () => {
                             <div className="flex items-center gap-2 text-saffron">
                                 <Star className="fill-current" size={20} />
                                 <span className="font-poppins font-medium">
-                                    Premium Quality Since 1990
+                                    Premium Quality Since 2021
                                 </span>
                                 <Star className="fill-current" size={20} />
                             </div>
