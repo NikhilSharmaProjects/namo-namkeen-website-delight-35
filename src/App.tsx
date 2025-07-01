@@ -14,6 +14,7 @@ import NotFound from '@/pages/NotFound';
 import ScrollToTop from '@/components/ScrollToTop';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from '@/hooks/useAuth';
+import { CartProvider } from '@/hooks/useCart';
 
 const queryClient = new QueryClient();
 
@@ -21,23 +22,25 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <BrowserRouter>
-          <div className="min-h-screen bg-background font-sans antialiased">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/order-success" element={<OrderSuccess />} />
-              <Route path="/my-orders" element={<MyOrders />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <ScrollToTop />
-          </div>
-        </BrowserRouter>
+        <CartProvider>
+          <BrowserRouter>
+            <div className="min-h-screen bg-background font-sans antialiased">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/order-success" element={<OrderSuccess />} />
+                <Route path="/my-orders" element={<MyOrders />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <ScrollToTop />
+            </div>
+          </BrowserRouter>
+        </CartProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
