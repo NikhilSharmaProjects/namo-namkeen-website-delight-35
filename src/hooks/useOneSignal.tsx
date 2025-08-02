@@ -14,7 +14,7 @@ interface OneSignalContextType {
 
 const OneSignalContext = createContext<OneSignalContextType | undefined>(undefined);
 
-const ONESIGNAL_APP_ID = 'ef329d29-6d7c-4ab0-a7bf-08e742f73123'; // Your OneSignal App ID
+const ONESIGNAL_APP_ID = 'b85267bb-4d74-4592-afa1-80699e7e4bc9'; // Your OneSignal App ID
 
 export const OneSignalProvider = ({ children }: { children: ReactNode }) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -44,7 +44,7 @@ export const OneSignalProvider = ({ children }: { children: ReactNode }) => {
       window.OneSignalDeferred.push(async function(OneSignal: any) {
         await OneSignal.init({
           appId: ONESIGNAL_APP_ID,
-          safari_web_id: 'web.onesignal.auto.54cd441e-7f12-4aed-9845-f98eb5c10ecb',
+          safari_web_id: 'web.onesignal.auto.5bb9a1c9-03c0-4629-b099-1bc8c9257be5',
           allowLocalhostAsSecureOrigin: true,
         });
 

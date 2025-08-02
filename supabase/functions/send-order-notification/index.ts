@@ -14,7 +14,7 @@ serve(async (req) => {
   try {
     const { type, orderId, customerName, total, items } = await req.json()
 
-    const ONESIGNAL_APP_ID = Deno.env.get('ONESIGNAL_APP_ID')
+    const ONESIGNAL_APP_ID = 'b85267bb-4d74-4592-afa1-80699e7e4bc9'
     const ONESIGNAL_REST_API_KEY = Deno.env.get('ONESIGNAL_REST_API_KEY')
 
     if (!ONESIGNAL_APP_ID || !ONESIGNAL_REST_API_KEY) {
