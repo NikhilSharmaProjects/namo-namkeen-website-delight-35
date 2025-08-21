@@ -55,6 +55,7 @@ const Checkout = () => {
         shipping_address: `${formData.address}, ${formData.city}, ${formData.state} - ${formData.pincode}`,
         phone: formData.phone,
         payment_method: formData.paymentMethod,
+        payment_status: 'pending',
         delivery_otp_required: false,
         delivery_otp_verified: false
       };
@@ -95,36 +96,85 @@ const Checkout = () => {
         return;
       }
 
-      // Send enhanced notifications
-      try {
-        await supabase.functions.invoke('enhanced-order-notification', {
-          body: {
-            type: 'new_order',
-            orderId: order.id,
-            customerName: formData.fullName,
-            customerPhone: formData.phone,
-            total: finalTotal,
-            items: orderItems,
-          },
-        });
-      } catch (notificationError) {
-        console.error('Failed to send enhanced admin notification:', notificationError);
+      // Handle PhonePe payment
+      if (formData.paymentMethod === 'phonepe') {
+        try {
+          const { data: phonePeResponse, error: phonePeError } = await supabase.functions.invoke('phonepe-initiate', {
+            body: {
+              orderId: order.id,
+              amount: finalTotal, // Amount in paise
+              customerInfo: {
+                userId: user?.id,
+                name: formData.fullName,
+                email: formData.email,
+                phone: formData.phone
+              }
+            }
+          });
+
+          if (phonePeError) {
+            throw new Error(`PhonePe Error: ${phonePeError.message}`);
+          }
+
+          if (phonePeResponse.success && phonePeResponse.redirectUrl) {
+            await clearCart();
+            toast({
+              title: 'Redirecting to PhonePe',
+              description: 'Please complete your payment securely',
+              duration: 3000,
+            });
+            
+            // Redirect to PhonePe
+            window.location.href = phonePeResponse.redirectUrl;
+            return;
+          } else {
+            throw new Error(phonePeResponse.error || 'Failed to initiate PhonePe payment');
+          }
+        } catch (phonePeError: any) {
+          console.error('PhonePe payment error:', phonePeError);
+          toast({
+            title: 'Payment Error',
+            description: phonePeError.message || 'Failed to initiate PhonePe payment. Please try again.',
+            variant: 'destructive'
+          });
+          return;
+        }
       }
 
-      await clearCart();
-      toast({ 
-        title: '✅ Order Placed Successfully!', 
-        description: `Order #${order.id.slice(-8)} confirmed. You'll receive notifications for updates!`,
-        duration: 5000,
-      });
+      // For COD and other payment methods
+      if (formData.paymentMethod === 'cod') {
+        // Send enhanced notifications for COD
+        try {
+          await supabase.functions.invoke('enhanced-order-notification', {
+            body: {
+              type: 'new_order',
+              orderId: order.id,
+              customerName: formData.fullName,
+              customerPhone: formData.phone,
+              total: finalTotal,
+              items: orderItems,
+            },
+          });
+        } catch (notificationError) {
+          console.error('Failed to send enhanced admin notification:', notificationError);
+        }
 
-      navigate('/order-success', { 
-        state: { 
-          orderId: order.id,
-          orderNumber: order.id.slice(-8),
-          total: finalTotal 
-        } 
-      });
+        await clearCart();
+        toast({ 
+          title: '✅ Order Placed Successfully!', 
+          description: `Order #${order.id.slice(-8)} confirmed. You'll receive notifications for updates!`,
+          duration: 5000,
+        });
+
+        navigate('/order-success', { 
+          state: { 
+            orderId: order.id,
+            orderNumber: order.id.slice(-8),
+            total: finalTotal 
+          } 
+        });
+      }
+
     } catch (error: any) {
       console.error('Order creation error:', error);
       toast({ 
@@ -262,10 +312,16 @@ const Checkout = () => {
                           Cash on Delivery
                         </div>
                       </SelectItem>
+                      <SelectItem value="phonepe">
+                        <div className="flex items-center gap-2">
+                          <CreditCard className="h-4 w-4" />
+                          PhonePe Payment
+                        </div>
+                      </SelectItem>
                       <SelectItem value="online">
                         <div className="flex items-center gap-2">
                           <CreditCard className="h-4 w-4" />
-                          Online Payment
+                          Other Online Payment
                         </div>
                       </SelectItem>
                     </SelectContent>

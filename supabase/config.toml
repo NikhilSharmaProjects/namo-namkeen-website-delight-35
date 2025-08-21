@@ -1,1 +1,19 @@
 project_id = "zonrpmwwbclmvcekuxlo"
+
+[functions.send-push-notification]
+verify_jwt = false
+
+[functions.enhanced-order-notification]
+verify_jwt = false
+
+[functions.send-order-notification]
+verify_jwt = false
+
+[functions.phonepe-initiate]
+verify_jwt = false
+
+[functions.phonepe-verify]
+verify_jwt = false
+
+[functions.phonepe-webhook]
+verify_jwt = false
