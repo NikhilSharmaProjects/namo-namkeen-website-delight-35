@@ -179,8 +179,7 @@ const TermsAndConditions = () => {
                                 shall be governed by and construed in accordance
                                 with the laws of India. All disputes arising out
                                 of these Terms shall be subject to the exclusive
-                                jurisdiction of the courts at Indore, Madhya
-                                Pradesh.
+                                jurisdiction of the courts.
                             </p>
 
                             <h2 className="text-2xl font-semibold text-warmBrown pt-4">
