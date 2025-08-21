@@ -7,6 +7,7 @@ import ContactPage from "@/pages/ContactPage";
 import Auth from "@/pages/Auth";
 import Checkout from "@/pages/Checkout";
 import OrderSuccess from "@/pages/OrderSuccess";
+import PaymentStatus from "@/pages/PaymentStatus";
 import MyOrders from "@/pages/MyOrders";
 import Admin from "@/pages/Admin";
 import NotFound from "@/pages/NotFound";
@@ -58,6 +59,10 @@ function App() {
                                     <Route
                                         path="/order-success"
                                         element={<OrderSuccess />}
+                                    />
+                                    <Route
+                                        path="/payment-status"
+                                        element={<PaymentStatus />}
                                     />
                                     <Route
                                         path="/my-orders"
