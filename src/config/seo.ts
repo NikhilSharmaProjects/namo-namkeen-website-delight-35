@@ -86,6 +86,14 @@ export const seoConfig = {
                 "Namo Namkeen contact, order namkeen online, Indore snacks delivery, namkeen store contact",
         },
 
+        quality: {
+            title: "Quality Policy — Namo Namkeen",
+            description:
+                "Our commitment to quality, hygiene, and authenticity in every batch of namkeen.",
+            keywords:
+                "quality policy, food quality, hygiene standards, FSSAI, Namo Namkeen quality",
+        },
+
         terms: {
             title: "Terms & Conditions — Namo Namkeen",
             description:

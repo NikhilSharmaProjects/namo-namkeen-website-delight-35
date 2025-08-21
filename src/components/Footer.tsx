@@ -71,19 +71,22 @@ const Footer = () => {
                         </h4>
                         <ul className="space-y-3">
                             {[
-                                "Home",
-                                "Products",
-                                "About Us",
-                                "Contact",
-                                "Quality Policy",
-                            ].map((link) => (
-                                <li key={link}>
+                                { label: "Home", href: "/" },
+                                { label: "Products", href: "/products" },
+                                { label: "About Us", href: "/about" },
+                                { label: "Contact", href: "/contact" },
+                                {
+                                    label: "Quality Policy",
+                                    href: "/quality-policy",
+                                },
+                            ].map((item) => (
+                                <li key={item.label}>
                                     <a
-                                        href="#"
+                                        href={item.href}
                                         className="text-white/80 hover:text-saffron transition-colors font-merriweather text-sm flex items-center gap-2 group"
                                     >
                                         <span className="w-1.5 h-1.5 rounded-full bg-turmeric group-hover:bg-saffron transition-colors"></span>
-                                        {link}
+                                        {item.label}
                                     </a>
                                 </li>
                             ))}
@@ -98,19 +101,34 @@ const Footer = () => {
                         </h4>
                         <ul className="space-y-3">
                             {[
-                                "Super Products",
-                                "Premium Range",
-                                "Satwik Products",
-                                "Falahari Items",
-                                "Traditional Sweets",
-                            ].map((product) => (
-                                <li key={product}>
+                                {
+                                    label: "Super Products",
+                                    href: "/products?section=featured",
+                                },
+                                {
+                                    label: "Premium Range",
+                                    href: "/products?category=Premium%20Products",
+                                },
+                                {
+                                    label: "Satwik Products",
+                                    href: "/products?category=Shudh%20Satwik",
+                                },
+                                {
+                                    label: "Falahari Items",
+                                    href: "/products?category=Falahari%20Products",
+                                },
+                                {
+                                    label: "Traditional Sweets",
+                                    href: "/products?category=Traditional%20Sweets",
+                                },
+                            ].map((item) => (
+                                <li key={item.label}>
                                     <a
-                                        href="#"
+                                        href={item.href}
                                         className="text-white/80 hover:text-turmeric transition-colors font-merriweather text-sm flex items-center gap-2 group"
                                     >
                                         <span className="w-1.5 h-1.5 rounded-full bg-saffron group-hover:bg-turmeric transition-colors"></span>
-                                        {product}
+                                        {item.label}
                                     </a>
                                 </li>
                             ))}

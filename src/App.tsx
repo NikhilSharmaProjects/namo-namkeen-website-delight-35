@@ -13,6 +13,7 @@ import NotFound from "@/pages/NotFound";
 import TermsAndConditions from "@/pages/TermsAndConditions";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import ShippingPolicy from "@/pages/ShippingPolicy";
+import QualityPolicy from "@/pages/QualityPolicy";
 import ScrollToTop from "@/components/ScrollToTop";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Auth0Provider } from "@auth0/auth0-react";
@@ -63,6 +64,10 @@ function App() {
                                         element={<MyOrders />}
                                     />
                                     <Route path="/admin" element={<Admin />} />
+                                    <Route
+                                        path="/quality-policy"
+                                        element={<QualityPolicy />}
+                                    />
                                     <Route
                                         path="/terms-and-conditions"
                                         element={<TermsAndConditions />}
