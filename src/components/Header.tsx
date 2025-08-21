@@ -64,25 +64,7 @@ const Header = ({ onCartClick }: HeaderProps) => {
               </Link>
             )}
             
-            {/* External Links */}
-            <a 
-              href="https://www.fssai.gov.in/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-warmBrown/70 hover:text-saffron transition-colors font-medium text-sm flex items-center gap-1"
-            >
-              FSSAI
-              <ExternalLink className="w-3 h-3" />
-            </a>
-            <a 
-              href="https://www.mptourism.com/destination/indore" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-warmBrown/70 hover:text-saffron transition-colors font-medium text-sm flex items-center gap-1"
-            >
-              Indore Tourism
-              <ExternalLink className="w-3 h-3" />
-            </a>
+            
           </nav>
 
           {/* Action Buttons */}
