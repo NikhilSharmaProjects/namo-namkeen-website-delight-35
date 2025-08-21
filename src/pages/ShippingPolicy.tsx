@@ -30,9 +30,9 @@ const ShippingPolicy = () => {
                     <ScrollAnimation direction="up" delay={150}>
                         <div className="space-y-6 text-warmBrown/90 font-merriweather leading-relaxed">
                             <p>
-                                Orders are shipped through registered domestic
+                                Orders are Delivered through registered domestic
                                 courier companies and/or Speed Post only. Orders
-                                are typically shipped within 3–6 days from the
+                                are typically Delivered within 3–6 days from the
                                 date of order and/or payment, or as per the
                                 delivery date agreed at the time of order
                                 confirmation, subject to courier/postal norms.
@@ -50,6 +50,13 @@ const ShippingPolicy = () => {
                                 If any shipping cost(s) are levied by the seller
                                 or the Platform Owner, the same are not
                                 refundable.
+                            </p>
+                            <h2 className="text-2xl font-semibold text-warmBrown pt-4">
+                                Refunds, Returns, and Exchanges
+                            </h2>
+                            <p>
+                                We do not offer any kind of refund, return, or
+                                exchange. All sales are final.
                             </p>
                         </div>
                     </ScrollAnimation>

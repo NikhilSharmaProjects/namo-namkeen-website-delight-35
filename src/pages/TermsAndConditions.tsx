@@ -184,6 +184,14 @@ const TermsAndConditions = () => {
                             </p>
 
                             <h2 className="text-2xl font-semibold text-warmBrown pt-4">
+                                Refunds, Returns, and Exchanges
+                            </h2>
+                            <p>
+                                We do not offer any kind of refund, return, or
+                                exchange. All sales are final.
+                            </p>
+
+                            <h2 className="text-2xl font-semibold text-warmBrown pt-4">
                                 Contact
                             </h2>
                             <p>
