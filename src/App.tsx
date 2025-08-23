@@ -19,6 +19,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthProvider } from "@/hooks/useAuth";
+import { AdminAuthProvider } from "@/hooks/useAdminAuth";
 import { CartProvider } from "@/hooks/useCart";
 
 const queryClient = new QueryClient();
@@ -34,7 +35,8 @@ function App() {
                 }}
             >
                 <AuthProvider>
-                    <CartProvider>
+                    <AdminAuthProvider>
+                        <CartProvider>
                         <BrowserRouter>
                             <div className="min-h-screen bg-background font-sans antialiased">
                                 <Routes>
@@ -90,7 +92,8 @@ function App() {
                                 <ScrollToTop />
                             </div>
                         </BrowserRouter>
-                    </CartProvider>
+                        </CartProvider>
+                    </AdminAuthProvider>
                 </AuthProvider>
             </Auth0Provider>
         </QueryClientProvider>
