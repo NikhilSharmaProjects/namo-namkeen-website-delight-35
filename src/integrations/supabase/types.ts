@@ -519,6 +519,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      sync_auth0_user: {
+        Args: { _email: string; _full_name: string }
+        Returns: string
+      }
       verify_delivery_otp: {
         Args: { order_uuid: string; provided_otp: string }
         Returns: boolean
