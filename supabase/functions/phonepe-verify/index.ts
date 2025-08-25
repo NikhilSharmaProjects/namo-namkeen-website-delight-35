@@ -7,10 +7,14 @@ const corsHeaders = {
 };
 
 // PhonePe API configuration
-const PHONEPE_BASE_URL = 'https://api-preprod.phonepe.com/apis/pg-sandbox'; // Sandbox URL
-const PHONEPE_MERCHANT_ID = Deno.env.get('PHONEPE_MERCHANT_ID') || 'PGTESTPAYUAT';
-const PHONEPE_SALT_KEY = Deno.env.get('PHONEPE_SALT_KEY') || '099eb0cd-02cf-4e2a-8aca-3e6c6aff0399';
+const PHONEPE_BASE_URL = "https://api-preprod.phonepe.com/apis/pg-sandbox";
+const PHONEPE_MERCHANT_ID = Deno.env.get('PHONEPE_MERCHANT_ID');
+const PHONEPE_SALT_KEY = Deno.env.get('PHONEPE_SALT_KEY');
 const PHONEPE_SALT_INDEX = 1;
+
+if (!PHONEPE_MERCHANT_ID || !PHONEPE_SALT_KEY) {
+  throw new Error('PhonePe credentials not configured');
+}
 
 // Create checksum for PhonePe API
 async function generateChecksum(endpoint: string, saltKey: string, saltIndex: number): Promise<string> {
