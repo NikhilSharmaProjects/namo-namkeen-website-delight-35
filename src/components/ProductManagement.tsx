@@ -198,13 +198,25 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="image_url">Image URL</Label>
-              <Input
-                id="image_url"
-                value={formData.image_url}
-                onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                placeholder="https://example.com/image.jpg"
-              />
+              <Label htmlFor="image_url">Product Image</Label>
+              <Select value={formData.image_url} onValueChange={(value) => setFormData({ ...formData, image_url: value })}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select product image" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="/images/productImages/cornflakesSweetMix.jpg">Cornflakes Sweet Mix</SelectItem>
+                  <SelectItem value="/images/productImages/dalMothMix.jpg">Dal Moth Mix</SelectItem>
+                  <SelectItem value="/images/productImages/delicusMixture.jpg">Delicus Mixture</SelectItem>
+                  <SelectItem value="/images/productImages/doubleLaungSev.jpg">Double Laung Sev</SelectItem>
+                  <SelectItem value="/images/productImages/fikiBarikSev.jpg">Fiki Barik Sev</SelectItem>
+                  <SelectItem value="/images/productImages/gujratiMixture.jpg">Gujrati Mixture</SelectItem>
+                  <SelectItem value="/images/productImages/khattaMithaMixture.jpg">Khatta Mitha Mixture</SelectItem>
+                  <SelectItem value="/images/productImages/navaratanMixture.jpg">Navaratan Mixture</SelectItem>
+                  <SelectItem value="/images/productImages/ratalamiSev.jpg">Ratalami Sev</SelectItem>
+                  <SelectItem value="/images/productImages/spicyMixture.jpg">Spicy Mixture</SelectItem>
+                  <SelectItem value="/images/productImages/ujjainiSev.jpg">Ujjaini Sev</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

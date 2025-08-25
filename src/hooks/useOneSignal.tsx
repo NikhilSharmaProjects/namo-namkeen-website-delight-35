@@ -46,6 +46,8 @@ export const OneSignalProvider = ({ children }: { children: ReactNode }) => {
           appId: ONESIGNAL_APP_ID,
           safari_web_id: 'web.onesignal.auto.5bb9a1c9-03c0-4629-b099-1bc8c9257be5',
           allowLocalhostAsSecureOrigin: true,
+          serviceWorkerPath: '/OneSignalSDKWorker.js',
+          serviceWorkerUpdaterPath: '/OneSignalSDKWorker.js',
         });
 
         // Check if already subscribed
