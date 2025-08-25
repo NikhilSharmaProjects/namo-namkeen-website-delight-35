@@ -54,14 +54,27 @@ export const useSEO = (data: SEOData) => {
     updateMetaTag('twitter:description', data.description);
     updateMetaTag('twitter:image', data.ogImage || `${baseUrl}/logo.png`);
     
-    // Canonical URL
+    // Canonical URL (enhanced with query param handling)
     let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
     if (!canonical) {
       canonical = document.createElement('link');
       canonical.rel = 'canonical';
       document.head.appendChild(canonical);
     }
-    canonical.href = data.canonical || `${baseUrl}${location.pathname}`;
+    // Remove query parameters for cleaner canonical URLs
+    const cleanPath = location.pathname.replace(/\/$/, '') || '/';
+    canonical.href = data.canonical || `${baseUrl}${cleanPath}`;
+    
+    // Preload critical resources for better Core Web Vitals
+    if (!document.querySelector('link[rel="preload"][as="font"]')) {
+      const fontPreload = document.createElement('link');
+      fontPreload.rel = 'preload';
+      fontPreload.as = 'font';
+      fontPreload.type = 'font/woff2';
+      fontPreload.crossOrigin = 'anonymous';
+      fontPreload.href = '/fonts/inter.woff2'; // Add actual font path if using custom fonts
+      document.head.appendChild(fontPreload);
+    }
     
     // Structured Data
     if (data.structuredData) {

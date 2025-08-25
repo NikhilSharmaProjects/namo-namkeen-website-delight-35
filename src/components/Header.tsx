@@ -55,6 +55,12 @@ const Header = ({ onCartClick }: HeaderProps) => {
             <Link to="/about" className="text-warmBrown hover:text-saffron transition-colors font-medium">
               About
             </Link>
+            <Link to="/blog" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+              Blog
+            </Link>
+            <Link to="/faq" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+              FAQ
+            </Link>
             <Link to="/contact" className="text-warmBrown hover:text-saffron transition-colors font-medium">
               Contact
             </Link>
@@ -129,6 +135,20 @@ const Header = ({ onCartClick }: HeaderProps) => {
                 className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
               >
                 About
+              </Link>
+              <Link
+                to="/blog"
+                onClick={toggleMenu}
+                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+              >
+                Blog
+              </Link>
+              <Link
+                to="/faq"
+                onClick={toggleMenu}
+                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+              >
+                FAQ
               </Link>
               <Link
                 to="/contact"

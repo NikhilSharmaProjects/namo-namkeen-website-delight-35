@@ -62,11 +62,13 @@ const Footer = () => {
                                 { label: "Home", href: "/" },
                                 { label: "Products", href: "/products" },
                                 { label: "About Us", href: "/about" },
-                                { label: "Contact", href: "/contact" },
+                                 { label: "Contact", href: "/contact" },
+                                 { label: "Blog", href: "/blog" },
+                                 { label: "FAQ", href: "/faq" },
                                 {
-                                    label: "Quality Policy",
-                                    href: "/quality-policy",
-                                },
+                                     label: "Quality Policy",
+                                     href: "/quality-policy",
+                                 },
                             ].map((item) => (
                                 <li key={item.label}>
                                     <a

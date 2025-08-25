@@ -16,6 +16,8 @@ import TermsAndConditions from "@/pages/TermsAndConditions";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import ShippingPolicy from "@/pages/ShippingPolicy";
 import QualityPolicy from "@/pages/QualityPolicy";
+import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollToTop from "@/components/ScrollToTop";
 import Index from "@/pages/Index";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -40,7 +42,9 @@ function App() {
                     <AdminAuthProvider>
                         <CartProvider>
                         <BrowserRouter>
-                            <div className="min-h-screen bg-background font-sans antialiased">
+                            <div className="min-h-screen bg-gradient-to-br from-cream via-white to-saffron/5">
+                                <ScrollToTop />
+                                <Breadcrumbs />
                                 <Routes>
                                     <Route path="/" element={<Index />} />
                                     <Route path="/products" element={<Products />} />
@@ -60,7 +64,6 @@ function App() {
                                     <Route path="/shipping-policy" element={<ShippingPolicy />} />
                                     <Route path="*" element={<NotFound />} />
                                 </Routes>
-                                <ScrollToTop />
                             </div>
                         </BrowserRouter>
                         </CartProvider>

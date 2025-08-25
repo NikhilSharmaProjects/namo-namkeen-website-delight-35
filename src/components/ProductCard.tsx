@@ -11,6 +11,8 @@ import {
 import { ShoppingCart, Star, Heart } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 import { Skeleton } from "@/components/ui/skeleton";
+import ProductSchema from "@/components/ProductSchema";
+import OptimizedImage from "@/components/OptimizedImage";
 
 interface Product {
     id: string;
@@ -72,8 +74,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
             : currentPrice;
 
     return (
-        <div className="group bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] relative">
-            {/* Featured Badge */}
+        <>
+            <ProductSchema product={product} />
+            <div className="group bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] relative">
+                {/* Featured Badge */}
             {product.is_featured && (
                 <Badge className="absolute top-3 left-3 z-10 bg-saffron text-white">
                     Bestseller
@@ -89,19 +93,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
             {/* Product Image */}
             <div className="relative h-80 bg-gray-50 overflow-hidden">
-                {!imageLoaded && (
-                    <Skeleton className="absolute inset-0 w-full h-full" />
-                )}
-                        <img
-                            src={product.image_url}
-                            alt={`${product.name} by Namo Namkeen - Authentic Indori Snacks Online`}
-                            className={`w-full h-full object-contain transition-all duration-500 group-hover:scale-110 ${
-                                imageLoaded ? "opacity-100" : "opacity-1"
-                            }`}
-                            onLoad={() => setImageLoaded(true)}
-                            loading="lazy"
-                        />
-
+                <OptimizedImage
+                    src={product.image_url}
+                    alt={`${product.name} by Namo Namkeen - Authentic Indori Snacks Online | Buy ${product.name} | Premium Quality Namkeen Delivery`}
+                    className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110"
+                    width={320}
+                    height={320}
+                    loading="lazy"
+                />
             </div>
 
             {/* Product Info */}
@@ -208,6 +207,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 </Button>
             </div>
         </div>
+        </>
     );
 };
 

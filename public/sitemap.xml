@@ -55,10 +55,40 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  <url>
-    <loc>https://www.namoindianamkeen.com/contact</loc>
-    <lastmod>2024-12-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+    <url>
+        <loc>https://www.namoindianamkeen.com/contact</loc>
+        <lastmod>2024-12-30</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Product Category Pages -->
+    <url>
+        <loc>https://www.namoindianamkeen.com/products?category=Premium%20Products</loc>
+        <lastmod>2024-08-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.namoindianamkeen.com/products?category=Shudh%20Satwik</loc>
+        <lastmod>2024-08-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.namoindianamkeen.com/products?category=Falahari%20Products</loc>
+        <lastmod>2024-08-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Featured Product Deep Links -->
+    <url>
+        <loc>https://www.namoindianamkeen.com/products?section=featured</loc>
+        <lastmod>2024-08-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
 </urlset>

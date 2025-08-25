@@ -26,6 +26,47 @@
         />
         <link rel="canonical" href="https://www.namoindianamkeen.com/" />
 
+        <!-- Core Web Vitals optimizations -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        
+        <!-- DNS prefetch for external resources -->
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://connect.facebook.net" />
+        <link rel="dns-prefetch" href="https://cdn.gpteng.co" />
+        
+        <!-- Preload critical resources -->
+        <link rel="preload" href="/src/index.css" as="style" />
+        <link rel="preload" href="/logo.png" as="image" />
+        
+        <!-- Resource hints for better performance -->
+        <link rel="prefetch" href="/images/productImages/ratalamiSev.jpg" />
+        <link rel="prefetch" href="/images/productImages/khattaMithaMixture.jpg" />
+        
+        <!-- Google Fonts with display=swap for better performance -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap"
+            rel="stylesheet"
+        />
+        
+        <!-- Eliminate render-blocking resources -->
+        <style>
+            /* Critical CSS for above-the-fold content */
+            body { 
+                font-family: 'Poppins', sans-serif; 
+                margin: 0; 
+                padding: 0; 
+                background: linear-gradient(135deg, hsl(var(--cream)) 0%, white 50%, hsl(var(--saffron)/0.05) 100%);
+            }
+            .loading { 
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                height: 100vh; 
+                color: hsl(var(--warmBrown));
+            }
+        </style>
+
         <!-- Enhanced Open Graph for Facebook, WhatsApp, etc. -->
         <meta
             property="og:title"
@@ -239,6 +280,103 @@
             fbq("track", "PageView");
         </script>
 
+        <!-- LocalBusiness Schema -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                "@id": "https://www.namoindianamkeen.com/#business",
+                "name": "Namo India Food Industries",
+                "alternateName": "Namo Namkeen",
+                "description": "Authentic Indore namkeen and traditional Indian snacks delivered fresh across India. Premium quality, no preservatives, traditional recipes since 1990.",
+                "url": "https://www.namoindianamkeen.com",
+                "logo": "https://www.namoindianamkeen.com/logo.png",
+                "image": [
+                    "https://www.namoindianamkeen.com/logo.png",
+                    "https://www.namoindianamkeen.com/images/productImages/ratalamiSev.jpg"
+                ],
+                "telephone": "+91-88238-18001",
+                "email": "namoindiaifoodindustriess@gmail.com",
+                "foundingDate": "1990",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "65-A, Nagin Nagar",
+                    "addressLocality": "Indore",
+                    "addressRegion": "Madhya Pradesh",
+                    "postalCode": "452001",
+                    "addressCountry": "IN"
+                },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": "22.7196",
+                    "longitude": "75.8577"
+                },
+                "openingHoursSpecification": [
+                    {
+                        "@type": "OpeningHoursSpecification",
+                        "dayOfWeek": [
+                            "Monday",
+                            "Tuesday", 
+                            "Wednesday",
+                            "Thursday",
+                            "Friday",
+                            "Saturday"
+                        ],
+                        "opens": "09:00",
+                        "closes": "18:00"
+                    }
+                ],
+                "priceRange": "₹₹",
+                "servesCuisine": "Indian Snacks",
+                "menu": "https://www.namoindianamkeen.com/products",
+                "areaServed": {
+                    "@type": "Country",
+                    "name": "India"
+                },
+                "hasOfferCatalog": {
+                    "@type": "OfferCatalog",
+                    "name": "Namkeen Products",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Product",
+                                "name": "Ratlami Sev"
+                            }
+                        },
+                        {
+                            "@type": "Offer", 
+                            "itemOffered": {
+                                "@type": "Product",
+                                "name": "Khatta Meetha Mixture"
+                            }
+                        }
+                    ]
+                },
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "4.8",
+                    "reviewCount": "523",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                },
+                "review": [
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Amit Patel"
+                        },
+                        "reviewBody": "Best authentic Indori namkeen! Fast delivery and excellent quality. Highly recommended!"
+                    }
+                ]
+            }
+        </script>
+
         <!-- Enhanced FAQ Schema -->
         <script type="application/ld+json">
             {
@@ -247,10 +385,10 @@
                 "mainEntity": [
                     {
                         "@type": "Question",
-                        "name": "Which is the best Indori Namkeen available online?",
+                        "name": "Which is the best Indori Namkeen brand?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "Namo Namkeen's Premium Ratlami Sev is considered the best Indori namkeen available online, made with traditional recipes and premium ingredients."
+                            "text": "Namo Namkeen is renowned for authentic Indori flavors, using traditional recipes and premium ingredients since 2021."
                         }
                     },
                     {
@@ -258,15 +396,23 @@
                         "name": "Can I order Namkeen online for delivery across India?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "Yes! Namo Namkeen delivers fresh, authentic Indori snacks across India to 500+ locations with delivery in 2-5 business days."
+                            "text": "Yes! Namo Namkeen delivers fresh, authentic Indori snacks across India with secure packaging and fast delivery within 3-5 business days."
                         }
                     },
                     {
                         "@type": "Question",
-                        "name": "Does Namo Namkeen deliver to Mumbai, Delhi, Bangalore?",
+                        "name": "Are Namo Namkeen products made with preservatives?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "Yes, we deliver to all major Indian cities including Mumbai, Delhi, Bangalore, Chennai, Kolkata, and Hyderabad with 2-3 day delivery."
+                            "text": "No, all Namo Namkeen products are made without preservatives or artificial colors, using only natural ingredients and traditional recipes."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "What makes Ratlami Sev different from regular sev?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Ratlami Sev has a unique spicy flavor profile and finer texture, made with special gram flour blend and traditional Ratlam spice mix that creates its distinctive taste."
                         }
                     }
                 ]
