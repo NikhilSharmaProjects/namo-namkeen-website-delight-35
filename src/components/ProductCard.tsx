@@ -87,47 +87,21 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 </Badge>
             )}
 
-            {/* Like Button */}
-            <button
-                onClick={() => setIsLiked(!isLiked)}
-                className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-all duration-200"
-                style={{
-                    right: product.discount_percentage > 0 ? "60px" : "12px",
-                }}
-            >
-                <Heart
-                    className={`h-4 w-4 transition-colors ${
-                        isLiked ? "fill-red-500 text-red-500" : "text-gray-500"
-                    }`}
-                />
-            </button>
-
             {/* Product Image */}
-            <div className="relative h-48 bg-gray-50 overflow-hidden">
+            <div className="relative h-80 bg-gray-50 overflow-hidden">
                 {!imageLoaded && (
                     <Skeleton className="absolute inset-0 w-full h-full" />
                 )}
                 <img
                     src={product.image_url}
                     alt={product.name}
-                    className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 ${
+                    className={`w-full h-full object-contain transition-all duration-500 group-hover:scale-110 ${
                         imageLoaded ? "opacity-100" : "opacity-1"
                     }`}
                     onLoad={() => setImageLoaded(true)}
                     loading="lazy"
                 />
 
-                {/* Quick Add Overlay */}
-                <div className="absolute inset-0 bg-black/20 opacity-1 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <Button
-                        size="sm"
-                        className="bg-white text-warmBrown hover:bg-saffron hover:text-white transform  group-hover:translate-y-0 transition-all duration-300"
-                        onClick={handleAddToCart}
-                        disabled={isOutOfStock || isLoading}
-                    >
-                        Quick Add
-                    </Button>
-                </div>
             </div>
 
             {/* Product Info */}
