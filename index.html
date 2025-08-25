@@ -196,6 +196,67 @@
             }
         </script>
 
+        <!-- Google Analytics 4 -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX'); // Replace with actual GA4 ID
+        </script>
+
+        <!-- Facebook Pixel -->
+        <script>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', 'XXXXXXXXXX'); // Replace with actual Pixel ID
+            fbq('track', 'PageView');
+        </script>
+        <noscript>
+            <img height="1" width="1" style="display:none"
+                src="https://www.facebook.com/tr?id=XXXXXXXXXX&ev=PageView&noscript=1" />
+        </noscript>
+
+        <!-- Enhanced FAQ Schema -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Which is the best Indori Namkeen available online?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Namo Namkeen's Premium Ratlami Sev is considered the best Indori namkeen available online, made with traditional recipes and premium ingredients."
+                        }
+                    },
+                    {
+                        "@type": "Question", 
+                        "name": "Can I order Namkeen online for delivery across India?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes! Namo Namkeen delivers fresh, authentic Indori snacks across India to 500+ locations with delivery in 2-5 business days."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Does Namo Namkeen deliver to Mumbai, Delhi, Bangalore?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes, we deliver to all major Indian cities including Mumbai, Delhi, Bangalore, Chennai, Kolkata, and Hyderabad with 2-3 day delivery."
+                        }
+                    }
+                ]
+            }
+        </script>
+
         <!-- OneSignal SDK -->
         <script
             src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"

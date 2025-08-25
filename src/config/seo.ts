@@ -4,11 +4,11 @@ export const seoConfig = {
 
     pages: {
         home: {
-            title: "Namo Namkeen — Authentic Indori Snacks Delivered Fresh",
+            title: "Buy Namkeen Online | Authentic Indori Snacks Delivered",
             description:
-                "Order authentic Indore namkeen online – Ratlami Sev, Bhujia, Khatta Meetha & more. Fresh, hygienic, no preservatives.",
+                "Order authentic Indore namkeen online! Ratlami Sev, Bhujia, Mixture & more. Fresh delivery across India. No preservatives. Order now!",
             keywords:
-                "namkeen online, buy snacks India, Indore namkeen, Ratlami sev, Khatta Meetha, authentic Indian snacks, namkeen delivery",
+                "buy namkeen online, Indori snacks delivery, Ratlami sev online, authentic namkeen India, order Indori snacks, best namkeen delivery, mixture online, bhujia delivery, traditional snacks India, spicy namkeen online",
             structuredData: {
                 "@context": "https://schema.org",
                 "@type": "Organization",
@@ -39,11 +39,11 @@ export const seoConfig = {
         },
 
         products: {
-            title: "Buy Indori Namkeen Online — Namo Namkeen Products",
+            title: "Indori Namkeen Online | Premium Snacks Delivery India",
             description:
-                "Browse our selection of authentic Indore snacks—Sev, Bhujia, Mixture & more. Fresh, hygienic, direct to your door.",
+                "Shop authentic Indore snacks online! Ratlami Sev, Bhujia, Mixture delivered fresh. Premium quality, no preservatives. Order now!",
             keywords:
-                "buy namkeen online, Indore snacks, Ratlami sev price, bhujia online, mixture snacks, premium namkeen",
+                "buy namkeen online India, Indori snacks delivery, Ratlami sev price, premium bhujia online, mixture snacks delivery, authentic namkeen shop, spicy snacks online, traditional Indore snacks",
             structuredData: {
                 "@context": "https://schema.org",
                 "@type": "Product",
@@ -71,11 +71,27 @@ export const seoConfig = {
         },
 
         about: {
-            title: "About Namo Namkeen — 30+ Years of Authentic Indore Flavors",
+            title: "About Us | Authentic Indori Namkeen Since 2021",
             description:
-                "Discover the story of Namo Namkeen, crafting authentic Indore namkeen since 1990. Premium quality, traditional recipes, trusted by 5000+ families.",
+                "Learn about Namo Namkeen's journey crafting authentic Indore snacks. Premium quality, traditional recipes, trusted by 5000+ families.",
             keywords:
-                "Namo Namkeen story, Indore food heritage, traditional namkeen makers, authentic Indian snacks company",
+                "Namo Namkeen story, authentic Indore namkeen makers, traditional snack company India, premium namkeen manufacturer, FSSAI certified snacks",
+        },
+
+        blog: {
+            title: "Indori Snacks Blog | Namkeen Stories & Recipes",
+            description:
+                "Discover authentic Indore namkeen stories, traditional recipes, and snack culture. Learn why Indori snacks are famous across India.",
+            keywords:
+                "Indori namkeen blog, authentic snack recipes, traditional Indian snacks, Ratlami sev history, Indore food culture, namkeen stories",
+        },
+
+        faq: {
+            title: "FAQ | Namkeen Delivery & Quality Questions Answered",
+            description:
+                "Get answers about Namo Namkeen delivery, quality, ingredients & ordering. Fast delivery across India. Premium Indori snacks FAQ.",
+            keywords:
+                "namkeen delivery FAQ, Indori snacks questions, authentic namkeen quality, snack delivery India, FSSAI certified snacks",
         },
 
         contact: {

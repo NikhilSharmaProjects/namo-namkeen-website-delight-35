@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ScrollAnimation } from '@/components/ScrollAnimations';
 import { useSEO } from '@/hooks/useSEO';
 import { seoConfig } from '@/config/seo';
+import { InternalLinks } from '@/components/InternalLinks';
 import { useState } from 'react';
 
 const Products = () => {
@@ -53,8 +54,11 @@ const Products = () => {
                 <li>• <strong>Seasonal Specials:</strong> Festival-themed varieties</li>
               </ul>
             </div>
-          </div>
-        </div>
+                    <ScrollAnimation direction="up" delay={400}>
+                        <InternalLinks variant="product" currentPage="/products" />
+                    </ScrollAnimation>
+                </div>
+            </div>
         
         <ScrollAnimation direction="up" delay={200}>
           <EcommerceProducts />

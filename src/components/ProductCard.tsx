@@ -92,15 +92,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 {!imageLoaded && (
                     <Skeleton className="absolute inset-0 w-full h-full" />
                 )}
-                <img
-                    src={product.image_url}
-                    alt={product.name}
-                    className={`w-full h-full object-contain transition-all duration-500 group-hover:scale-110 ${
-                        imageLoaded ? "opacity-100" : "opacity-1"
-                    }`}
-                    onLoad={() => setImageLoaded(true)}
-                    loading="lazy"
-                />
+                        <img
+                            src={product.image_url}
+                            alt={`${product.name} by Namo Namkeen - Authentic Indori Snacks Online`}
+                            className={`w-full h-full object-contain transition-all duration-500 group-hover:scale-110 ${
+                                imageLoaded ? "opacity-100" : "opacity-1"
+                            }`}
+                            onLoad={() => setImageLoaded(true)}
+                            loading="lazy"
+                        />
 
             </div>
 
