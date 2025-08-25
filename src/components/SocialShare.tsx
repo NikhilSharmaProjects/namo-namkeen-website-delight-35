@@ -7,11 +7,13 @@ const SocialShare = () => {
   const shareText = "Just discovered Namo Namkeen - authentic Indore snacks delivered fresh! 🌶️ #NamoNamkeen #IndoreSnacks";
 
   const shareOnFacebook = () => {
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
+    // External links removed - sharing disabled
+    console.log('Facebook sharing disabled');
   };
 
   const shareOnTwitter = () => {
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
+    // External links removed - sharing disabled
+    console.log('Twitter sharing disabled');
   };
 
   const shareNative = async () => {

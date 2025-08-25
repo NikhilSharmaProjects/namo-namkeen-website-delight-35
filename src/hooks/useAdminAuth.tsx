@@ -1,59 +1,50 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useAuth } from './useAuth';
-import { supabase } from '@/integrations/supabase/client';
+import { createContext, useContext, useState } from 'react';
 
 interface AdminAuthContextType {
   isAdmin: boolean;
   loading: boolean;
-  checkAdminStatus: () => Promise<void>;
+  login: (username: string, password: string) => boolean;
+  logout: () => void;
 }
 
 const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined);
 
 export const AdminAuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { user } = useAuth();
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(() => {
+    return localStorage.getItem('admin_logged_in') === 'true';
+  });
+  const [loading, setLoading] = useState(false);
 
-  const checkAdminStatus = async () => {
-    if (!user) {
-      setIsAdmin(false);
+  // HARDCODED ADMIN CREDENTIALS - Change these values as needed
+  const ADMIN_USERNAME = 'namo'; // Change this username here
+  const ADMIN_PASSWORD = 'indianamkeen'; // Change this password here
+
+  const login = (username: string, password: string): boolean => {
+    setLoading(true);
+    
+    // Check hardcoded credentials
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      setIsAdmin(true);
+      localStorage.setItem('admin_logged_in', 'true');
       setLoading(false);
-      return;
+      return true;
     }
-
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin')
-        .single();
-
-      if (error && error.code !== 'PGRST116') {
-        console.error('Error checking admin status:', error);
-        setIsAdmin(false);
-      } else {
-        setIsAdmin(!!data);
-      }
-    } catch (error) {
-      console.error('Error checking admin status:', error);
-      setIsAdmin(false);
-    } finally {
-      setLoading(false);
-    }
+    
+    setLoading(false);
+    return false;
   };
 
-  useEffect(() => {
-    checkAdminStatus();
-  }, [user]);
+  const logout = () => {
+    setIsAdmin(false);
+    localStorage.removeItem('admin_logged_in');
+  };
 
   return (
     <AdminAuthContext.Provider value={{
       isAdmin,
       loading,
-      checkAdminStatus
+      login,
+      logout
     }}>
       {children}
     </AdminAuthContext.Provider>

@@ -1,19 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { LogOut, AlertTriangle } from 'lucide-react';
+import { LogOut, AlertTriangle, Lock } from 'lucide-react';
 import EnhancedAdminDashboard from '@/components/EnhancedAdminDashboard';
 import { RealtimeNotificationsProvider } from '@/hooks/useRealtimeNotifications';
-import { useAuth } from '@/hooks/useAuth';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { toast } from '@/hooks/use-toast';
 
 const Admin = () => {
-  const { user, signOut } = useAuth();
-  const { isAdmin, loading } = useAdminAuth();
+  const { isAdmin, loading, login, logout } = useAdminAuth();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginLoading, setLoginLoading] = useState(false);
 
-  const handleLogout = async () => {
-    await signOut();
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginLoading(true);
+    
+    const success = login(username, password);
+    
+    if (!success) {
+      toast({
+        title: 'Login Failed',
+        description: 'Invalid username or password',
+        variant: 'destructive',
+      });
+    }
+    
+    setLoginLoading(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setUsername('');
+    setPassword('');
   };
 
   if (loading) {
@@ -28,54 +51,48 @@ const Admin = () => {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-warmCream to-lightSaffron flex items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle className="text-center text-warmBrown">Admin Access</CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <Alert>
-              <AlertTriangle className="h-4 w-4" />
-              <AlertDescription>
-                Please log in to access the admin panel.
-              </AlertDescription>
-            </Alert>
-            <Button 
-              onClick={() => window.location.href = '/auth'} 
-              className="w-full mt-4"
-            >
-              Go to Login
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
   if (!isAdmin) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-warmCream to-lightSaffron flex items-center justify-center">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle className="text-center text-warmBrown">Access Denied</CardTitle>
+            <CardTitle className="text-center text-warmBrown flex items-center justify-center gap-2">
+              <Lock className="h-5 w-5" />
+              Admin Login
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <Alert>
-              <AlertTriangle className="h-4 w-4" />
-              <AlertDescription>
-                You don't have admin privileges. Please contact an administrator if you believe this is an error.
-              </AlertDescription>
-            </Alert>
-            <Button 
-              onClick={handleLogout}
-              variant="outline" 
-              className="w-full mt-4"
-            >
-              <LogOut className="w-4 h-4 mr-2" />
-              Sign Out
-            </Button>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div>
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter username"
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  required
+                />
+              </div>
+              <Button 
+                type="submit"
+                disabled={loginLoading}
+                className="w-full bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90"
+              >
+                {loginLoading ? 'Logging in...' : 'Login'}
+              </Button>
+            </form>
           </CardContent>
         </Card>
       </div>

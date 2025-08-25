@@ -147,28 +147,6 @@ const Header = ({ onCartClick }: HeaderProps) => {
                 </Link>
               )}
               
-              {/* Mobile External Links */}
-              <div className="px-4 py-2 border-t border-saffron/10 mt-2">
-                <p className="text-xs text-warmBrown/60 mb-2">External Links:</p>
-                <a 
-                  href="https://www.fssai.gov.in/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block py-1 text-warmBrown/70 hover:text-saffron transition-colors text-sm flex items-center gap-1"
-                >
-                  FSSAI Certification
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-                <a 
-                  href="https://www.mptourism.com/destination/indore" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block py-1 text-warmBrown/70 hover:text-saffron transition-colors text-sm flex items-center gap-1"
-                >
-                  Visit Indore
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
               
               <button
                 onClick={() => {
