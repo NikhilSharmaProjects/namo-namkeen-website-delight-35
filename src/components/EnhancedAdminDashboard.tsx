@@ -7,6 +7,7 @@ import { LogOut, Package, Bell, Users, Settings, ShieldCheck, TrendingUp } from 
 import ProductManagement from './ProductManagement';
 import EnhancedOrderNotifications from './EnhancedOrderNotifications';
 import AdminNotificationComposer from './AdminNotificationComposer';
+import BlogManagement from './BlogManagement';
 import { useRealtimeNotifications } from '@/hooks/useRealtimeNotifications';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -131,7 +132,7 @@ const EnhancedAdminDashboard = ({ onLogout }: EnhancedAdminDashboardProps) => {
         </div>
 
         <Tabs defaultValue="orders" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 lg:w-fit">
+          <TabsList className="grid w-full grid-cols-4 lg:w-fit">
             <TabsTrigger value="orders" className="flex items-center gap-2">
               <Package className="h-4 w-4" />
               Orders
@@ -144,6 +145,10 @@ const EnhancedAdminDashboard = ({ onLogout }: EnhancedAdminDashboardProps) => {
             <TabsTrigger value="products" className="flex items-center gap-2">
               <Package className="h-4 w-4" />
               Products
+            </TabsTrigger>
+            <TabsTrigger value="blogs" className="flex items-center gap-2">
+              <Package className="h-4 w-4" />
+              Blogs
             </TabsTrigger>
             <TabsTrigger value="notifications" className="flex items-center gap-2">
               <Bell className="h-4 w-4" />
@@ -162,6 +167,10 @@ const EnhancedAdminDashboard = ({ onLogout }: EnhancedAdminDashboardProps) => {
             <ProductManagement onStatsUpdate={fetchStats} />
           </TabsContent>
 
+          <TabsContent value="blogs">
+            <BlogManagement onStatsUpdate={fetchStats} />
+          </TabsContent>
+          
           <TabsContent value="notifications">
             <AdminNotificationComposer />
           </TabsContent>
