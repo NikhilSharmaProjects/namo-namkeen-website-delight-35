@@ -30,42 +30,42 @@ const Header = ({ onCartClick }: HeaderProps) => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-saffron/20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-primary/20 shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-transparent rounded-full flex items-center justify-center shadow-lg">
-              <img src="/logo.png" alt="Namo Namkeen - Authentic Indore Snacks Logo" />
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-transparent rounded-full flex items-center justify-center">
+              <img src="/logo.png" alt="Namo Namkeen - Authentic Indore Snacks Logo" className="drop-shadow-lg" />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl md:text-2xl font-bold text-warmBrown">Namo Namkeen</h1>
-              <p className="text-xs md:text-sm text-warmBrown/70">Authentic Indore Flavors</p>
+              <h1 className="text-xl md:text-2xl font-bold premium-text">Namo Namkeen</h1>
+              <p className="text-xs md:text-sm text-muted-foreground">Authentic Indore Flavors</p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+            <Link to="/" className="text-foreground hover:premium-text transition-colors font-medium">
               Home
             </Link>
-            <Link to="/products" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+            <Link to="/products" className="text-foreground hover:premium-text transition-colors font-medium">
               Products
             </Link>
-            <Link to="/about" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+            <Link to="/about" className="text-foreground hover:premium-text transition-colors font-medium">
               About
             </Link>
-            <Link to="/blog" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+            <Link to="/blog" className="text-foreground hover:premium-text transition-colors font-medium">
               Blog
             </Link>
-            <Link to="/faq" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+            <Link to="/faq" className="text-foreground hover:premium-text transition-colors font-medium">
               FAQ
             </Link>
-            <Link to="/contact" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+            <Link to="/contact" className="text-foreground hover:premium-text transition-colors font-medium">
               Contact
             </Link>
             {user && (
-              <Link to="/my-orders" className="text-warmBrown hover:text-saffron transition-colors font-medium">
+              <Link to="/my-orders" className="text-foreground hover:premium-text transition-colors font-medium">
                 My Orders
               </Link>
             )}

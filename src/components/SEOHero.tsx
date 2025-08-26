@@ -15,29 +15,38 @@ const SEOHero = () => {
     }, []);
 
     return (
-        <section className="relative min-h-screen bg-gradient-to-br from-cream via-white to-saffron/10 overflow-hidden">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 decorative-pattern opacity-30"></div>
+        <section className="relative min-h-screen bg-gradient-to-br from-background via-card to-primary/5 overflow-hidden">
+            {/* Indore Pride Banner */}
+            <div className="indore-banner absolute top-0 left-0 right-0 py-3 z-20">
+                <div className="container mx-auto px-4">
+                    <p className="indore-pride-text text-center text-sm font-bold tracking-wide">
+                        🏛️ Straight from Indore's heart to your plate - India's Cleanest City & Food Capital 🍽️
+                    </p>
+                </div>
+            </div>
 
-            <div className="container mx-auto px-4 pt-24 pb-12 relative z-10">
-                <div className="flex flex-col lg:flex-row items-center justify-between min-h-[calc(100vh-6rem)]">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 luxury-pattern opacity-20"></div>
+
+            <div className="container mx-auto px-4 pt-32 pb-12 relative z-10">
+                <div className="flex flex-col lg:flex-row items-center justify-between min-h-[calc(100vh-8rem)]">
                     {/* Left Content - SEO Rich Text */}
                     <div className="flex-1 text-center lg:text-left lg:pr-12 mb-8 lg:mb-0 order-2 lg:order-1">
-                        <div className="space-y-6">
+                        <div className="space-y-8">
                             {/* SEO Optimized H1 */}
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-poppins text-warmBrown leading-tight">
-                                <span className="block">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-poppins leading-tight">
+                                <span className="block text-foreground">
                                     Authentic Indori Namkeen
                                 </span>
-                                <span className="block text-saffron">
+                                <span className="block premium-text mt-2">
                                     Fresh From Indore To Your Doorstep
                                 </span>
                             </h1>
 
                             {/* Rich SEO Content */}
-                            <div className="space-y-4 text-lg md:text-xl text-warmBrown/80 font-merriweather max-w-2xl mx-auto lg:mx-0">
-                                <p>
-                                    Since 2021, <strong>Namo Namkeen</strong>{" "}
+                            <div className="space-y-6 text-lg md:text-xl text-muted-foreground font-merriweather max-w-2xl mx-auto lg:mx-0">
+                                <p className="leading-relaxed">
+                                    Since 2021, <strong className="premium-text">Namo Namkeen</strong>{" "}
                                     has been crafting authentic Indore namkeen
                                     using traditional recipes passed down
                                     through generations. Our premium quality
@@ -46,37 +55,37 @@ const SEOHero = () => {
                                     fresh to your doorstep across India.
                                 </p>
 
-                                <p>
+                                <p className="leading-relaxed">
                                     From our signature{" "}
-                                    <strong>Ratlami Sev</strong> to
-                                    mouth-watering{" "}
-                                    <strong>Khatta Meetha</strong>, each product
-                                    embodies the rich culinary heritage of
-                                    Indore. We maintain the highest hygiene
-                                    standards and use only pure groundnut oil in
-                                    our Satwik range, ensuring every bite
-                                    delivers authentic taste and superior
-                                    quality.
-                                </p>
+                                     <strong className="premium-text">Ratlami Sev</strong> to
+                                     mouth-watering{" "}
+                                     <strong className="premium-text">Khatta Meetha</strong>, each product
+                                     embodies the rich culinary heritage of
+                                     Indore. We maintain the highest hygiene
+                                     standards and use only pure groundnut oil in
+                                     our Satwik range, ensuring every bite
+                                     delivers authentic taste and superior
+                                     quality.
+                                 </p>
                             </div>
 
                             {/* Trust Indicators */}
-                            <div className="flex flex-wrap justify-center lg:justify-start gap-4 my-6">
-                                <div className="flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full shadow-sm">
-                                    <Shield className="w-5 h-5 text-green-600" />
-                                    <span className="text-sm font-semibold text-warmBrown">
+                            <div className="flex flex-wrap justify-center lg:justify-start gap-4 my-8">
+                                <div className="authenticity-badge flex items-center gap-2">
+                                    <Shield className="w-5 h-5" />
+                                    <span className="text-sm font-semibold">
                                         FSSAI Certified
                                     </span>
                                 </div>
-                                <div className="flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full shadow-sm">
-                                    <Award className="w-5 h-5 text-gold" />
-                                    <span className="text-sm font-semibold text-warmBrown">
+                                <div className="authenticity-badge flex items-center gap-2">
+                                    <Award className="w-5 h-5" />
+                                    <span className="text-sm font-semibold">
                                         30+ Years Trust
                                     </span>
                                 </div>
-                                <div className="flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full shadow-sm">
-                                    <Truck className="w-5 h-5 text-blue-600" />
-                                    <span className="text-sm font-semibold text-warmBrown">
+                                <div className="authenticity-badge flex items-center gap-2">
+                                    <Truck className="w-5 h-5" />
+                                    <span className="text-sm font-semibold">
                                         Pan India Delivery
                                     </span>
                                 </div>
@@ -84,16 +93,17 @@ const SEOHero = () => {
 
                             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                                 <Link to="/products">
-                                    <Button className="bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90 text-white font-bold py-4 px-8 text-lg rounded-full shadow-lg transform transition-all duration-300 hover:scale-105">
+                                    <Button variant="premium" size="lg" className="py-4 px-8 text-lg rounded-full shadow-lg font-bold">
                                         <ShoppingCart className="mr-3 h-5 w-5" />
-                                        Order Fresh Namkeen
+                                        Order Fresh Namkeen Now
                                     </Button>
                                 </Link>
 
                                 <Link to="/about">
                                     <Button
                                         variant="outline"
-                                        className="border-2 border-warmBrown text-warmBrown hover:bg-warmBrown hover:text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300"
+                                        size="lg"
+                                        className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold py-4 px-8 text-lg rounded-full transition-all duration-300"
                                     >
                                         Our Heritage Story
                                     </Button>
@@ -101,29 +111,29 @@ const SEOHero = () => {
                             </div>
 
                             {/* Customer Stats */}
-                            <div className="flex items-center justify-center lg:justify-start gap-8 pt-6">
+                            <div className="flex items-center justify-center lg:justify-start gap-8 pt-8">
                                 <div className="text-center">
-                                    <div className="text-3xl font-bold font-poppins text-warmBrown flex items-center">
-                                        <Star className="w-6 h-6 text-yellow-500 fill-current mr-1" />
+                                    <div className="text-3xl font-bold font-poppins premium-text flex items-center">
+                                        <Star className="w-6 h-6 text-amber-500 fill-current mr-1" />
                                         4.8
                                     </div>
-                                    <div className="text-sm text-warmBrown/70">
+                                    <div className="text-sm text-muted-foreground">
                                         Customer Rating
                                     </div>
                                 </div>
                                 <div className="text-center">
-                                    <div className="text-3xl font-bold font-poppins text-warmBrown">
+                                    <div className="text-3xl font-bold font-poppins premium-text">
                                         50+
                                     </div>
-                                    <div className="text-sm text-warmBrown/70">
+                                    <div className="text-sm text-muted-foreground">
                                         Product Varieties
                                     </div>
                                 </div>
                                 <div className="text-center">
-                                    <div className="text-3xl font-bold font-poppins text-warmBrown">
+                                    <div className="text-3xl font-bold font-poppins premium-text">
                                         5000+
                                     </div>
-                                    <div className="text-sm text-warmBrown/70">
+                                    <div className="text-sm text-muted-foreground">
                                         Happy Families
                                     </div>
                                 </div>
@@ -162,48 +172,48 @@ const SEOHero = () => {
             </div>
 
             {/* Customer Testimonial Section */}
-            <div className="bg-white/80 backdrop-blur-sm py-8 mt-12">
+            <div className="bg-card/80 backdrop-blur-sm py-12 mt-12">
                 <div className="container mx-auto px-4 text-center">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-2xl md:text-3xl font-bold font-poppins text-warmBrown mb-6">
+                        <h2 className="text-3xl md:text-4xl font-bold font-poppins premium-text mb-8">
                             What Our Customers Say
                         </h2>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="bg-gradient-to-br from-saffron/10 to-turmeric/10 p-6 rounded-2xl border border-saffron/20">
-                                <div className="flex items-center justify-center mb-4">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div className="luxury-card p-8 rounded-2xl">
+                                <div className="flex items-center justify-center mb-6">
                                     {[...Array(5)].map((_, i) => (
                                         <Star
                                             key={i}
-                                            className="w-5 h-5 text-yellow-500 fill-current"
+                                            className="w-6 h-6 text-amber-500 fill-current"
                                         />
                                     ))}
                                 </div>
-                                <p className="text-warmBrown/80 font-merriweather italic mb-4">
+                                <p className="text-muted-foreground font-merriweather italic mb-6 text-lg leading-relaxed">
                                     "Best Ratlami Sev I've ever tasted! Reminds
                                     me of my childhood visits to Indore. The
                                     quality and freshness are unmatched."
                                 </p>
-                                <p className="font-bold text-warmBrown">
+                                <p className="font-bold premium-text text-lg">
                                     - Priya Sharma, Mumbai
                                 </p>
                             </div>
 
-                            <div className="bg-gradient-to-br from-chili/10 to-saffron/10 p-6 rounded-2xl border border-chili/20">
-                                <div className="flex items-center justify-center mb-4">
+                            <div className="luxury-card p-8 rounded-2xl">
+                                <div className="flex items-center justify-center mb-6">
                                     {[...Array(5)].map((_, i) => (
                                         <Star
                                             key={i}
-                                            className="w-5 h-5 text-yellow-500 fill-current"
+                                            className="w-6 h-6 text-amber-500 fill-current"
                                         />
                                     ))}
                                 </div>
-                                <p className="text-warmBrown/80 font-merriweather italic mb-4">
+                                <p className="text-muted-foreground font-merriweather italic mb-6 text-lg leading-relaxed">
                                     "Authentic taste, perfect packaging, quick
                                     delivery. Namo Namkeen has become our
                                     family's go-to for all festivals and
                                     celebrations!"
                                 </p>
-                                <p className="font-bold text-warmBrown">
+                                <p className="font-bold premium-text text-lg">
                                     - Rajesh Patel, Delhi
                                 </p>
                             </div>

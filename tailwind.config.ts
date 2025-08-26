@@ -67,12 +67,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Brand colors
-				saffron: '#FF9933',
-				turmeric: '#F4A261',
-				chili: '#E76F51',
-				cream: '#FDF5E6',
-				warmBrown: '#8B4513',
+				// Premium brand colors
+				gold: 'hsl(42 90% 55%)',
+				amber: 'hsl(38 85% 45%)',
+				bronze: 'hsl(35 80% 40%)',
+				cream: 'hsl(48 50% 96%)',
+				warmBrown: 'hsl(25 40% 25%)',
+				indorePride: 'hsl(42 90% 55%)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
