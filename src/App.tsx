@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
 import FAQ from "@/pages/FAQ";
 import Products from "@/pages/Products";
 import AboutUs from "@/pages/AboutUs";
@@ -41,32 +42,80 @@ function App() {
                 <AuthProvider>
                     <AdminAuthProvider>
                         <CartProvider>
-                        <BrowserRouter>
-                            <div className="min-h-screen bg-gradient-to-br from-cream via-white to-saffron/5">
-                                <ScrollToTop />
-                                <Breadcrumbs />
-                                <Routes>
-                                    <Route path="/" element={<Index />} />
-                                    <Route path="/products" element={<Products />} />
-                                    <Route path="/about" element={<AboutUs />} />
-                                    <Route path="/contact" element={<ContactPage />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-                                    <Route path="/faq" element={<FAQ />} />
-                                    <Route path="/auth" element={<Auth />} />
-                                    <Route path="/checkout" element={<Checkout />} />
-                                    <Route path="/order-success" element={<OrderSuccess />} />
-                                    <Route path="/payment-status" element={<PaymentStatus />} />
-                                    <Route path="/my-orders" element={<MyOrders />} />
-                                    <Route path="/admin" element={<Admin />} />
-                                    <Route path="/quality-policy" element={<QualityPolicy />} />
-                                    <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-                                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                                    <Route path="/shipping-policy" element={<ShippingPolicy />} />
-                                    <Route path="*" element={<NotFound />} />
-                                </Routes>
-                            </div>
-                        </BrowserRouter>
+                            <BrowserRouter>
+                                <div className="min-h-screen bg-gradient-to-br from-cream via-white to-saffron/5">
+                                    <ScrollToTop />
+                                    <Breadcrumbs />
+                                    <Routes>
+                                        <Route path="/" element={<Index />} />
+                                        <Route
+                                            path="/products"
+                                            element={<Products />}
+                                        />
+                                        <Route
+                                            path="/about"
+                                            element={<AboutUs />}
+                                        />
+                                        <Route
+                                            path="/contact"
+                                            element={<ContactPage />}
+                                        />
+                                        <Route
+                                            path="/blog"
+                                            element={<Blog />}
+                                        />
+                                        <Route
+                                            path="/blog/:slug"
+                                            element={<BlogPost />}
+                                        />
+                                        <Route path="/faq" element={<FAQ />} />
+                                        <Route
+                                            path="/auth"
+                                            element={<Auth />}
+                                        />
+                                        <Route
+                                            path="/checkout"
+                                            element={<Checkout />}
+                                        />
+                                        <Route
+                                            path="/order-success"
+                                            element={<OrderSuccess />}
+                                        />
+                                        <Route
+                                            path="/payment-status"
+                                            element={<PaymentStatus />}
+                                        />
+                                        <Route
+                                            path="/my-orders"
+                                            element={<MyOrders />}
+                                        />
+                                        <Route
+                                            path="/admin"
+                                            element={<Admin />}
+                                        />
+                                        <Route
+                                            path="/quality-policy"
+                                            element={<QualityPolicy />}
+                                        />
+                                        <Route
+                                            path="/terms-and-conditions"
+                                            element={<TermsAndConditions />}
+                                        />
+                                        <Route
+                                            path="/privacy-policy"
+                                            element={<PrivacyPolicy />}
+                                        />
+                                        <Route
+                                            path="/shipping-policy"
+                                            element={<ShippingPolicy />}
+                                        />
+                                        <Route
+                                            path="*"
+                                            element={<NotFound />}
+                                        />
+                                    </Routes>
+                                </div>
+                            </BrowserRouter>
                         </CartProvider>
                     </AdminAuthProvider>
                 </AuthProvider>
