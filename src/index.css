@@ -114,7 +114,7 @@
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible {
-    @apply ring-2 ring-saffron ring-offset-2 outline-none;
+    @apply ring-2 ring-primary ring-offset-2 outline-none;
   }
 
   /* Enhanced mobile touch targets */
@@ -529,10 +529,10 @@
 
 /* Enhanced button styles */
 .btn-primary {
-  @apply bg-gradient-to-r from-saffron to-turmeric text-white font-semibold;
+  @apply bg-primary text-primary-foreground font-semibold;
   @apply transition-all duration-300 transform hover:scale-105;
   @apply shadow-lg hover:shadow-xl;
-  @apply focus:ring-2 focus:ring-saffron focus:ring-offset-2;
+  @apply focus:ring-2 focus:ring-primary focus:ring-offset-2;
 }
 
 .btn-secondary {
