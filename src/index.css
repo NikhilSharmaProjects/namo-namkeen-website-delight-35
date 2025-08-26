@@ -4,91 +4,82 @@
 
 @layer base {
   :root {
-    --background: 48 50% 98%; /* Cream */
-    --foreground: 25 30% 8%; /* Rich dark brown */
+    --background: 253 245 230; /* Cream background */
+    --foreground: 139 69 19; /* Warm brown */
 
-    --card: 48 30% 97%;
-    --card-foreground: 25 30% 8%;
+    --card: 255 255 255;
+    --card-foreground: 139 69 19;
 
-    --popover: 48 30% 97%;
-    --popover-foreground: 25 30% 8%;
+    --popover: 255 255 255;
+    --popover-foreground: 139 69 19;
 
-    --primary: 42 85% 55%; /* Rich gold */
-    --primary-foreground: 25 30% 8%;
+    --primary: 255 214 102; /* Lighter Saffron */
+    --primary-foreground: 139 69 19;
 
-    --secondary: 45 40% 90%; /* Light cream */
-    --secondary-foreground: 25 30% 15%;
+    --secondary: 255 237 179; /* Lighter Turmeric */
+    --secondary-foreground: 139 69 19;
 
-    --muted: 45 25% 94%;
-    --muted-foreground: 25 15% 45%;
+    --muted: 254 243 199;
+    --muted-foreground: 139 69 19;
 
-    --accent: 38 90% 65%; /* Warm amber */
-    --accent-foreground: 25 30% 8%;
+    --accent: 231 111 81;
+    --accent-foreground: 255 255 255;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 48 20% 95%;
+    --destructive: 231 111 81;
+    --destructive-foreground: 255 255 255;
 
-    --border: 42 25% 85%;
-    --input: 42 25% 88%;
-    --ring: 42 85% 55%;
+    --border: 255 214 102;
+    --input: 255 214 102;
+    --ring: 255 214 102;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    --sidebar-background: 48 50% 98%;
-    --sidebar-foreground: 25 30% 8%;
-    --sidebar-primary: 42 85% 55%;
-    --sidebar-primary-foreground: 25 30% 8%;
-    --sidebar-accent: 38 70% 70%;
-    --sidebar-accent-foreground: 25 30% 8%;
-    --sidebar-border: 42 25% 85%;
-    --sidebar-ring: 42 85% 55%;
-
-    /* Premium design tokens */
-    --gold-gradient: linear-gradient(135deg, hsl(42 90% 55%), hsl(38 85% 45%));
-    --premium-shadow: 0 8px 32px hsla(42 85% 55% / 0.15);
-    --premium-shadow-hover: 0 12px 40px hsla(42 85% 55% / 0.25);
-    --indore-pride: linear-gradient(135deg, hsl(42 90% 55%), hsl(38 85% 45%), hsl(35 80% 40%));
-    --luxury-card: linear-gradient(145deg, hsl(48 30% 97%), hsl(45 25% 94%));
-    --warm-glow: 0 0 30px hsla(38 90% 65% / 0.3);
+    --sidebar-background: 253 245 230;
+    --sidebar-foreground: 139 69 19;
+    --sidebar-primary: 255 153 51;
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 244 162 97;
+    --sidebar-accent-foreground: 139 69 19;
+    --sidebar-border: 244 162 97;
+    --sidebar-ring: 255 153 51;
   }
 
   .dark {
-    --background: 25 25% 8%; /* Rich dark */
-    --foreground: 48 40% 95%; /* Light cream */
+    --background: 139 69 19;
+    --foreground: 253 245 230;
 
-    --card: 25 20% 12%;
-    --card-foreground: 48 40% 95%;
+    --card: 160 82 45;
+    --card-foreground: 253 245 230;
 
-    --popover: 25 20% 12%;
-    --popover-foreground: 48 40% 95%;
+    --popover: 160 82 45;
+    --popover-foreground: 253 245 230;
 
-    --primary: 42 90% 55%; /* Bright gold */
-    --primary-foreground: 25 30% 8%;
+    --primary: 255 153 51;
+    --primary-foreground: 139 69 19;
 
-    --secondary: 25 15% 18%;
-    --secondary-foreground: 48 30% 88%;
+    --secondary: 244 162 97;
+    --secondary-foreground: 139 69 19;
 
-    --muted: 25 15% 18%;
-    --muted-foreground: 25 8% 65%;
+    --muted: 160 82 45;
+    --muted-foreground: 253 245 230;
 
-    --accent: 38 80% 60%;
-    --accent-foreground: 25 30% 8%;
+    --accent: 231 111 81;
+    --accent-foreground: 253 245 230;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 48 40% 95%;
+    --destructive: 231 111 81;
+    --destructive-foreground: 253 245 230;
 
-    --border: 25 15% 20%;
-    --input: 25 15% 20%;
-    --ring: 42 90% 55%;
-    
-    --sidebar-background: 25 25% 8%;
-    --sidebar-foreground: 48 40% 95%;
-    --sidebar-primary: 42 90% 55%;
-    --sidebar-primary-foreground: 25 30% 8%;
-    --sidebar-accent: 25 20% 18%;
-    --sidebar-accent-foreground: 48 30% 88%;
-    --sidebar-border: 25 15% 20%;
-    --sidebar-ring: 42 90% 55%;
+    --border: 160 82 45;
+    --input: 160 82 45;
+    --ring: 255 153 51;
+    --sidebar-background: 139 69 19;
+    --sidebar-foreground: 253 245 230;
+    --sidebar-primary: 255 153 51;
+    --sidebar-primary-foreground: 139 69 19;
+    --sidebar-accent: 160 82 45;
+    --sidebar-accent-foreground: 253 245 230;
+    --sidebar-border: 160 82 45;
+    --sidebar-ring: 255 153 51;
   }
 }
 
@@ -114,7 +105,7 @@
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible {
-    @apply ring-2 ring-primary ring-offset-2 outline-none;
+    @apply ring-2 ring-saffron ring-offset-2 outline-none;
   }
 
   /* Enhanced mobile touch targets */
@@ -529,10 +520,10 @@
 
 /* Enhanced button styles */
 .btn-primary {
-  @apply bg-primary text-primary-foreground font-semibold;
+  @apply bg-gradient-to-r from-saffron to-turmeric text-white font-semibold;
   @apply transition-all duration-300 transform hover:scale-105;
   @apply shadow-lg hover:shadow-xl;
-  @apply focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  @apply focus:ring-2 focus:ring-saffron focus:ring-offset-2;
 }
 
 .btn-secondary {
@@ -567,101 +558,10 @@
   }
 }
 
-/* Premium decorative elements */
-.premium-text {
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
-
-.indore-pride-text {
-  background: var(--indore-pride);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 700;
-}
-
-.luxury-pattern {
-  background-image: radial-gradient(circle at 2px 2px, hsla(42 90% 55% / 0.1) 1px, transparent 0);
-  background-size: 24px 24px;
-}
-
-/* Premium card styling */
-.luxury-card {
-  background: var(--luxury-card);
-  border: 1px solid hsl(42 30% 85%);
-  box-shadow: var(--premium-shadow);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.luxury-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--premium-shadow-hover);
-  border-color: hsl(38 60% 70%);
-}
-
-/* Premium button styling */
-.btn-premium {
-  background: var(--gold-gradient);
-  color: hsl(25 30% 8%);
-  border: none;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  box-shadow: var(--premium-shadow);
-}
-
-.btn-premium:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--premium-shadow-hover), var(--warm-glow);
-  color: hsl(25 30% 8%);
-}
-
-/* Indore authenticity elements */
-.indore-banner {
-  background: linear-gradient(135deg, 
-    hsla(42 90% 55% / 0.1), 
-    hsla(38 85% 45% / 0.08), 
-    hsla(35 80% 40% / 0.06));
-  border: 1px solid hsla(42 85% 55% / 0.2);
-  backdrop-filter: blur(10px);
-}
-
-.authenticity-badge {
-  background: var(--gold-gradient);
-  color: hsl(25 30% 8%);
-  font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  box-shadow: var(--premium-shadow);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.75rem;
-}
-
-/* Luxury hover animations */
-@keyframes luxury-hover {
-  0% {
-    transform: translateY(0) scale(1);
-    box-shadow: var(--premium-shadow);
-  }
-  100% {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: var(--premium-shadow-hover);
-  }
-}
-
-.animate-luxury-hover {
-  animation: luxury-hover 0.3s ease-out forwards;
-}
-
-/* Enhanced background colors for premium feel */
+/* Background colors for specific elements */
 .bg-saffron,
 .bg-primary, 
 .bg-yellow-custom {
-  background: var(--gold-gradient);
-  color: hsl(25 30% 8%);
+  background: linear-gradient(90deg, #ffd666 0%, #fff5cc 100%);
+  color: #8B4513;
 }
