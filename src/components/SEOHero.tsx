@@ -2,20 +2,16 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Star, Award, Shield, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
-
 const SEOHero = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 100);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    return (
-        <section className="relative min-h-screen bg-gradient-to-br from-cream via-white to-saffron/10 overflow-hidden">
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  return <section className="relative min-h-screen bg-gradient-to-br from-cream via-white to-saffron/10 overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 decorative-pattern opacity-30"></div>
 
@@ -70,9 +66,7 @@ const SEOHero = () => {
                                 </div>
                                 <div className="flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full shadow-sm">
                                     <Award className="w-5 h-5 text-gold" />
-                                    <span className="text-sm font-semibold text-warmBrown">
-                                        30+ Years Trust
-                                    </span>
+                                    <span className="text-sm font-semibold text-warmBrown">3+ Years Trust</span>
                                 </div>
                                 <div className="flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full shadow-sm">
                                     <Truck className="w-5 h-5 text-blue-600" />
@@ -91,10 +85,7 @@ const SEOHero = () => {
                                 </Link>
 
                                 <Link to="/about">
-                                    <Button
-                                        variant="outline"
-                                        className="border-2 border-warmBrown text-warmBrown hover:bg-warmBrown hover:text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300"
-                                    >
+                                    <Button variant="outline" className="border-2 border-warmBrown text-warmBrown hover:bg-warmBrown hover:text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300">
                                         Our Heritage Story
                                     </Button>
                                 </Link>
@@ -134,26 +125,20 @@ const SEOHero = () => {
                     {/* Right Content - Product Showcase */}
                     <div className="flex-1 relative order-1 lg:order-2 mb-8 lg:mb-0">
                         <div className="relative max-w-md mx-auto lg:max-w-lg">
-                            <img
-                                src="/images/6ff54ce7-124d-4ddd-8fa0-4cbc0e15ab66.png"
-                                alt="Namo Namkeen Traditional Halwai - Authentic Indore Snacks"
-                                className="w-full h-auto relative z-20 drop-shadow-2xl"
-                            />
+                            <img src="/images/6ff54ce7-124d-4ddd-8fa0-4cbc0e15ab66.png" alt="Namo Namkeen Traditional Halwai - Authentic Indore Snacks" className="w-full h-auto relative z-20 drop-shadow-2xl" />
 
                             {/* Floating Product Elements */}
                             <div className="absolute -top-4 -right-4 text-4xl animate-float">
                                 🌶️
                             </div>
-                            <div
-                                className="absolute top-1/2 -left-8 text-3xl animate-float"
-                                style={{ animationDelay: "1s" }}
-                            >
+                            <div className="absolute top-1/2 -left-8 text-3xl animate-float" style={{
+              animationDelay: "1s"
+            }}>
                                 ✨
                             </div>
-                            <div
-                                className="absolute bottom-1/4 -right-8 text-3xl animate-float"
-                                style={{ animationDelay: "2s" }}
-                            >
+                            <div className="absolute bottom-1/4 -right-8 text-3xl animate-float" style={{
+              animationDelay: "2s"
+            }}>
                                 🥜
                             </div>
                         </div>
@@ -171,12 +156,7 @@ const SEOHero = () => {
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="bg-gradient-to-br from-saffron/10 to-turmeric/10 p-6 rounded-2xl border border-saffron/20">
                                 <div className="flex items-center justify-center mb-4">
-                                    {[...Array(5)].map((_, i) => (
-                                        <Star
-                                            key={i}
-                                            className="w-5 h-5 text-yellow-500 fill-current"
-                                        />
-                                    ))}
+                                    {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />)}
                                 </div>
                                 <p className="text-warmBrown/80 font-merriweather italic mb-4">
                                     "Best Ratlami Sev I've ever tasted! Reminds
@@ -190,12 +170,7 @@ const SEOHero = () => {
 
                             <div className="bg-gradient-to-br from-chili/10 to-saffron/10 p-6 rounded-2xl border border-chili/20">
                                 <div className="flex items-center justify-center mb-4">
-                                    {[...Array(5)].map((_, i) => (
-                                        <Star
-                                            key={i}
-                                            className="w-5 h-5 text-yellow-500 fill-current"
-                                        />
-                                    ))}
+                                    {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />)}
                                 </div>
                                 <p className="text-warmBrown/80 font-merriweather italic mb-4">
                                     "Authentic taste, perfect packaging, quick
@@ -211,8 +186,6 @@ const SEOHero = () => {
                     </div>
                 </div>
             </div>
-        </section>
-    );
+        </section>;
 };
-
 export default SEOHero;
