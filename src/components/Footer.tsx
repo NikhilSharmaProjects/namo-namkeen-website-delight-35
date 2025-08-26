@@ -169,7 +169,7 @@ const Footer = () => {
 
                         <div className="flex items-center gap-6 text-sm text-white/80 font-merriweather">
                             <a
-                                href="/policies"
+                                href="/privacy-policy"
                                 className="hover:text-saffron transition-colors"
                             >
                                 Privacy Policy
@@ -181,7 +181,7 @@ const Footer = () => {
                                 Terms & Conditions
                             </a>
                             <a
-                                href="/shipping-policies"
+                                href="/shipping-policy"
                                 className="hover:text-chili transition-colors"
                             >
                                 Shipping Policy
