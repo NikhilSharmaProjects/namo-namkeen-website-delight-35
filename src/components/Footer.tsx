@@ -11,7 +11,7 @@ import {
 
 const Footer = () => {
     return (
-        <footer className="bg-warmBrown text-white">
+        <footer className="bg-accent text-accent-foreground">
             <div className="container mx-auto px-4 py-16">
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {/* Company Info */}
@@ -39,14 +39,14 @@ const Footer = () => {
                         </p>
 
                         <div className="flex gap-3">
-                            <div className="bg-saffron/20 p-2 rounded-full">
-                                <Facebook size={20} className="text-saffron" />
+                            <div className="bg-secondary/20 p-2 rounded-full">
+                                <Facebook size={20} className="text-secondary" />
                             </div>
-                            <div className="bg-turmeric/20 p-2 rounded-full">
-                                <Instagram size={20} className="text-turmeric" />
+                            <div className="bg-primary/20 p-2 rounded-full">
+                                <Instagram size={20} className="text-primary" />
                             </div>
-                            <div className="bg-saffron/20 p-2 rounded-full">
-                                <Linkedin size={20} className="text-saffron" />
+                            <div className="bg-secondary/20 p-2 rounded-full">
+                                <Linkedin size={20} className="text-secondary" />
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@ const Footer = () => {
                     <div>
                         <h4 className="font-poppins font-semibold text-lg mb-6 relative inline-block">
                             Quick Links
-                            <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-gradient-to-r from-saffron to-transparent"></span>
+                            <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-gradient-to-r from-primary to-transparent"></span>
                         </h4>
                         <ul className="space-y-3">
                             {[
@@ -73,9 +73,9 @@ const Footer = () => {
                                 <li key={item.label}>
                                     <a
                                         href={item.href}
-                                        className="text-white/80 hover:text-saffron transition-colors font-merriweather text-sm flex items-center gap-2 group"
+                                        className="text-white/80 hover:text-primary transition-colors font-merriweather text-sm flex items-center gap-2 group"
                                     >
-                                        <span className="w-1.5 h-1.5 rounded-full bg-turmeric group-hover:bg-saffron transition-colors"></span>
+                                        <span className="w-1.5 h-1.5 rounded-full bg-secondary group-hover:bg-primary transition-colors"></span>
                                         {item.label}
                                     </a>
                                 </li>
@@ -87,7 +87,7 @@ const Footer = () => {
                     <div>
                         <h4 className="font-poppins font-semibold text-lg mb-6 relative inline-block">
                             Our Products
-                            <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-gradient-to-r from-saffron to-transparent"></span>
+                            <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-gradient-to-r from-primary to-transparent"></span>
                         </h4>
                         <ul className="space-y-3">
                             {[
@@ -115,9 +115,9 @@ const Footer = () => {
                                 <li key={item.label}>
                                     <a
                                         href={item.href}
-                                        className="text-white/80 hover:text-turmeric transition-colors font-merriweather text-sm flex items-center gap-2 group"
+                                        className="text-white/80 hover:text-secondary transition-colors font-merriweather text-sm flex items-center gap-2 group"
                                     >
-                                        <span className="w-1.5 h-1.5 rounded-full bg-saffron group-hover:bg-turmeric transition-colors"></span>
+                                        <span className="w-1.5 h-1.5 rounded-full bg-primary group-hover:bg-secondary transition-colors"></span>
                                         {item.label}
                                     </a>
                                 </li>
@@ -129,11 +129,11 @@ const Footer = () => {
                     <div>
                         <h4 className="font-poppins font-semibold text-lg mb-6 relative inline-block">
                             Contact Info
-                            <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-gradient-to-r from-saffron to-transparent"></span>
+                            <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-gradient-to-r from-primary to-transparent"></span>
                         </h4>
                         <div className="space-y-4">
-                            <div className="flex items-start gap-3 group hover:bg-warmBrown/40 p-2 rounded-lg transition-all">
-                                <MapPin className="w-5 h-5 text-saffron mt-0.5 flex-shrink-0 group-hover:text-turmeric transition-colors" />
+                            <div className="flex items-start gap-3 group hover:bg-accent/20 p-2 rounded-lg transition-all">
+                                <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:text-secondary transition-colors" />
                                 <div>
                                     <p className="text-white/80 font-merriweather text-sm">
                                         65-A, Nagin Nagar
@@ -143,15 +143,15 @@ const Footer = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-3 group hover:bg-warmBrown/40 p-2 rounded-lg transition-all">
-                                <Phone className="w-5 h-5 text-turmeric flex-shrink-0 group-hover:text-saffron transition-colors" />
+                            <div className="flex items-center gap-3 group hover:bg-accent/20 p-2 rounded-lg transition-all">
+                                <Phone className="w-5 h-5 text-secondary flex-shrink-0 group-hover:text-primary transition-colors" />
                                 <p className="text-white/80 font-merriweather text-sm">
                                     +91 88238 18001
                                 </p>
                             </div>
 
-                            <div className="flex items-center gap-3 group hover:bg-warmBrown/40 p-2 rounded-lg transition-all">
-                                <Mail className="w-5 h-5 text-chili flex-shrink-0 group-hover:text-turmeric transition-colors" />
+                            <div className="flex items-center gap-3 group hover:bg-accent/20 p-2 rounded-lg transition-all">
+                                <Mail className="w-5 h-5 text-accent-foreground flex-shrink-0 group-hover:text-secondary transition-colors" />
                                 <p className="text-white/80 font-merriweather text-sm break-all">
                                     namoindiaifoodindustriess@gmail.com
                                 </p>
@@ -170,19 +170,19 @@ const Footer = () => {
                         <div className="flex items-center gap-6 text-sm text-white/80 font-merriweather">
                             <a
                                 href="/policies"
-                                className="hover:text-saffron transition-colors"
+                                className="hover:text-primary transition-colors"
                             >
                                 Privacy Policy
                             </a>
                             <a
                                 href="/terms-and-conditions"
-                                className="hover:text-turmeric transition-colors"
+                                className="hover:text-secondary transition-colors"
                             >
                                 Terms & Conditions
                             </a>
                             <a
                                 href="/shipping-policies"
-                                className="hover:text-chili transition-colors"
+                                className="hover:text-accent-foreground transition-colors"
                             >
                                 Shipping Policy
                             </a>
@@ -190,7 +190,7 @@ const Footer = () => {
                     </div>
 
                     <div className="text-center mt-6">
-                        <div className="inline-block bg-gradient-to-r from-saffron to-turmeric text-white px-6 py-2 rounded-full font-poppins font-medium text-sm">
+                        <div className="inline-block bg-gradient-to-r from-primary to-secondary text-white px-6 py-2 rounded-full font-poppins font-medium text-sm">
                             "Namo Is Not Name It's a Promise Of Good Quality"
                         </div>
                     </div>

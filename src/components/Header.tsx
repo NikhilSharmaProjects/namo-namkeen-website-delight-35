@@ -79,11 +79,11 @@ const Header = ({ onCartClick }: HeaderProps) => {
               variant="ghost"
               size="sm"
               onClick={onCartClick}
-              className="relative text-warmBrown hover:text-saffron hover:bg-saffron/10"
+              className="relative text-foreground hover:text-primary hover:bg-primary/10"
             >
               <ShoppingCart className="h-5 w-5" />
               {totalItems > 0 && (
-                <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 bg-chili text-white text-xs">
+                <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 bg-accent text-accent-foreground text-xs">
                   {totalItems}
                 </Badge>
               )}
@@ -93,7 +93,7 @@ const Header = ({ onCartClick }: HeaderProps) => {
               variant="ghost"
               size="sm"
               onClick={handleAuthClick}
-              className="hidden sm:flex items-center space-x-2 text-warmBrown hover:text-saffron hover:bg-saffron/10"
+              className="hidden sm:flex items-center space-x-2 text-foreground hover:text-primary hover:bg-primary/10"
             >
               <User className="h-4 w-4" />
               <span className="text-sm">{user ? 'Logout' : 'Login'}</span>
@@ -104,7 +104,7 @@ const Header = ({ onCartClick }: HeaderProps) => {
               variant="ghost"
               size="sm"
               onClick={toggleMenu}
-              className="md:hidden text-warmBrown hover:text-saffron"
+              className="md:hidden text-foreground hover:text-primary"
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -113,47 +113,47 @@ const Header = ({ onCartClick }: HeaderProps) => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-saffron/20 bg-white/95 backdrop-blur-sm">
+          <div className="md:hidden border-t border-primary/20 bg-white/95 backdrop-blur-sm">
             <nav className="py-4 space-y-2">
               <Link
                 to="/"
                 onClick={toggleMenu}
-                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+                className="block py-2 px-4 text-foreground hover:text-primary hover:bg-primary/10 transition-colors rounded"
               >
                 Home
               </Link>
               <Link
                 to="/products"
                 onClick={toggleMenu}
-                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+                className="block py-2 px-4 text-foreground hover:text-primary hover:bg-primary/10 transition-colors rounded"
               >
                 Products
               </Link>
               <Link
                 to="/about"
                 onClick={toggleMenu}
-                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+                className="block py-2 px-4 text-foreground hover:text-primary hover:bg-primary/10 transition-colors rounded"
               >
                 About
               </Link>
               <Link
                 to="/blog"
                 onClick={toggleMenu}
-                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+                className="block py-2 px-4 text-foreground hover:text-primary hover:bg-primary/10 transition-colors rounded"
               >
                 Blog
               </Link>
               <Link
                 to="/faq"
                 onClick={toggleMenu}
-                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+                className="block py-2 px-4 text-foreground hover:text-primary hover:bg-primary/10 transition-colors rounded"
               >
                 FAQ
               </Link>
               <Link
                 to="/contact"
                 onClick={toggleMenu}
-                className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+                className="block py-2 px-4 text-foreground hover:text-primary hover:bg-primary/10 transition-colors rounded"
               >
                 Contact
               </Link>
@@ -161,7 +161,7 @@ const Header = ({ onCartClick }: HeaderProps) => {
                 <Link
                   to="/my-orders"
                   onClick={toggleMenu}
-                  className="block py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+                  className="block py-2 px-4 text-foreground hover:text-primary hover:bg-primary/10 transition-colors rounded"
                 >
                   My Orders
                 </Link>
@@ -173,7 +173,7 @@ const Header = ({ onCartClick }: HeaderProps) => {
                   handleAuthClick();
                   toggleMenu();
                 }}
-                className="block w-full text-left py-2 px-4 text-warmBrown hover:text-saffron hover:bg-saffron/10 transition-colors rounded"
+                className="block w-full text-left py-2 px-4 text-foreground hover:text-primary hover:bg-primary/10 transition-colors rounded"
               >
                 {user ? 'Logout' : 'Login'}
               </button>

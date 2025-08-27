@@ -352,7 +352,7 @@ const PaymentStatus = () => {
 
             {/* Support Message */}
             <div className="bg-blue-50 p-4 rounded-lg text-sm text-blue-700 text-center">
-              <p>Need help? Contact us at <strong>support@namoindianamkeen.com</strong></p>
+              <p>Need help? Contact us at <strong>namoindifoodindustries@gmail.com</strong></p>
               <p>or call <strong>+91-XXXXXXXXXX</strong></p>
             </div>
           </CardContent>

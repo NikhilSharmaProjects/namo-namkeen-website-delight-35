@@ -184,7 +184,7 @@ const FAQ = () => {
                                         </div>
                                         <div>
                                             <h3 className="font-semibold text-warmBrown">Email Us</h3>
-                                            <p className="text-warmBrown/70">info@namoindianamkeen.com</p>
+                                            <p className="text-warmBrown/70">namoindifoodindustries@gmail.com</p>
                                             <p className="text-sm text-warmBrown/60">24-48 hour response</p>
                                         </div>
                                     </div>
