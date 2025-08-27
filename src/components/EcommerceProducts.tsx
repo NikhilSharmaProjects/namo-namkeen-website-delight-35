@@ -42,8 +42,7 @@ const EcommerceProducts = () => {
     const categories = [
         "All",
         "Premium Products",
-        "Shudh Satwik",
-        "Falahari Products",
+        "Satwik Products",
     ];
 
     useEffect(() => {

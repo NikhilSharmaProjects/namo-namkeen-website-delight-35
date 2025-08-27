@@ -39,15 +39,21 @@ const Footer = () => {
                         </p>
 
                         <div className="flex gap-3">
-                            <div className="bg-saffron/20 p-2 rounded-full">
-                                <Facebook size={20} className="text-saffron" />
-                            </div>
-                            <div className="bg-turmeric/20 p-2 rounded-full">
-                                <Instagram size={20} className="text-turmeric" />
-                            </div>
-                            <div className="bg-saffron/20 p-2 rounded-full">
-                                <Linkedin size={20} className="text-saffron" />
-                            </div>
+                            <a href="https://facebook.com/namonamkeen" target="_blank" rel="noopener noreferrer">
+                                <div className="bg-saffron/20 p-2 rounded-full hover:bg-saffron/30 transition-colors">
+                                    <Facebook size={20} className="text-saffron" />
+                                </div>
+                            </a>
+                            <a href="https://instagram.com/namonamkeen" target="_blank" rel="noopener noreferrer">
+                                <div className="bg-turmeric/20 p-2 rounded-full hover:bg-turmeric/30 transition-colors">
+                                    <Instagram size={20} className="text-turmeric" />
+                                </div>
+                            </a>
+                            <a href="https://linkedin.com/company/namonamkeen" target="_blank" rel="noopener noreferrer">
+                                <div className="bg-saffron/20 p-2 rounded-full hover:bg-saffron/30 transition-colors">
+                                    <Linkedin size={20} className="text-saffron" />
+                                </div>
+                            </a>
                         </div>
                     </div>
 
@@ -92,24 +98,16 @@ const Footer = () => {
                         <ul className="space-y-3">
                             {[
                                 {
-                                    label: "Super Products",
+                                    label: "Featured Products",
                                     href: "/products?section=featured",
                                 },
                                 {
-                                    label: "Premium Range",
+                                    label: "Premium Products",
                                     href: "/products?category=Premium%20Products",
                                 },
                                 {
                                     label: "Satwik Products",
-                                    href: "/products?category=Shudh%20Satwik",
-                                },
-                                {
-                                    label: "Falahari Items",
-                                    href: "/products?category=Falahari%20Products",
-                                },
-                                {
-                                    label: "Traditional Sweets",
-                                    href: "/products?category=Traditional%20Sweets",
+                                    href: "/products?category=Satwik%20Products",
                                 },
                             ].map((item) => (
                                 <li key={item.label}>
