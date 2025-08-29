@@ -190,8 +190,6 @@ const PrivacyPolicy = () => {
                                 Grievance Officer
                             </h2>
                             <div className="space-y-1">
-                                <p>Officer Name: [Insert Name]</p>
-                                <p>Designation: [Insert Designation]</p>
                                 <p>Company: Namo India Food Industries</p>
                                 <p>
                                     Address: 65-A, Nagin Nagar, Indore (M.P.),
