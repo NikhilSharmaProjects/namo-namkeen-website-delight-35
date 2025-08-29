@@ -6,14 +6,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { ScrollAnimation } from "@/components/ScrollAnimations";
 import { useSEO } from "@/hooks/useSEO";
 import { seoConfig } from "@/config/seo";
-
 const PrivacyPolicy = () => {
-    const [isCartOpen, setIsCartOpen] = useState(false);
-
-    useSEO(seoConfig.pages.privacy);
-
-    return (
-        <div className="min-h-screen overflow-x-hidden">
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  useSEO(seoConfig.pages.privacy);
+  return <div className="min-h-screen overflow-x-hidden">
             <Header onCartClick={() => setIsCartOpen(true)} />
             <div className="pt-24">
                 <div className="container mx-auto px-4 py-8 max-w-5xl">
@@ -186,9 +182,7 @@ const PrivacyPolicy = () => {
                                 applicable laws.
                             </p>
 
-                            <h2 className="text-2xl font-semibold text-warmBrown">
-                                Grievance Officer
-                            </h2>
+                            
                             <div className="space-y-1">
                                 <p>Company: Namo India Food Industries</p>
                                 <p>
@@ -206,13 +200,8 @@ const PrivacyPolicy = () => {
                 </div>
             </div>
             <Footer />
-            <CartSidebar
-                isOpen={isCartOpen}
-                onClose={() => setIsCartOpen(false)}
-            />
+            <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
             <Toaster />
-        </div>
-    );
+        </div>;
 };
-
 export default PrivacyPolicy;
