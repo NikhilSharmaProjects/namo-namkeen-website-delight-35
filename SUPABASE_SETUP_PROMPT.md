@@ -1,7 +1,7 @@
 # Complete Supabase Setup Prompt for NAMO India Namkeen E-commerce
 
 ## Project Overview
-This is a complete e-commerce application for NAMO India Namkeen with Auth0 authentication, admin panel, payment processing, and push notifications. Please set up Supabase with the following exact configuration:
+This is a complete e-commerce application for NAMO India Namkeen with Auth0 authentication, admin panel, payment processing, push notifications, and blog management. Please set up Supabase with the following exact configuration:
 
 ## Required Secrets (Add these first)
 1. `PHONEPE_MERCHANT_ID` - PhonePe payment gateway merchant ID
@@ -71,6 +71,23 @@ CREATE TABLE public.products (
   updated_at timestamp with time zone DEFAULT now()
 );
 ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
+```
+
+#### Blogs Table
+```sql
+CREATE TABLE public.blogs (
+  id uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  title text NOT NULL,
+  slug text NOT NULL UNIQUE,
+  excerpt text NOT NULL,
+  content text NOT NULL,
+  image_url text,
+  author text NOT NULL DEFAULT 'Namo Namkeen Team',
+  is_published boolean NOT NULL DEFAULT true,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now()
+);
+ALTER TABLE public.blogs ENABLE ROW LEVEL SECURITY;
 ```
 
 #### Orders Table
@@ -271,6 +288,12 @@ AS $$
 DECLARE
   otp_code TEXT;
 BEGIN
+  -- Check if user is admin or order owner
+  IF NOT (public.has_role(auth.uid(), 'admin') OR 
+          EXISTS (SELECT 1 FROM public.orders WHERE id = order_uuid AND user_id = auth.uid())) THEN
+    RAISE EXCEPTION 'Access denied';
+  END IF;
+  
   -- Generate 6-digit OTP
   otp_code := LPAD(FLOOR(RANDOM() * 1000000)::TEXT, 6, '0');
   
@@ -296,6 +319,12 @@ AS $$
 DECLARE
   is_valid BOOLEAN := false;
 BEGIN
+  -- Check if user is admin or order owner
+  IF NOT (public.has_role(auth.uid(), 'admin') OR 
+          EXISTS (SELECT 1 FROM public.orders WHERE id = order_uuid AND user_id = auth.uid())) THEN
+    RAISE EXCEPTION 'Access denied';
+  END IF;
+  
   -- Check if OTP is valid and not expired
   UPDATE public.order_otps 
   SET is_verified = true, verified_at = NOW()
@@ -364,77 +393,182 @@ END;
 $$;
 ```
 
+### 6. Blog Update Timestamp Function
+```sql
+CREATE OR REPLACE FUNCTION public.update_blogs_updated_at()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$;
+```
+
+## Triggers
+
+### 1. Order Status Update Trigger
+```sql
+CREATE TRIGGER update_orders_status_timestamp
+BEFORE UPDATE ON public.orders
+FOR EACH ROW
+EXECUTE FUNCTION public.update_order_status_timestamp();
+```
+
+### 2. Blog Update Trigger
+```sql
+CREATE TRIGGER update_blogs_updated_at_trigger
+BEFORE UPDATE ON public.blogs
+FOR EACH ROW
+EXECUTE FUNCTION public.update_blogs_updated_at();
+```
+
+### 3. Stock Update Trigger
+```sql
+CREATE TRIGGER update_stock_after_order_item_insert
+AFTER INSERT ON public.order_items
+FOR EACH ROW
+EXECUTE FUNCTION public.update_product_stock();
+```
+
 ## Row Level Security Policies
 
 ### Profiles Policies
 ```sql
-CREATE POLICY "Users can view their profile" ON public.profiles FOR SELECT USING (true);
-CREATE POLICY "Users can update their profile" ON public.profiles FOR UPDATE USING (true);
-CREATE POLICY "Users can insert their profile" ON public.profiles FOR INSERT WITH CHECK (true);
+CREATE POLICY "Users can view their profile" ON public.profiles 
+FOR SELECT USING (auth.uid() = id);
+
+CREATE POLICY "Users can update their profile" ON public.profiles 
+FOR UPDATE USING (auth.uid() = id);
+
+CREATE POLICY "Users can insert their profile" ON public.profiles 
+FOR INSERT WITH CHECK (auth.uid() = id);
 ```
 
 ### User Roles Policies  
 ```sql
-CREATE POLICY "Users can view own roles" ON public.user_roles FOR SELECT USING (true);
-CREATE POLICY "Admins can manage all roles" ON public.user_roles FOR ALL USING (has_role((SELECT id FROM profiles WHERE email = 'admin@namoindianamkeen.com'), 'admin'::app_role));
+CREATE POLICY "Users can view own roles" ON public.user_roles 
+FOR SELECT USING (auth.uid() = user_id);
+
+CREATE POLICY "Admins can manage all roles" ON public.user_roles 
+FOR ALL USING (has_role(auth.uid(), 'admin'::app_role));
 ```
 
 ### Products Policies
 ```sql
-CREATE POLICY "Anyone can view products" ON public.products FOR SELECT USING (true);
+CREATE POLICY "Anyone can view products" ON public.products 
+FOR SELECT USING (true);
+
+CREATE POLICY "Admins can manage products" ON public.products 
+FOR ALL USING (true) WITH CHECK (true);
+```
+
+### Blogs Policies
+```sql
+CREATE POLICY "Anyone can view published blogs" ON public.blogs 
+FOR SELECT USING (is_published = true);
+
+CREATE POLICY "Admins can manage all blogs" ON public.blogs 
+FOR ALL USING (has_role(auth.uid(), 'admin'::app_role)) 
+WITH CHECK (has_role(auth.uid(), 'admin'::app_role));
 ```
 
 ### Orders Policies
 ```sql
-CREATE POLICY "Users can view their own orders" ON public.orders FOR SELECT USING (true);
-CREATE POLICY "Anyone can create orders" ON public.orders FOR INSERT WITH CHECK (true);
-CREATE POLICY "Admins can view all orders" ON public.orders FOR SELECT USING (has_role((SELECT id FROM profiles WHERE email = 'admin@namoindianamkeen.com'), 'admin'::app_role));
-CREATE POLICY "Admins can update orders" ON public.orders FOR UPDATE USING (has_role((SELECT id FROM profiles WHERE email = 'admin@namoindianamkeen.com'), 'admin'::app_role));
+CREATE POLICY "Users can view their own orders" ON public.orders 
+FOR SELECT USING ((auth.uid() = user_id) OR (user_id IS NULL));
+
+CREATE POLICY "Anyone can create orders" ON public.orders 
+FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Admins can view all orders" ON public.orders 
+FOR SELECT USING (has_role(auth.uid(), 'admin'::app_role));
+
+CREATE POLICY "Admins can update orders" ON public.orders 
+FOR UPDATE USING (has_role(auth.uid(), 'admin'::app_role));
 ```
 
 ### Order Items Policies
 ```sql
-CREATE POLICY "Users can view their order items" ON public.order_items FOR SELECT USING (true);
-CREATE POLICY "Anyone can create order items" ON public.order_items FOR INSERT WITH CHECK (true);
-CREATE POLICY "Admins can view all order items" ON public.order_items FOR SELECT USING (true);
+CREATE POLICY "Users can view their order items" ON public.order_items 
+FOR SELECT USING (EXISTS (
+  SELECT 1 FROM orders 
+  WHERE orders.id = order_items.order_id 
+  AND ((orders.user_id = auth.uid()) OR (orders.user_id IS NULL))
+));
+
+CREATE POLICY "Anyone can create order items" ON public.order_items 
+FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Admins can view all order items" ON public.order_items 
+FOR SELECT USING (true);
 ```
 
 ### Cart Items Policies
 ```sql
-CREATE POLICY "Users can manage their cart" ON public.cart_items FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Users can manage their cart" ON public.cart_items 
+FOR ALL USING ((auth.uid() = user_id) OR (user_id IS NULL)) 
+WITH CHECK ((auth.uid() = user_id) OR (user_id IS NULL));
 ```
 
 ### Payment Attempts Policies
 ```sql
-CREATE POLICY "Users can view their payment attempts" ON public.payment_attempts FOR SELECT USING (true);
-CREATE POLICY "Admins can manage payment attempts" ON public.payment_attempts FOR ALL USING (has_role((SELECT id FROM profiles WHERE email = 'admin@namoindianamkeen.com'), 'admin'::app_role));
+CREATE POLICY "Users can view their payment attempts" ON public.payment_attempts 
+FOR SELECT USING (EXISTS (
+  SELECT 1 FROM orders 
+  WHERE orders.id = payment_attempts.order_id 
+  AND orders.user_id = auth.uid()
+));
+
+CREATE POLICY "Admins can manage payment attempts" ON public.payment_attempts 
+FOR ALL USING (has_role(auth.uid(), 'admin'::app_role));
 ```
 
 ### Order OTPs Policies
 ```sql
-CREATE POLICY "Order owners can view OTPs" ON public.order_otps FOR SELECT USING (true);
-CREATE POLICY "Admins can manage OTPs" ON public.order_otps FOR ALL USING (has_role((SELECT id FROM profiles WHERE email = 'admin@namoindianamkeen.com'), 'admin'::app_role));
+CREATE POLICY "Order owners can view OTPs" ON public.order_otps 
+FOR SELECT USING (EXISTS (
+  SELECT 1 FROM orders 
+  WHERE orders.id = order_otps.order_id 
+  AND orders.user_id = auth.uid()
+));
+
+CREATE POLICY "Admins can manage OTPs" ON public.order_otps 
+FOR ALL USING (has_role(auth.uid(), 'admin'::app_role));
 ```
 
 ### Coupons Policies
 ```sql
-CREATE POLICY "Anyone can view active coupons" ON public.coupons FOR SELECT USING (is_active = true);
+CREATE POLICY "Anyone can view active coupons" ON public.coupons 
+FOR SELECT USING (is_active = true);
 ```
 
 ### Push Subscriptions Policies
 ```sql
-CREATE POLICY "Users can view their own subscriptions" ON public.push_subscriptions FOR SELECT USING (true);
-CREATE POLICY "Users can insert their own subscriptions" ON public.push_subscriptions FOR INSERT WITH CHECK (true);
-CREATE POLICY "Users can update their own subscriptions" ON public.push_subscriptions FOR UPDATE USING (true);
-CREATE POLICY "Users can delete their own subscriptions" ON public.push_subscriptions FOR DELETE USING (true);
+CREATE POLICY "Users can view their own subscriptions" ON public.push_subscriptions 
+FOR SELECT USING ((auth.uid() = user_id) OR (user_id IS NULL));
+
+CREATE POLICY "Users can insert their own subscriptions" ON public.push_subscriptions 
+FOR INSERT WITH CHECK ((auth.uid() = user_id) OR (user_id IS NULL));
+
+CREATE POLICY "Users can update their own subscriptions" ON public.push_subscriptions 
+FOR UPDATE USING ((auth.uid() = user_id) OR (user_id IS NULL));
+
+CREATE POLICY "Users can delete their own subscriptions" ON public.push_subscriptions 
+FOR DELETE USING ((auth.uid() = user_id) OR (user_id IS NULL));
 ```
 
 ### Admin Notifications Policies
 ```sql
-CREATE POLICY "Admins can manage notifications" ON public.admin_notifications FOR ALL USING (has_role((SELECT id FROM profiles WHERE email = 'admin@namoindianamkeen.com'), 'admin'::app_role));
-CREATE POLICY "Authenticated users can view notifications" ON public.admin_notifications FOR SELECT USING (true);
+CREATE POLICY "Admins can manage notifications" ON public.admin_notifications 
+FOR ALL USING (has_role(auth.uid(), 'admin'::app_role));
 
-CREATE POLICY "Admins can manage realtime notifications" ON public.admin_notifications_realtime FOR ALL USING (has_role((SELECT id FROM profiles WHERE email = 'admin@namoindianamkeen.com'), 'admin'::app_role));
+CREATE POLICY "Authenticated users can view notifications" ON public.admin_notifications 
+FOR SELECT USING (auth.uid() IS NOT NULL);
+
+CREATE POLICY "Admins can manage realtime notifications" ON public.admin_notifications_realtime 
+FOR ALL USING (has_role(auth.uid(), 'admin'::app_role));
 ```
 
 ## Edge Functions Required
@@ -466,13 +600,47 @@ WHERE email = 'admin@namoindianamkeen.com'
 ON CONFLICT (user_id, role) DO NOTHING;
 ```
 
-### Sample Products Data
+### Sample Products Data (Updated Categories & Pricing)
 ```sql
-INSERT INTO public.products (name, category, description, image_url, price_250g, price_500g, price_1kg, stock_250g, stock_500g, stock_1kg, is_featured) VALUES
-('Double Laung Sev', 'sev', 'Premium double laung flavored sev', '/images/productImages/doubleLaungSev.jpg', 120, 230, 450, 100, 100, 50, true),
-('Fiki Barik Sev', 'sev', 'Traditional fiki barik sev', '/images/productImages/fikiBarikSev.jpg', 100, 190, 380, 100, 100, 50, false),
-('Ujjaini Sev', 'sev', 'Authentic Ujjaini style sev', '/images/productImages/ujjainiSev.jpg', 110, 210, 420, 100, 100, 50, true);
+-- Premium Products (250g: ₹80, 500g: ₹150)
+INSERT INTO public.products (name, category, description, image_url, price_250g, price_500g, stock_250g, stock_500g, is_featured) VALUES
+('Double Laung Sev', 'Premium Products', 'Premium double laung flavored sev', '/images/productImages/doubleLaungSev.jpg', 8000, 15000, 100, 100, true),
+('Fiki Barik Sev', 'Premium Products', 'Traditional fiki barik sev', '/images/productImages/fikiBarikSev.jpg', 8000, 15000, 100, 100, false),
+('Ujjaini Sev', 'Premium Products', 'Authentic Ujjaini style sev', '/images/productImages/ujjainiSev.jpg', 8000, 15000, 100, 100, true),
+('Ratalami Sev', 'Premium Products', 'Famous Ratalami sev', '/images/productImages/ratalamiSev.jpg', 8000, 15000, 100, 100, false),
+('Gujrati Mixture', 'Premium Products', 'Traditional Gujarati mixture', '/images/productImages/gujratiMixture.jpg', 8000, 15000, 100, 100, true);
+
+-- Satwik Products (250g: ₹110, 500g: ₹200)
+INSERT INTO public.products (name, category, description, image_url, price_250g, price_500g, stock_250g, stock_500g, is_featured) VALUES
+('Cornflakes Sweet Mix', 'Satwik Products', 'Pure satwik cornflakes sweet mix', '/images/productImages/cornflakesSweetMix.jpg', 11000, 20000, 100, 100, true),
+('Dal Moth Mix', 'Satwik Products', 'Satwik dal moth mixture', '/images/productImages/dalMothMix.jpg', 11000, 20000, 100, 100, false),
+('Delicus Mixture', 'Satwik Products', 'Special satwik delicus mixture', '/images/productImages/delicusMixture.jpg', 11000, 20000, 100, 100, true),
+('Navaratan Mixture', 'Satwik Products', 'Premium satwik navaratan mix', '/images/productImages/navaratanMixture.jpg', 11000, 20000, 100, 100, false);
 ```
+
+## Product Categories & Pricing Structure
+
+### Current Categories (Only 2):
+1. **Premium Products** - Regular namkeen items
+   - 250g: ₹80 (8000 paisa)
+   - 500g: ₹150 (15000 paisa)
+
+2. **Satwik Products** - Pure vegetarian/religious items
+   - 250g: ₹110 (11000 paisa)
+   - 500g: ₹200 (20000 paisa)
+
+### Product Images Available:
+- cornflakesSweetMix.jpg
+- dalMothMix.jpg
+- delicusMixture.jpg
+- doubleLaungSev.jpg
+- fikiBarikSev.jpg
+- gujratiMixture.jpg
+- khattaMithaMixture.jpg
+- navaratanMixture.jpg
+- ratalamiSev.jpg
+- spicyMixture.jpg
+- ujjainiSev.jpg
 
 ## Authentication Notes
 - Uses Auth0 for authentication (not Supabase Auth)
@@ -482,12 +650,14 @@ INSERT INTO public.products (name, category, description, image_url, price_250g,
 - Default admin email: admin@namoindianamkeen.com
 
 ## Key Features Implemented
-1. **E-commerce**: Complete product catalog, cart, checkout
+1. **E-commerce**: Complete product catalog, cart, checkout with 2 categories and fixed pricing
 2. **Payment Processing**: PhonePe integration with webhooks
 3. **Order Management**: Status tracking, OTP verification for delivery
-4. **Admin Panel**: Order management, product management, push notifications
+4. **Admin Panel**: Order management, product management, push notifications, blog management
 5. **Push Notifications**: OneSignal integration with admin composer
 6. **Authentication**: Auth0 integration with role-based access
 7. **Real-time Features**: Live order notifications for admin
+8. **Blog Management**: Complete blog system with admin controls
+9. **Simplified Product Management**: Auto-pricing based on category, only 250g & 500g sizes
 
 Please implement this exact schema and configuration. The frontend is already built to work with this database structure and Auth0 authentication system.

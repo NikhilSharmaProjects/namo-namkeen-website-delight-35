@@ -39,14 +39,14 @@ const Footer = () => {
                         </p>
 
                         <div className="flex gap-3">
-                            <div className="bg-secondary/20 p-2 rounded-full">
-                                <Facebook size={20} className="text-secondary" />
+                            <div className="bg-saffron/20 p-2 rounded-full">
+                                <Facebook size={20} className="text-saffron" />
                             </div>
-                            <div className="bg-primary/20 p-2 rounded-full">
-                                <Instagram size={20} className="text-primary" />
+                            <div className="bg-turmeric/20 p-2 rounded-full">
+                                <Instagram size={20} className="text-turmeric" />
                             </div>
-                            <div className="bg-secondary/20 p-2 rounded-full">
-                                <Linkedin size={20} className="text-secondary" />
+                            <div className="bg-saffron/20 p-2 rounded-full">
+                                <Linkedin size={20} className="text-saffron" />
                             </div>
                         </div>
                     </div>
@@ -92,24 +92,16 @@ const Footer = () => {
                         <ul className="space-y-3">
                             {[
                                 {
-                                    label: "Super Products",
+                                    label: "Featured Products",
                                     href: "/products?section=featured",
                                 },
                                 {
-                                    label: "Premium Range",
+                                    label: "Premium Products",
                                     href: "/products?category=Premium%20Products",
                                 },
                                 {
                                     label: "Satwik Products",
-                                    href: "/products?category=Shudh%20Satwik",
-                                },
-                                {
-                                    label: "Falahari Items",
-                                    href: "/products?category=Falahari%20Products",
-                                },
-                                {
-                                    label: "Traditional Sweets",
-                                    href: "/products?category=Traditional%20Sweets",
+                                    href: "/products?category=Satwik%20Products",
                                 },
                             ].map((item) => (
                                 <li key={item.label}>
@@ -170,7 +162,7 @@ const Footer = () => {
                         <div className="flex items-center gap-6 text-sm text-white/80 font-merriweather">
                             <a
                                 href="/policies"
-                                className="hover:text-primary transition-colors"
+                                className="hover:text-saffron transition-colors"
                             >
                                 Privacy Policy
                             </a>
@@ -182,7 +174,7 @@ const Footer = () => {
                             </a>
                             <a
                                 href="/shipping-policies"
-                                className="hover:text-accent-foreground transition-colors"
+                                className="hover:text-chili transition-colors"
                             >
                                 Shipping Policy
                             </a>

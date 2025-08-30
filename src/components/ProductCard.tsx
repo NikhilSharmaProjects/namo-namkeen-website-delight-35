@@ -76,23 +76,23 @@ const ProductCard = ({ product }: ProductCardProps) => {
     return (
         <>
             <ProductSchema product={product} />
-            <div className="luxury-card group overflow-hidden hover:animate-luxury-hover relative bg-white rounded-xl border shadow-lg">
+            <div className="group bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] relative">
                 {/* Featured Badge */}
             {product.is_featured && (
-                <div className="authenticity-badge absolute top-4 left-4 z-10">
+                <Badge className="absolute top-3 left-3 z-10 bg-saffron text-white">
                     Bestseller
-                </div>
+                </Badge>
             )}
 
             {/* Discount Badge */}
             {product.discount_percentage > 0 && (
-                <Badge className="absolute top-4 right-4 z-10 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold">
+                <Badge className="absolute top-3 right-3 z-10 bg-red-500 text-white">
                     {product.discount_percentage}% OFF
                 </Badge>
             )}
 
             {/* Product Image */}
-            <div className="relative h-80 bg-gradient-to-br from-cream to-white overflow-hidden">
+            <div className="relative h-80 bg-gray-50 overflow-hidden">
                 <OptimizedImage
                     src={product.image_url}
                     alt={`${product.name} by Namo Namkeen - Authentic Indori Snacks Online | Buy ${product.name} | Premium Quality Namkeen Delivery`}
@@ -101,53 +101,52 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     height={320}
                     loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
 
             {/* Product Info */}
-            <div className="p-6 space-y-4">
+            <div className="p-4 space-y-3">
                 {/* Category */}
-                <p className="premium-text text-xs font-bold uppercase tracking-wider">
+                <p className="text-xs text-saffron font-medium uppercase tracking-wide">
                     {product.category}
                 </p>
 
                 {/* Product Name */}
-                <h3 className="font-bold text-foreground text-xl line-clamp-2 group-hover:premium-text transition-all duration-300">
+                <h3 className="font-semibold text-warmBrown text-lg line-clamp-2 group-hover:text-saffron transition-colors">
                     {product.name}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                <p className="text-sm text-warmBrown/70 line-clamp-2">
                     {product.description}
                 </p>
 
-                {/* Rating */}
+                {/* Rating (simulated) */}
                 <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
                         <Star
                             key={i}
-                            className={`h-4 w-4 ${
+                            className={`h-3 w-3 ${
                                 i < 4
-                                    ? "fill-amber-400 text-amber-400"
+                                    ? "fill-yellow-400 text-yellow-400"
                                     : "text-gray-300"
                             }`}
                         />
                     ))}
-                    <span className="text-sm text-muted-foreground ml-2 font-medium">
-                        4.8 ⭐ (124 reviews)
+                    <span className="text-xs text-warmBrown/60 ml-1">
+                        (4.2)
                     </span>
                 </div>
 
                 {/* Size Selector */}
-                <div className="space-y-3">
-                    <p className="text-sm font-semibold text-foreground">Select Size:</p>
+                <div className="space-y-2">
+                    <p className="text-sm font-medium text-warmBrown">Size:</p>
                     <Select
                         value={selectedSize}
                         onValueChange={(value: "250g" | "500g" | "1kg") =>
                             setSelectedSize(value)
                         }
                     >
-                        <SelectTrigger className="w-full border-primary/30 hover:border-primary/50 transition-colors">
+                        <SelectTrigger className="w-full border-saffron/30">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -165,26 +164,26 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 </div>
 
                 {/* Price */}
-                <div className="flex items-center justify-between bg-gradient-to-r from-cream/50 to-transparent p-3 rounded-lg">
+                <div className="flex items-center justify-between">
                     <div className="space-y-1">
                         {product.discount_percentage > 0 ? (
-                            <div className="flex items-center gap-3">
-                                <span className="text-2xl font-bold premium-text">
+                            <div className="flex items-center gap-2">
+                                <span className="text-lg font-bold text-chili">
                                     {formatPrice(discountedPrice)}
                                 </span>
-                                <span className="text-sm text-muted-foreground line-through">
+                                <span className="text-sm text-gray-500 line-through">
                                     {formatPrice(currentPrice)}
                                 </span>
                             </div>
                         ) : (
-                            <span className="text-2xl font-bold premium-text">
+                            <span className="text-lg font-bold text-chili">
                                 {formatPrice(currentPrice)}
                             </span>
                         )}
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-xs text-warmBrown/60">
                             {isOutOfStock
-                                ? "❌ Out of Stock"
-                                : `✅ ${currentStock} units available`}
+                                ? "Out of Stock"
+                                : `${currentStock} units available`}
                         </p>
                     </div>
                 </div>
@@ -193,34 +192,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 <Button
                     onClick={handleAddToCart}
                     disabled={isOutOfStock || isLoading}
-                    variant={isOutOfStock ? "outline" : "premium"}
-                    size="lg"
-                    className={`w-full text-base font-semibold transition-all duration-300 ${
+                    className={`w-full transition-all duration-300 ${
                         isOutOfStock
-                            ? "opacity-50 cursor-not-allowed"
-                            : ""
+                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                            : "bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90 text-white transform hover:scale-105"
                     }`}
                 >
-                    <ShoppingCart className="h-5 w-5 mr-2" />
+                    <ShoppingCart className="h-4 w-4 mr-2" />
                     {isLoading
-                        ? "Adding to Cart..."
+                        ? "Adding..."
                         : isOutOfStock
-                        ? "Currently Unavailable"
+                        ? "Out of Stock"
                         : "Add to Cart"}
                 </Button>
-
-                {/* Trust indicators */}
-                <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
-                    <span className="flex items-center gap-1">
-                        🚚 Free Delivery
-                    </span>
-                    <span className="flex items-center gap-1">
-                        🔒 Secure Payment
-                    </span>
-                    <span className="flex items-center gap-1">
-                        ⭐ FSSAI Certified
-                    </span>
-                </div>
             </div>
         </div>
         </>

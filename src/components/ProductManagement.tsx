@@ -37,14 +37,14 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const categories = ['Super Products', 'Premium Products', 'Shudh Satwik', 'Falahari Products'];
+  const categories = ['Premium Products', 'Satwik Products'];
 
   const emptyProduct: Omit<Product, 'id'> = {
     name: '',
     category: '',
     description: '',
-    price_250g: 0,
-    price_500g: 0,
+    price_250g: 80, // Default Premium rate for 250g
+    price_500g: 150, // Default Premium rate for 500g
     price_1kg: 0,
     stock_250g: 0,
     stock_500g: 0,
@@ -148,7 +148,18 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      onSave(formData);
+      
+      // Auto-set prices based on category
+      let adjustedFormData = { ...formData };
+      if (formData.category === 'Premium Products') {
+        adjustedFormData.price_250g = 80;
+        adjustedFormData.price_500g = 150;
+      } else if (formData.category === 'Satwik Products') {
+        adjustedFormData.price_250g = 110;
+        adjustedFormData.price_500g = 200;
+      }
+      
+      onSave(adjustedFormData);
     };
 
     return (
@@ -219,7 +230,7 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
               </Select>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>250g Price (₹)</Label>
                 <Input
@@ -227,7 +238,10 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
                   step="0.01"
                   value={formData.price_250g}
                   onChange={(e) => setFormData({ ...formData, price_250g: parseFloat(e.target.value) || 0 })}
+                  disabled
+                  className="bg-gray-100"
                 />
+                <p className="text-xs text-gray-600">Auto-set based on category</p>
               </div>
               <div className="space-y-2">
                 <Label>500g Price (₹)</Label>
@@ -236,20 +250,14 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
                   step="0.01"
                   value={formData.price_500g}
                   onChange={(e) => setFormData({ ...formData, price_500g: parseFloat(e.target.value) || 0 })}
+                  disabled
+                  className="bg-gray-100"
                 />
-              </div>
-              <div className="space-y-2">
-                <Label>1kg Price (₹)</Label>
-                <Input
-                  type="number"
-                  step="0.01"
-                  value={formData.price_1kg}
-                  onChange={(e) => setFormData({ ...formData, price_1kg: parseFloat(e.target.value) || 0 })}
-                />
+                <p className="text-xs text-gray-600">Auto-set based on category</p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>250g Stock</Label>
                 <Input
@@ -264,14 +272,6 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
                   type="number"
                   value={formData.stock_500g}
                   onChange={(e) => setFormData({ ...formData, stock_500g: parseInt(e.target.value) || 0 })}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>1kg Stock</Label>
-                <Input
-                  type="number"
-                  value={formData.stock_1kg}
-                  onChange={(e) => setFormData({ ...formData, stock_1kg: parseInt(e.target.value) || 0 })}
                 />
               </div>
             </div>
@@ -376,7 +376,6 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
                 <div className="text-sm space-y-1">
                   <div>250g: ₹{(product.price_250g / 100).toFixed(2)} (Stock: {product.stock_250g})</div>
                   <div>500g: ₹{(product.price_500g / 100).toFixed(2)} (Stock: {product.stock_500g})</div>
-                  <div>1kg: ₹{(product.price_1kg / 100).toFixed(2)} (Stock: {product.stock_1kg})</div>
                 </div>
 
                 {product.discount_percentage > 0 && (
