@@ -41,19 +41,32 @@ serve(async (req) => {
   }
 
   try {
+    console.log('PhonePe initiate function called');
+    console.log('Environment check:', {
+      PHONEPE_MERCHANT_ID: !!Deno.env.get('PHONEPE_CLIENT_KEY'),
+      PHONEPE_SALT_KEY: !!Deno.env.get('PHONEPE_CLIENT_SECRET'),
+      SUPABASE_URL: !!Deno.env.get('SUPABASE_URL'),
+      SUPABASE_SERVICE_ROLE_KEY: !!Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+    });
+
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const { orderId, amount, customerInfo } = await req.json();
+    const requestBody = await req.json();
+    console.log('Request body received:', requestBody);
+    const { orderId, amount, customerInfo } = requestBody;
 
     if (!orderId || !amount) {
+      console.error('Missing required fields:', { orderId: !!orderId, amount: !!amount });
       return new Response(
         JSON.stringify({ error: 'Missing required fields: orderId, amount' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    console.log('Processing payment initiation for order:', orderId, 'amount:', amount);
 
     // Generate unique merchant transaction ID
     const merchantTransactionId = `TXN_${orderId}_${Date.now()}`;
@@ -66,12 +79,18 @@ serve(async (req) => {
       amount: amount, // Amount in paise (already converted from frontend)
       redirectUrl: `${req.headers.get('origin')}/payment-status?orderId=${orderId}`,
       redirectMode: 'POST',
-      callbackUrl: `${req.headers.get('origin')}/api/phonepe/webhook`,
+      callbackUrl: `https://zonrpmwwbclmvcekuxlo.supabase.co/functions/v1/phonepe-webhook`,
       mobileNumber: customerInfo?.phone || '',
       paymentInstrument: {
         type: 'PAY_PAGE'
       }
     };
+
+    console.log('Payment payload created:', {
+      ...paymentPayload,
+      merchantId: paymentPayload.merchantId ? 'SET' : 'MISSING',
+      callbackUrl: paymentPayload.callbackUrl
+    });
 
     // Convert payload to base64
     const base64Payload = btoa(JSON.stringify(paymentPayload));
@@ -87,6 +106,12 @@ serve(async (req) => {
       payment_method: 'phonepe'
     });
 
+    console.log('Calling PhonePe API with payload:', {
+      url: `${PHONEPE_BASE_URL}/pg/v1/pay`,
+      checksum: checksum.substring(0, 20) + '...',
+      base64PayloadLength: base64Payload.length
+    });
+
     // Call PhonePe API
     const phonePeResponse = await fetch(`${PHONEPE_BASE_URL}/pg/v1/pay`, {
       method: 'POST',
@@ -99,6 +124,7 @@ serve(async (req) => {
       })
     });
 
+    console.log('PhonePe API Response Status:', phonePeResponse.status);
     const responseData = await phonePeResponse.json();
     console.log('PhonePe API Response:', responseData);
 
@@ -143,8 +169,12 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in phonepe-initiate:', error);
+    console.error('Error stack:', error.stack);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: error.message,
+        details: 'Check function logs for more information'
+      }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
