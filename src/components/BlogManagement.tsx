@@ -9,6 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Plus, Edit, Trash2, Save, X, Eye } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import ImageUpload from './ImageUpload';
 
 interface Blog {
   id: string;
@@ -195,12 +196,12 @@ const BlogManagement = ({ onStatsUpdate }: BlogManagementProps) => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Blog Management</h2>
+    <div className="space-y-4 p-4 sm:space-y-6 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <h2 className="text-xl sm:text-2xl font-bold">Blog Management</h2>
         <Button 
           onClick={() => setShowForm(true)}
-          className="bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90"
+          className="w-full sm:w-auto bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90"
         >
           <Plus className="h-4 w-4 mr-2" />
           Add New Blog
@@ -268,34 +269,40 @@ const BlogManagement = ({ onStatsUpdate }: BlogManagementProps) => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="image_url">Blog Image</Label>
-                  <select
-                    id="image_url"
-                    value={formData.image_url}
-                    onChange={(e) => setFormData(prev => ({ ...prev, image_url: e.target.value }))}
-                    className="w-full p-2 border border-gray-300 rounded-md"
-                  >
-                    <option value="">Select an image (optional)</option>
-                    <option value="/images/productImages/cornflakesSweetMix.jpg">Cornflakes Sweet Mix</option>
-                    <option value="/images/productImages/dalMothMix.jpg">Dal Moth Mix</option>
-                    <option value="/images/productImages/delicusMixture.jpg">Delicus Mixture</option>
-                    <option value="/images/productImages/doubleLaungSev.jpg">Double Laung Sev</option>
-                    <option value="/images/productImages/fikiBarikSev.jpg">Fiki Barik Sev</option>
-                    <option value="/images/productImages/gujratiMixture.jpg">Gujrati Mixture</option>
-                    <option value="/images/productImages/khattaMithaMixture.jpg">Khatta Mitha Mixture</option>
-                    <option value="/images/productImages/navaratanMixture.jpg">Navaratan Mixture</option>
-                    <option value="/images/productImages/ratalamiSev.jpg">Ratalami Sev</option>
-                    <option value="/images/productImages/spicyMixture.jpg">Spicy Mixture</option>
-                    <option value="/images/productImages/ujjainiSev.jpg">Ujjaini Sev</option>
-                  </select>
-                  <p className="text-xs text-gray-600 mt-1">Or enter custom URL below:</p>
-                  <Input
-                    value={formData.image_url}
-                    onChange={(e) => setFormData(prev => ({ ...prev, image_url: e.target.value }))}
-                    placeholder="/images/custom-blog-image.jpg"
-                    className="mt-2"
+                <div className="space-y-4">
+                  <Label>Blog Thumbnail Image</Label>
+                  <ImageUpload
+                    currentImageUrl={formData.image_url}
+                    onImageUpload={(url) => setFormData(prev => ({ ...prev, image_url: url }))}
+                    bucket="blog-images"
+                    folder="thumbnails"
                   />
+                  
+                  {/* Fallback to existing images if no custom upload */}
+                  {!formData.image_url && (
+                    <div className="space-y-2">
+                      <Label>Or select from existing images</Label>
+                      <select
+                        id="image_url"
+                        value={formData.image_url}
+                        onChange={(e) => setFormData(prev => ({ ...prev, image_url: e.target.value }))}
+                        className="w-full p-2 border border-border rounded-md bg-background"
+                      >
+                        <option value="">Select an image (optional)</option>
+                        <option value="/images/productImages/cornflakesSweetMix.jpg">Cornflakes Sweet Mix</option>
+                        <option value="/images/productImages/dalMothMix.jpg">Dal Moth Mix</option>
+                        <option value="/images/productImages/delicusMixture.jpg">Delicus Mixture</option>
+                        <option value="/images/productImages/doubleLaungSev.jpg">Double Laung Sev</option>
+                        <option value="/images/productImages/fikiBarikSev.jpg">Fiki Barik Sev</option>
+                        <option value="/images/productImages/gujratiMixture.jpg">Gujrati Mixture</option>
+                        <option value="/images/productImages/khattaMithaMixture.jpg">Khatta Mitha Mixture</option>
+                        <option value="/images/productImages/navaratanMixture.jpg">Navaratan Mixture</option>
+                        <option value="/images/productImages/ratalamiSev.jpg">Ratalami Sev</option>
+                        <option value="/images/productImages/spicyMixture.jpg">Spicy Mixture</option>
+                        <option value="/images/productImages/ujjainiSev.jpg">Ujjaini Sev</option>
+                      </select>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="author">Author</Label>
@@ -320,15 +327,15 @@ const BlogManagement = ({ onStatsUpdate }: BlogManagementProps) => {
                 <Label htmlFor="is_published">Publish immediately</Label>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <Button 
                   type="submit"
-                  className="bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90"
+                  className="w-full sm:w-auto bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90"
                 >
                   <Save className="h-4 w-4 mr-2" />
                   {editingBlog ? 'Update Blog' : 'Create Blog'}
                 </Button>
-                <Button type="button" variant="outline" onClick={resetForm}>
+                <Button type="button" variant="outline" onClick={resetForm} className="w-full sm:w-auto">
                   Cancel
                 </Button>
               </div>

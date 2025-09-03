@@ -8,13 +8,9 @@ const corsHeaders = {
 
 // PhonePe API configuration
 const PHONEPE_BASE_URL = "https://api-preprod.phonepe.com/apis/pg-sandbox";
-const PHONEPE_MERCHANT_ID = Deno.env.get('PHONEPE_CLIENT_KEY'); // Using CLIENT_KEY as merchant ID
-const PHONEPE_SALT_KEY = Deno.env.get('PHONEPE_CLIENT_SECRET'); // Using CLIENT_SECRET as salt key
+const PHONEPE_MERCHANT_ID = "PGTESTPAYUAT86";
+const PHONEPE_SALT_KEY = "96434309-7796-489d-8924-ab56988a6076";
 const PHONEPE_SALT_INDEX = 1;
-
-if (!PHONEPE_MERCHANT_ID || !PHONEPE_SALT_KEY) {
-  throw new Error('PhonePe credentials not configured - CLIENT_KEY and CLIENT_SECRET required');
-}
 
 // Create checksum for PhonePe API
 async function generateChecksum(endpoint: string, saltKey: string, saltIndex: number): Promise<string> {

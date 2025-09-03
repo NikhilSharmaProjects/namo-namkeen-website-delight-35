@@ -7,9 +7,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Edit, Trash2, Upload, Save, X } from 'lucide-react';
+import { Plus, Edit, Trash2, Upload, Save, X, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
+import ImageUpload from './ImageUpload';
 
 interface Product {
   id: string;
@@ -208,26 +209,39 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-4">
               <Label htmlFor="image_url">Product Image</Label>
-              <Select value={formData.image_url} onValueChange={(value) => setFormData({ ...formData, image_url: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select product image" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="/images/productImages/cornflakesSweetMix.jpg">Cornflakes Sweet Mix</SelectItem>
-                  <SelectItem value="/images/productImages/dalMothMix.jpg">Dal Moth Mix</SelectItem>
-                  <SelectItem value="/images/productImages/delicusMixture.jpg">Delicus Mixture</SelectItem>
-                  <SelectItem value="/images/productImages/doubleLaungSev.jpg">Double Laung Sev</SelectItem>
-                  <SelectItem value="/images/productImages/fikiBarikSev.jpg">Fiki Barik Sev</SelectItem>
-                  <SelectItem value="/images/productImages/gujratiMixture.jpg">Gujrati Mixture</SelectItem>
-                  <SelectItem value="/images/productImages/khattaMithaMixture.jpg">Khatta Mitha Mixture</SelectItem>
-                  <SelectItem value="/images/productImages/navaratanMixture.jpg">Navaratan Mixture</SelectItem>
-                  <SelectItem value="/images/productImages/ratalamiSev.jpg">Ratalami Sev</SelectItem>
-                  <SelectItem value="/images/productImages/spicyMixture.jpg">Spicy Mixture</SelectItem>
-                  <SelectItem value="/images/productImages/ujjainiSev.jpg">Ujjaini Sev</SelectItem>
-                </SelectContent>
-              </Select>
+              <ImageUpload
+                currentImageUrl={formData.image_url}
+                onImageUpload={(url) => setFormData({ ...formData, image_url: url })}
+                bucket="product-images"
+                folder="products"
+              />
+              
+              {/* Fallback to existing images if no custom upload */}
+              {!formData.image_url && (
+                <div className="space-y-2">
+                  <Label>Or select from existing images</Label>
+                  <Select value={formData.image_url} onValueChange={(value) => setFormData({ ...formData, image_url: value })}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select product image" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="/images/productImages/cornflakesSweetMix.jpg">Cornflakes Sweet Mix</SelectItem>
+                      <SelectItem value="/images/productImages/dalMothMix.jpg">Dal Moth Mix</SelectItem>
+                      <SelectItem value="/images/productImages/delicusMixture.jpg">Delicus Mixture</SelectItem>
+                      <SelectItem value="/images/productImages/doubleLaungSev.jpg">Double Laung Sev</SelectItem>
+                      <SelectItem value="/images/productImages/fikiBarikSev.jpg">Fiki Barik Sev</SelectItem>
+                      <SelectItem value="/images/productImages/gujratiMixture.jpg">Gujrati Mixture</SelectItem>
+                      <SelectItem value="/images/productImages/khattaMithaMixture.jpg">Khatta Mitha Mixture</SelectItem>
+                      <SelectItem value="/images/productImages/navaratanMixture.jpg">Navaratan Mixture</SelectItem>
+                      <SelectItem value="/images/productImages/ratalamiSev.jpg">Ratalami Sev</SelectItem>
+                      <SelectItem value="/images/productImages/spicyMixture.jpg">Spicy Mixture</SelectItem>
+                      <SelectItem value="/images/productImages/ujjainiSev.jpg">Ujjaini Sev</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -320,12 +334,12 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-warmBrown">Product Management</h2>
+    <div className="space-y-4 p-4 sm:space-y-6 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <h2 className="text-xl sm:text-2xl font-bold text-warmBrown">Product Management</h2>
         <Button
           onClick={() => setShowAddForm(true)}
-          className="bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90 text-white"
+          className="w-full sm:w-auto bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90 text-white"
         >
           <Plus className="h-4 w-4 mr-2" />
           Add Product
@@ -348,48 +362,53 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
         />
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6">
         {products.map((product) => (
           <Card key={product.id} className="border-saffron/20 hover:shadow-lg transition-shadow">
             <CardContent className="p-4">
               <div className="space-y-4">
-                {product.image_url && (
-                  <img
-                    src={product.image_url}
-                    alt={product.name}
-                    className="w-full h-32 object-cover rounded"
-                  />
-                )}
-                
-                <div>
-                  <h3 className="font-bold text-warmBrown">{product.name}</h3>
-                  <Badge className="bg-saffron/10 text-saffron border-saffron/30">
-                    {product.category}
-                  </Badge>
-                  {product.is_featured && (
-                    <Badge className="ml-2 bg-chili text-white">Featured</Badge>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  {product.image_url && (
+                    <img
+                      src={product.image_url}
+                      alt={product.name}
+                      className="w-full sm:w-32 h-32 object-cover rounded"
+                    />
                   )}
+                  
+                  <div className="flex-1 space-y-2">
+                    <div>
+                      <h3 className="font-bold text-warmBrown text-lg sm:text-xl">{product.name}</h3>
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        <Badge className="bg-saffron/10 text-saffron border-saffron/30">
+                          {product.category}
+                        </Badge>
+                        {product.is_featured && (
+                          <Badge className="bg-chili text-white">Featured</Badge>
+                        )}
+                        {product.discount_percentage > 0 && (
+                          <Badge className="bg-green-500 text-white">
+                            {product.discount_percentage}% OFF
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="text-sm text-warmBrown/70 line-clamp-2">{product.description}</p>
+
+                    <div className="text-sm space-y-1">
+                      <div>250g: ₹{(product.price_250g / 100).toFixed(2)} (Stock: {product.stock_250g})</div>
+                      <div>500g: ₹{(product.price_500g / 100).toFixed(2)} (Stock: {product.stock_500g})</div>
+                    </div>
+                  </div>
                 </div>
 
-                <p className="text-sm text-warmBrown/70 line-clamp-2">{product.description}</p>
-
-                <div className="text-sm space-y-1">
-                  <div>250g: ₹{(product.price_250g / 100).toFixed(2)} (Stock: {product.stock_250g})</div>
-                  <div>500g: ₹{(product.price_500g / 100).toFixed(2)} (Stock: {product.stock_500g})</div>
-                </div>
-
-                {product.discount_percentage > 0 && (
-                  <Badge className="bg-green-500 text-white">
-                    {product.discount_percentage}% OFF
-                  </Badge>
-                )}
-
-                <div className="flex gap-2 pt-2">
+                <div className="flex flex-col sm:flex-row gap-2 pt-2">
                   <Button
                     size="sm"
                     variant="outline"
                     onClick={() => setEditingProduct(product)}
-                    className="flex-1"
+                    className="w-full sm:flex-1"
                   >
                     <Edit className="h-4 w-4 mr-2" />
                     Edit
@@ -398,9 +417,10 @@ const ProductManagement = ({ onStatsUpdate }: ProductManagementProps) => {
                     size="sm"
                     variant="outline"
                     onClick={() => handleDeleteProduct(product.id)}
-                    className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                    className="w-full sm:w-auto text-red-600 hover:text-red-700 hover:bg-red-50"
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-4 w-4 sm:mr-0 mr-2" />
+                    <span className="sm:hidden">Delete</span>
                   </Button>
                 </div>
               </div>

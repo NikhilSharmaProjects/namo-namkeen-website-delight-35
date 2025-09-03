@@ -7,11 +7,7 @@ const corsHeaders = {
 };
 
 // PhonePe API configuration
-const PHONEPE_SALT_KEY = Deno.env.get('PHONEPE_CLIENT_SECRET'); // Using CLIENT_SECRET as salt key
-
-if (!PHONEPE_SALT_KEY) {
-  throw new Error('PhonePe CLIENT_SECRET not configured');
-}
+const PHONEPE_SALT_KEY = "96434309-7796-489d-8924-ab56988a6076";
 
 // Verify PhonePe webhook signature
 async function verifyWebhookSignature(
