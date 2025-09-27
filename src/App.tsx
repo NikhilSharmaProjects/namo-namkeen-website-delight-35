@@ -31,97 +31,96 @@ const queryClient = new QueryClient();
 
 function App() {
     return (
-        <h1 className="text-3xl font-bold text-red-600 mb-4 ">Server Down ☹️</h1>
-        // <QueryClientProvider client={queryClient}>
-        //     <Auth0Provider
-        //         domain="dev-2gta6mlh7mluqmzi.us.auth0.com"
-        //         clientId="RlXEpLw6aYaEL9QcGBGpx4PNTFk4omDH"
-        //         authorizationParams={{
-        //             redirect_uri: `${window.location.origin}/auth`,
-        //         }}
-        //     >
-        //         <AuthProvider>
-        //             <AdminAuthProvider>
-        //                 <CartProvider>
-        //                     <BrowserRouter>
-        //                         <div className="min-h-screen bg-gradient-to-br from-cream via-white to-saffron/5">
-        //                             <ScrollToTop />
-        //                             <Breadcrumbs />
-        //                             <Routes>
-        //                                 <Route path="/" element={<Index />} />
-        //                                 <Route
-        //                                     path="/products"
-        //                                     element={<Products />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/about"
-        //                                     element={<AboutUs />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/contact"
-        //                                     element={<ContactPage />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/blog"
-        //                                     element={<Blog />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/blog/:slug"
-        //                                     element={<BlogPost />}
-        //                                 />
-        //                                 <Route path="/faq" element={<FAQ />} />
-        //                                 <Route
-        //                                     path="/auth"
-        //                                     element={<Auth />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/checkout"
-        //                                     element={<Checkout />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/order-success"
-        //                                     element={<OrderSuccess />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/payment-status"
-        //                                     element={<PaymentStatus />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/my-orders"
-        //                                     element={<MyOrders />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/admin"
-        //                                     element={<Admin />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/quality-policy"
-        //                                     element={<QualityPolicy />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/terms-and-conditions"
-        //                                     element={<TermsAndConditions />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/privacy-policy"
-        //                                     element={<PrivacyPolicy />}
-        //                                 />
-        //                                 <Route
-        //                                     path="/shipping-policy"
-        //                                     element={<ShippingPolicy />}
-        //                                 />
-        //                                 <Route
-        //                                     path="*"
-        //                                     element={<NotFound />}
-        //                                 />
-        //                             </Routes>
-        //                         </div>
-        //                     </BrowserRouter>
-        //                 </CartProvider>
-        //             </AdminAuthProvider>
-        //         </AuthProvider>
-        //     </Auth0Provider>
-        // </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+            <Auth0Provider
+                domain="dev-2gta6mlh7mluqmzi.us.auth0.com"
+                clientId="RlXEpLw6aYaEL9QcGBGpx4PNTFk4omDH"
+                authorizationParams={{
+                    redirect_uri: `${window.location.origin}/auth`,
+                }}
+            >
+                <AuthProvider>
+                    <AdminAuthProvider>
+                        <CartProvider>
+                            <BrowserRouter>
+                                <div className="min-h-screen bg-gradient-to-br from-cream via-white to-saffron/5">
+                                    <ScrollToTop />
+                                    <Breadcrumbs />
+                                    <Routes>
+                                        <Route path="/" element={<Index />} />
+                                        <Route
+                                            path="/products"
+                                            element={<Products />}
+                                        />
+                                        <Route
+                                            path="/about"
+                                            element={<AboutUs />}
+                                        />
+                                        <Route
+                                            path="/contact"
+                                            element={<ContactPage />}
+                                        />
+                                        <Route
+                                            path="/blog"
+                                            element={<Blog />}
+                                        />
+                                        <Route
+                                            path="/blog/:slug"
+                                            element={<BlogPost />}
+                                        />
+                                        <Route path="/faq" element={<FAQ />} />
+                                        <Route
+                                            path="/auth"
+                                            element={<Auth />}
+                                        />
+                                        <Route
+                                            path="/checkout"
+                                            element={<Checkout />}
+                                        />
+                                        <Route
+                                            path="/order-success"
+                                            element={<OrderSuccess />}
+                                        />
+                                        <Route
+                                            path="/payment-status"
+                                            element={<PaymentStatus />}
+                                        />
+                                        <Route
+                                            path="/my-orders"
+                                            element={<MyOrders />}
+                                        />
+                                        <Route
+                                            path="/admin"
+                                            element={<Admin />}
+                                        />
+                                        <Route
+                                            path="/quality-policy"
+                                            element={<QualityPolicy />}
+                                        />
+                                        <Route
+                                            path="/terms-and-conditions"
+                                            element={<TermsAndConditions />}
+                                        />
+                                        <Route
+                                            path="/privacy-policy"
+                                            element={<PrivacyPolicy />}
+                                        />
+                                        <Route
+                                            path="/shipping-policy"
+                                            element={<ShippingPolicy />}
+                                        />
+                                        <Route
+                                            path="*"
+                                            element={<NotFound />}
+                                        />
+                                    </Routes>
+                                </div>
+                            </BrowserRouter>
+                        </CartProvider>
+                    </AdminAuthProvider>
+                </AuthProvider>
+            </Auth0Provider>
+        </QueryClientProvider>
     );
 }
 
