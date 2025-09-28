@@ -6,6 +6,7 @@ import { ShoppingCart, User, Menu, X, ExternalLink } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
+import { appConfig } from '@/config/app';
 
 interface HeaderProps {
   onCartClick: () => void;
@@ -75,19 +76,22 @@ const Header = ({ onCartClick }: HeaderProps) => {
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-2 md:space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onCartClick}
-              className="relative text-warmBrown hover:text-saffron hover:bg-saffron/10"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              {totalItems > 0 && (
-                <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 bg-chili text-white text-xs">
-                  {totalItems}
-                </Badge>
-              )}
-            </Button>
+            {/* Cart Button - Hidden in Showcase Mode */}
+            {!appConfig.SHOWCASE_MODE && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onCartClick}
+                className="relative text-warmBrown hover:text-saffron hover:bg-saffron/10"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {totalItems > 0 && (
+                  <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 bg-chili text-white text-xs">
+                    {totalItems}
+                  </Badge>
+                )}
+              </Button>
+            )}
 
             <Button
               variant="ghost"

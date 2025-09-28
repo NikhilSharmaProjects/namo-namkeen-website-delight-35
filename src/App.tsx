@@ -26,6 +26,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthProvider } from "@/hooks/useAuth";
 import { AdminAuthProvider } from "@/hooks/useAdminAuth";
 import { CartProvider } from "@/hooks/useCart";
+import { FirebaseNotificationProvider } from "@/hooks/useFirebaseNotifications";
 
 const queryClient = new QueryClient();
 
@@ -42,7 +43,8 @@ function App() {
                 <AuthProvider>
                     <AdminAuthProvider>
                         <CartProvider>
-                            <BrowserRouter>
+                            <FirebaseNotificationProvider>
+                                <BrowserRouter>
                                 <div className="min-h-screen bg-gradient-to-br from-cream via-white to-saffron/5">
                                     <ScrollToTop />
                                     <Breadcrumbs />
@@ -116,6 +118,7 @@ function App() {
                                     </Routes>
                                 </div>
                             </BrowserRouter>
+                            </FirebaseNotificationProvider>
                         </CartProvider>
                     </AdminAuthProvider>
                 </AuthProvider>

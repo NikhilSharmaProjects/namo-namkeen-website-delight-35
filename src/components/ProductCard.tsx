@@ -13,6 +13,7 @@ import { useCart } from "@/hooks/useCart";
 import { Skeleton } from "@/components/ui/skeleton";
 import ProductSchema from "@/components/ProductSchema";
 import OptimizedImage from "@/components/OptimizedImage";
+import { appConfig } from "@/config/app";
 
 interface Product {
     id: string;
@@ -137,74 +138,92 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     </span>
                 </div>
 
-                {/* Size Selector */}
-                <div className="space-y-2">
-                    <p className="text-sm font-medium text-warmBrown">Size:</p>
-                    <Select
-                        value={selectedSize}
-                        onValueChange={(value: "250g" | "500g" | "1kg") =>
-                            setSelectedSize(value)
-                        }
-                    >
-                        <SelectTrigger className="w-full border-saffron/30">
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="250g">
-                                250g - {formatPrice(product.price_250g)}
-                            </SelectItem>
-                            <SelectItem value="500g">
-                                500g - {formatPrice(product.price_500g)}
-                            </SelectItem>
-                            <SelectItem value="1kg">
-                                1kg - {formatPrice(product.price_1kg)}
-                            </SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
+                {/* Size Selector - Hidden in Showcase Mode */}
+                {!appConfig.SHOWCASE_MODE && (
+                  <div className="space-y-2">
+                      <p className="text-sm font-medium text-warmBrown">Size:</p>
+                      <Select
+                          value={selectedSize}
+                          onValueChange={(value: "250g" | "500g" | "1kg") =>
+                              setSelectedSize(value)
+                          }
+                      >
+                          <SelectTrigger className="w-full border-saffron/30">
+                              <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                              <SelectItem value="250g">
+                                  250g - {formatPrice(product.price_250g)}
+                              </SelectItem>
+                              <SelectItem value="500g">
+                                  500g - {formatPrice(product.price_500g)}
+                              </SelectItem>
+                              <SelectItem value="1kg">
+                                  1kg - {formatPrice(product.price_1kg)}
+                              </SelectItem>
+                          </SelectContent>
+                      </Select>
+                  </div>
+                )}
 
-                {/* Price */}
-                <div className="flex items-center justify-between">
-                    <div className="space-y-1">
-                        {product.discount_percentage > 0 ? (
-                            <div className="flex items-center gap-2">
-                                <span className="text-lg font-bold text-chili">
-                                    {formatPrice(discountedPrice)}
-                                </span>
-                                <span className="text-sm text-gray-500 line-through">
-                                    {formatPrice(currentPrice)}
-                                </span>
-                            </div>
-                        ) : (
-                            <span className="text-lg font-bold text-chili">
-                                {formatPrice(currentPrice)}
-                            </span>
-                        )}
-                        <p className="text-xs text-warmBrown/60">
-                            {isOutOfStock
-                                ? "Out of Stock"
-                                : `${currentStock} units available`}
-                        </p>
-                    </div>
-                </div>
+                {/* Price - Hidden in Showcase Mode */}
+                {!appConfig.SHOWCASE_MODE && (
+                  <div className="flex items-center justify-between">
+                      <div className="space-y-1">
+                          {product.discount_percentage > 0 ? (
+                              <div className="flex items-center gap-2">
+                                  <span className="text-lg font-bold text-chili">
+                                      {formatPrice(discountedPrice)}
+                                  </span>
+                                  <span className="text-sm text-gray-500 line-through">
+                                      {formatPrice(currentPrice)}
+                                  </span>
+                              </div>
+                          ) : (
+                              <span className="text-lg font-bold text-chili">
+                                  {formatPrice(currentPrice)}
+                              </span>
+                          )}
+                          <p className="text-xs text-warmBrown/60">
+                              {isOutOfStock
+                                  ? "Out of Stock"
+                                  : `${currentStock} units available`}
+                          </p>
+                      </div>
+                  </div>
+                )}
 
-                {/* Add to Cart Button */}
-                <Button
-                    onClick={handleAddToCart}
-                    disabled={isOutOfStock || isLoading}
-                    className={`w-full transition-all duration-300 ${
-                        isOutOfStock
-                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                            : "bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90 text-white transform hover:scale-105"
-                    }`}
-                >
-                    <ShoppingCart className="h-4 w-4 mr-2" />
-                    {isLoading
-                        ? "Adding..."
-                        : isOutOfStock
-                        ? "Out of Stock"
-                        : "Add to Cart"}
-                </Button>
+                {/* Add to Cart Button - Hidden in Showcase Mode */}
+                {!appConfig.SHOWCASE_MODE && (
+                  <Button
+                      onClick={handleAddToCart}
+                      disabled={isOutOfStock || isLoading}
+                      className={`w-full transition-all duration-300 ${
+                          isOutOfStock
+                              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                              : "bg-gradient-to-r from-saffron to-turmeric hover:from-saffron/90 hover:to-turmeric/90 text-white transform hover:scale-105"
+                      }`}
+                  >
+                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      {isLoading
+                          ? "Adding..."
+                          : isOutOfStock
+                          ? "Out of Stock"
+                          : "Add to Cart"}
+                  </Button>
+                )}
+
+                {/* Showcase Mode Message */}
+                {appConfig.SHOWCASE_MODE && (
+                  <div className="bg-gradient-to-r from-saffron/10 to-turmeric/10 p-3 rounded-lg text-center">
+                    <p className="text-sm text-warmBrown font-medium">
+                      Coming Soon!
+                    </p>
+                    <p className="text-xs text-warmBrown/70">
+                      Online ordering will be available soon. Contact us for bulk orders.
+                    </p>
+                  </div>
+                )}
             </div>
         </div>
         </>

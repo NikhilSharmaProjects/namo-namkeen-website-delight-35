@@ -11,6 +11,8 @@ import { ScrollAnimation } from "@/components/ScrollAnimations";
 import { useSEO } from "@/hooks/useSEO";
 import { seoConfig } from "@/config/seo";
 import { useState } from "react";
+import { appConfig } from "@/config/app";
+import FirebaseNotificationBanner from "@/components/FirebaseNotificationBanner";
 
 const Index = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -137,10 +139,14 @@ const Index = () => {
                 <Contact />
             </ScrollAnimation>
             <Footer />
-            <CartSidebar
-                isOpen={isCartOpen}
-                onClose={() => setIsCartOpen(false)}
-            />
+            {/* Cart Sidebar - Hidden in Showcase Mode */}
+            {!appConfig.SHOWCASE_MODE && (
+              <CartSidebar
+                  isOpen={isCartOpen}
+                  onClose={() => setIsCartOpen(false)}
+              />
+            )}
+            <FirebaseNotificationBanner />
             <Toaster />
         </div>
     );

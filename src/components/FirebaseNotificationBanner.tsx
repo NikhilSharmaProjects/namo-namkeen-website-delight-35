@@ -1,18 +1,15 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Bell, X } from 'lucide-react';
-import { useOneSignal } from '@/hooks/useOneSignal';
+import { useFirebaseNotifications } from '@/hooks/useFirebaseNotifications';
 
-const NotificationBanner = () => {
+const FirebaseNotificationBanner = () => {
   const [showBanner, setShowBanner] = useState(false);
-  const { isSubscribed, isInitialized, subscribe } = useOneSignal();
+  const { isSubscribed, isInitialized, subscribe } = useFirebaseNotifications();
 
   useEffect(() => {
-    // Add logging for notification status
-    console.log("OneSignal initialized?", isInitialized, "Subscribed?", isSubscribed);
-    const hasSeenBanner = localStorage.getItem('notification-banner-seen');
+    const hasSeenBanner = localStorage.getItem('firebase-notification-banner-seen');
     if (isInitialized && !isSubscribed && !hasSeenBanner) {
       setShowBanner(true);
     }
@@ -22,8 +19,7 @@ const NotificationBanner = () => {
     try {
       await subscribe();
       setShowBanner(false);
-      localStorage.setItem('notification-banner-seen', 'true');
-      console.log("Subscribed to notifications!");
+      localStorage.setItem('firebase-notification-banner-seen', 'true');
     } catch (error) {
       console.error("Subscribe error:", error);
     }
@@ -31,12 +27,11 @@ const NotificationBanner = () => {
 
   const handleDismiss = () => {
     setShowBanner(false);
-    localStorage.setItem('notification-banner-seen', 'true');
+    localStorage.setItem('firebase-notification-banner-seen', 'true');
   };
 
   if (!showBanner) return null;
 
-  // Saffron gradient background updated for lighter look
   return (
     <Card className="fixed bottom-4 left-4 right-4 z-50 bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-50 border-none shadow-lg mx-auto max-w-md">
       <CardContent className="p-4">
@@ -45,7 +40,7 @@ const NotificationBanner = () => {
           <div className="flex-1">
             <h3 className="font-semibold text-sm mb-1 text-yellow-900">Stay Updated!</h3>
             <p className="text-xs text-yellow-900/80 mb-3">
-              Get notified about fresh snacks, order updates, and special offers from Namo Namkeen!
+              Get notified about fresh snacks, new products, and special offers from Namo Namkeen!
             </p>
             <div className="flex gap-2">
               <Button
@@ -79,4 +74,4 @@ const NotificationBanner = () => {
   );
 };
 
-export default NotificationBanner;
+export default FirebaseNotificationBanner;
